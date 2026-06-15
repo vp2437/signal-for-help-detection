@@ -17,7 +17,8 @@
   
 // export default App;
 
-import CameraCapture from "./components/CameraCapture";
+// import CameraCapture from "./components/CameraCapture";
+import DetectionCard from "./components/DetectionCard";
 import "./App.css";
 
 function App() {
@@ -44,7 +45,7 @@ function App() {
 
           <div className="camera-wrapper">
 
-            <CameraCapture />
+            <DetectionCard  />
 
           </div>
 
