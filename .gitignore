@@ -18,11 +18,6 @@ dist/
 .env
 .DS_Store
 
-training/dataset/
-*.mp4
-*.jpg
-*.jpeg
-
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
@@ -33,3 +28,8 @@ training/dataset/
 *.njsproj
 *.sln
 *.sw?
+
+training/dataset/
+*.mp4
+*.jpg
+*.jpeg
