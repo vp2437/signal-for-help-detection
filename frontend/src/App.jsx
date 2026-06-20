@@ -1,24 +1,9 @@
-// // import CameraView from "./components/CameraView";
+// import CameraView from "./components/CameraView";
 // import CameraCapture from "./components/CameraCapture";
+// import AlertSound from "./components/AlertSound";
+import ScreenshotCard from "./components/ScreenshotCard.jsx";
 
-// function App() {
-//     return (<div className="min-h-screen grid justify-center items-center bg-gray-900">
-//              <div>
-//               <h1 className="text-5xl font-bold text-white">
-//                 Silent Signal
-//               </h1>
-//             </div>
-//              <div>
-//                  {/* <CameraView /> */}
-//                  <CameraCapture />
-//              </div>
-//            </div>);
-//   }
-  
-// export default App;
-
-// import CameraCapture from "./components/CameraCapture";
-import DetectionCard from "./components/DetectionCard";
+// import DetectionCard from "./components/DetectionCard";
 import "./App.css";
 
 function App() {
@@ -45,7 +30,7 @@ function App() {
 
           <div className="camera-wrapper">
 
-            <DetectionCard  />
+            <ScreenshotCard  />
 
           </div>
 
