@@ -24,6 +24,7 @@ export default function DetectionCard() {
     confidence: 0,
   });
 
+  const alertFrames = useRef(0);
   const [isAlert, setIsAlert] = useState(false);
 
   // ── 1. Load MediaPipe once ─────────────────────────────────────────────────
@@ -91,7 +92,9 @@ export default function DetectionCard() {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           // Send first detected hand
-          body: JSON.stringify({ landmarks: result.landmarks[0] }),
+          body: JSON.stringify({ landmarks: result.landmarks[0],
+                handedness: result.handedness[0][0].categoryName,
+           }),
         });
         if (res.ok) {
             const data = await res.json();
@@ -119,25 +122,40 @@ export default function DetectionCard() {
       processing.current = false;
     }
 
+//     const currentGesture =
+// String(
+// predictionRef.current.gesture
+// )
+// .toLowerCase();
+
+// const alert =
+//     currentGesture.includes(
+//     "help"
+//     )
+
+//     &&
+
+//     predictionRef.current
+//     .confidence
+
+//     >=
+
+//     0.95;
+
     const currentGesture =
-String(
-predictionRef.current.gesture
-)
-.toLowerCase();
+        String(predictionRef.current.gesture).toLowerCase();
 
-const alert =
-    currentGesture.includes(
-    "help"
-    )
+    const detected =
+        currentGesture.includes("help") &&
+        predictionRef.current.confidence >= 0.95;
 
-    &&
+    if (detected) {
+        alertFrames.current++;
+    } else {
+        alertFrames.current = 0;
+    }
 
-    predictionRef.current
-    .confidence
-
-    >=
-
-    0.80;
+    const alert = alertFrames.current >= 8;
 
     console.log(
     "ALERT:",

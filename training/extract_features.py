@@ -1,7 +1,7 @@
 import cv2
 import pandas as pd
 import os
-
+import math
 import mediapipe as mp
 
 from mediapipe.tasks.python import vision
@@ -62,12 +62,23 @@ for label in os.listdir(DATASET):
 
             features=[]
 
+            wrist = hand[0]
+            middle = hand[9]
+
+            scale = math.sqrt(
+                (middle.x - wrist.x) ** 2 +
+                (middle.y - wrist.y) ** 2 +
+                (middle.z - wrist.z) ** 2
+            )
+
+            scale = max(scale, 1e-6)
+
             for p in hand:
 
                 features.extend([
-                    p.x,
-                    p.y,
-                    p.z
+                    (p.x - wrist.x) / scale,
+                    (p.y - wrist.y) / scale,
+                    (p.z - wrist.z) / scale,
                 ])
 
             features.append(
