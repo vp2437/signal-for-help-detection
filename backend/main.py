@@ -6,8 +6,11 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
+from app.routes.ai import router as ai_router
+
 
 app = FastAPI()
+app.include_router(ai_router)
 
 app.add_middleware(
     CORSMiddleware,

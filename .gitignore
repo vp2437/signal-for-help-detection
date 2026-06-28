@@ -36,5 +36,6 @@ training/dataset/
 *.mov
 screenshots/
 __pycache__/
+*.pyc
 
 frontend/public/*.task

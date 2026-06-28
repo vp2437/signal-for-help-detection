@@ -2,6 +2,8 @@ import {
     useState,
     useCallback,
   } from "react";
+
+  import { useRef } from "react"; // add useRef
   
   import ReactFlow, {
     Background,
@@ -90,6 +92,10 @@ import {
     showIntroPanel,
     setShowIntroPanel,
     setSelectedNode,
+    setAiInsight,
+    setLoadingInsight,
+    selectedEdge,
+    setSelectedEdge,
   }) {
   
     const { setCenter } =
@@ -163,6 +169,9 @@ import {
 
         setShowIntroPanel(true);
         setSelectedNode();
+        
+        setAiInsight(null);
+        setSelectedEdge(null);
       
         setCenter(
           500,
@@ -417,6 +426,11 @@ import {
   
                 type:
                   "default",
+
+                  data: {
+                    sourceLabel: node.data?.label || node.id,
+                    targetLabel: target.label,
+                  },
   
                   style:{
                     stroke: target.color,
@@ -530,6 +544,51 @@ if (node.id === "victim") {
         },
         [nodes, stage, openedRoot]
       );
+
+      const onEdgeClick = async (_, edge) => {
+
+        setSelectedEdge(edge.id);
+
+        try {
+
+          setAiInsight(null);
+      
+          setLoadingInsight(true);
+      
+          const response = await fetch(
+            "http://localhost:8000/explain-edge",
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+      
+              body: JSON.stringify({
+                source: edge.data.sourceLabel,
+                target: edge.data.targetLabel,
+              }),
+            }
+          );
+      
+          const data = await response.json();
+      
+          setAiInsight({
+            title:
+              `${edge.data.sourceLabel} → ${edge.data.targetLabel}`,
+            text:
+              data.explanation,
+          });
+      
+        } catch (err) {
+      
+          console.error(err);
+      
+        } finally {
+      
+          setLoadingInsight(false);
+      
+        }
+      };
   
     return (
   
@@ -537,7 +596,32 @@ if (node.id === "victim") {
         <style>{HIDE_HANDLES}</style>
         <ReactFlow
         nodes={nodes}
-        edges={edges}
+        edges={edges.map(edge => ({
+          ...edge,
+
+          animated:
+            edge.id === selectedEdge,
+
+          style: {
+            ...edge.style,
+
+            stroke:
+              edge.id === selectedEdge
+                ? "#ffffff"
+                : edge.style?.stroke,
+
+            strokeWidth:
+              edge.id === selectedEdge
+                ? 4
+                : edge.style?.strokeWidth,
+
+            filter:
+              edge.id === selectedEdge
+                ? "drop-shadow(0 0 8px white)"
+                : "none",
+          },
+        }))}
+        onEdgeClick={onEdgeClick}
         onNodeClick={(e, node) => {
           if (node.id.includes("_leaf_")) return;
           onNodeClick(e, node);
@@ -625,6 +709,11 @@ if (node.id === "victim") {
     const [showIntroPanel, setShowIntroPanel] = useState(true);
 
     const [selectedNode, setSelectedNode] = useState();
+
+    const [aiInsight, setAiInsight] = useState(null);
+    const [loadingInsight, setLoadingInsight] = useState(false);
+
+    const [selectedEdge, setSelectedEdge] = useState(null);
   
     return (
   
@@ -798,41 +887,79 @@ if (node.id === "victim") {
 
         )}
 
-{selectedNode && (
-  <div
-    style={{
-      position: "absolute",
-      right: 20,
-      top: 70,
-      width: showIntroPanel ? "240px" : "auto",
-      maxWidth: "240px",
-      zIndex: 10,
+<div style={{
+  position: "absolute",
+  right: 20,
+  top: 70,
+  width: "240px",
+  zIndex: 20,
+  display: "flex",
+  flexDirection: "column",
+  gap: "10px",
+}}>
+
+  {selectedNode && (
+    <div style={{
       background: "rgba(3,10,25,0.88)",
       backdropFilter: "blur(10px)",
       padding: "16px 18px",
       borderRadius: "14px",
       border: `1px solid ${selectedNode.color}44`,
       boxShadow: `0 0 20px ${selectedNode.color}33`,
-    }}
-  >
-    <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "8px" }}>
-      <div style={{
-        width: 10,
-        height: 10,
-        borderRadius: "50%",
-        background: selectedNode.color,
-        boxShadow: `0 0 8px ${selectedNode.color}`,
-        flexShrink: 0,
-      }} />
-      <span style={{ fontSize: "18px", fontWeight: 700, color: selectedNode.color }}>
-        {selectedNode.title}
-      </span>
+    }}>
+      <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "8px" }}>
+        <div style={{
+          width: 10, height: 10, borderRadius: "50%",
+          background: selectedNode.color,
+          boxShadow: `0 0 8px ${selectedNode.color}`,
+          flexShrink: 0,
+        }} />
+        <span style={{ fontSize: "18px", fontWeight: 700, color: selectedNode.color }}>
+          {selectedNode.title}
+        </span>
+      </div>
+      <p style={{ fontSize: "13px", lineHeight: "1.9", color: "#94a3b8", margin: 0, fontWeight: 600 }}>
+        {selectedNode.info}
+      </p>
     </div>
-    <p style={{ fontSize: "13px", lineHeight: "1.9", color: "#94a3b8", margin: 0, fontWeight: 600}}>
-      {selectedNode.info}
-    </p>
-  </div>
-)}
+  )}
+
+  {loadingInsight && (
+    <div style={{
+      background: "rgba(3,10,25,0.92)",
+      padding: "18px",
+      borderRadius: "14px",
+      border: "1px solid rgba(45,140,255,0.2)",
+    }}>
+      <div style={{ color: "#60a5fa", fontWeight: 700, marginBottom: "10px" }}>
+        AI RELATIONSHIP ANALYSIS
+      </div>
+      <p style={{ color: "#94a3b8", lineHeight: "1.8", margin: 0 }}>
+        Analyzing relationship...
+      </p>
+    </div>
+  )}
+
+  {aiInsight && !loadingInsight && (
+    <div style={{
+      background: "rgba(3,10,25,0.92)",
+      padding: "18px",
+      borderRadius: "14px",
+      border: "1px solid rgba(45,140,255,0.2)",
+    }}>
+      <div style={{ color: "#60a5fa", fontWeight: 700, fontSize: 14, marginBottom: "8px" }}>
+        AI RELATIONSHIP ANALYSIS
+      </div>
+      <h4 style={{ color: "#dbeafe", margin: "0 0 10px 0" }}>
+        {aiInsight.title}
+      </h4>
+      <p style={{ color: "#94a3b8", margin: 0 }}>
+        {aiInsight.text}
+      </p>
+    </div>
+  )}
+
+</div>
 
 <div
 style={{
@@ -991,11 +1118,15 @@ Deeper Links
   
         <ReactFlowProvider>
         <NetworkFlow
-        stage={stage}
-        setStage={setStage}
-        showIntroPanel={showIntroPanel}
-        setShowIntroPanel={setShowIntroPanel}
-        setSelectedNode={setSelectedNode}
+          stage={stage}
+          setStage={setStage}
+          showIntroPanel={showIntroPanel}
+          setShowIntroPanel={setShowIntroPanel}
+          setSelectedNode={setSelectedNode}
+          setAiInsight={setAiInsight}
+          setLoadingInsight={setLoadingInsight}
+          selectedEdge={selectedEdge}
+          setSelectedEdge={setSelectedEdge}
         />
         </ReactFlowProvider>
   
