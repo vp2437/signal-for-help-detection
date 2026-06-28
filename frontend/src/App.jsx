@@ -68,12 +68,12 @@
 import { useState } from "react";
 import HistoryDash from "./components/HistoryDash";
 import HistoryPanel from "./components/HistoryPanel";
+import InvisibleNetwork from "./components/InvisibleNetwork";
 import "./App.css";
 
 function App() {
 
-const [tab,setTab]=
-useState("camera");
+const [tab,setTab] = useState("camera");
 
 return (
 
@@ -81,59 +81,57 @@ return (
 
 <header className="navbar">
 
-<div className="logo">
-
-Project Beacon
-
-</div>
-
 <div className="center">
 
-<h1 className="title">
-If Hands Could Speak
-</h1>
+  <div className="title-row">
 
-<p className="tagline">
-Because sometimes asking for help is silent.
-</p>
+    <div>
+    
+        <h1 className="logo">Project Beacon</h1>
 
-<div className="tabs">
+    </div>
 
-<button
-className={
-tab==="camera"
-?
-"tab active"
-:
-"tab"
-}
-onClick={()=>
-setTab("camera")
-}
->
+    <div className="title-tag">
+      <div>
+      <h1 className="title">
+        If Hands Could Speak
+      </h1>
+      </div>
 
-Camera
+      <div>
+      <p className="tagline">
+        Because sometimes asking for help is silent.
+      </p>
+      </div>
 
-</button>
+    </div>
 
-<button
-className={
-tab==="gallery"
-?
-"tab active"
-:
-"tab"
-}
-onClick={()=>
-setTab("gallery")
-}
->
+    <div className="tabs">
 
-Gallery
+      <button
+        className={tab === "camera" ? "tab active" : "tab"}
+        onClick={() => setTab("camera")}
+      >
+        Camera
+      </button>
 
-</button>
+      <button
+        className={tab === "gallery" ? "tab active" : "tab"}
+        onClick={() => setTab("gallery")}
+      >
+        Gallery
+      </button>
 
-</div>
+      <button
+        className={tab === "network" ? "tab active" : "tab"}
+        onClick={() => setTab("network")}
+      >
+        Networks
+      </button>
+
+    </div>
+
+  </div>
 
 </div>
 
@@ -153,8 +151,12 @@ tab==="camera"
 </div>
 
 :
-
+tab==="gallery"
+?
 <HistoryDash/>
+
+:
+<InvisibleNetwork/>
 
 }
 

@@ -26,6 +26,14 @@ body{
   rgba(255,255,255,.08);
   
   }
+
+  .title-row{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    position: relative;
+    width:100%;
+  }
   
   .logo{
   
@@ -33,7 +41,7 @@ body{
   
   left:40px;
   
-  top:30px;
+  top:20px;
   
   font-size:22px;
   
@@ -55,27 +63,35 @@ body{
   
   .title{
   
-  margin:0;
   font-weight: bold;
   font-size:46px;
   
   }
   
   .tagline{
-  
   margin-bottom:10px;
   font-weight: bold;
   opacity:.7;
   
+  }
+
+  .title-tag {
+    position:absolute;
+    left:50%;
+    transform:translateX(-50%);
+    text-align:center;
+
   }
   
   .tabs{
   
   display:flex;
   
-  gap:0;
+  gap: 8px;
   
-  margin-top:24px;
+  margin-top: 20px;
+
+  margin-bottom: 20px;
   
   border-radius:999px;
   
@@ -87,7 +103,7 @@ body{
   
   .tab{
   
-  padding:14px 32px;
+  padding:12px 30px;
   
   background:transparent;
   
@@ -109,7 +125,7 @@ body{
   
   .content{
   
-  padding-top:40px;
+  padding-top: 0px;
   
   }
   
@@ -120,6 +136,8 @@ body{
   justify-content:center;
   
   align-items:center;
+
+  padding-top: 70px;
   
   }
   
@@ -139,3 +157,20 @@ body{
   button:hover{
   transform:translateY(-2px);
   }
+
+  .react-flow__controls {
+  background: rgba(2,6,23,0.95) !important;
+  border: 1px solid rgba(59,130,246,0.15) !important;
+  border-radius: 12px !important;
+  overflow: hidden;
+}
+
+.react-flow__controls button {
+  background: transparent !important;
+  color: #94a3b8 !important;
+  border-bottom: 1px solid rgba(255,255,255,0.05) !important;
+}
+
+.react-flow__controls button svg {
+  fill: #94a3b8 !important;
+}

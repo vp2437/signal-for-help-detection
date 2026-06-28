@@ -98,7 +98,13 @@ import {
     
     <div>
     
-    <h2>
+    <h2 style={{
+        fontWeight: "600",
+        marginLeft: 20,
+        fontSize: 24,
+        marginTop: 20,
+        marginBottom: 10,
+    }}>
     Gallery
     </h2>
     
