@@ -38,11 +38,15 @@ model = joblib.load(
     MODEL_PATH
 )
 
+print(model.classes_)
+print(type(model.classes_[0]))
+
 
 class HandRequest(
     BaseModel
 ):
     landmarks: list
+    handedness: str
 
 
 @app.get("/")
@@ -59,12 +63,29 @@ def predict(data: HandRequest):
 
     features = []
 
+    wrist = data.landmarks[0]
+    is_left = data.handedness == "Left"
+    middle = data.landmarks[9]
+
+    scale = (
+        (middle["x"] - wrist["x"]) ** 2 +
+        (middle["y"] - wrist["y"]) ** 2 +
+        (middle["z"] - wrist["z"]) ** 2
+    ) ** 0.5
+
+    scale = max(scale, 1e-6)
+
     for pt in data.landmarks:
-        features.extend([
-            pt["x"],
-            pt["y"],
-            pt["z"]
-        ])
+
+        x = (pt["x"] - wrist["x"]) / scale
+        y = (pt["y"] - wrist["y"]) / scale
+        z = (pt["z"] - wrist["z"]) / scale
+
+        if is_left:
+            x = -x
+
+        features.extend([x, y, z])
+
 
     if len(features) != 63:
         return {
@@ -74,34 +95,21 @@ def predict(data: HandRequest):
 
     arr = np.array(features).reshape(1, -1)
 
-    prediction = model.predict(arr)[0]
+    # prediction = model.predict(arr)[0]
+    probabilities = model.predict_proba(arr)[0]
+    classes = model.classes_
+    best_index = np.argmax(probabilities)
 
-    confidence = 0
+    prediction = classes[best_index]
+    confidence = float(probabilities[best_index])
+    print("Classes:", classes)
+    print("Prediction:", prediction)
+    print("Probabilities:", probabilities)
 
-    if hasattr(model, "predict_proba"):
-        confidence = float(
-            np.max(
-                model.predict_proba(arr)
-            )
-        )
-
-    # map labels
-    LABELS = {
-        0: "Normal",
-        1: "Signal for Help",
-        2: "Signal for Help"
-    }
-
-    try:
-        prediction = int(prediction)
-        gesture = LABELS.get(
-            prediction,
-            str(prediction)
-        )
-    except:
-        gesture = str(prediction)
+    if prediction == "Signal for Help" and confidence < 0.90:
+        prediction = "No Signal"
 
     return {
-        "gesture": gesture,
+        "gesture": prediction,
         "confidence": confidence
     }

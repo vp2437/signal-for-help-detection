@@ -291,7 +291,11 @@ export default function HistoryPanel() {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           // Send first detected hand
-          body: JSON.stringify({ landmarks: result.landmarks[0] }),
+          body: JSON.stringify({
+              landmarks: result.landmarks[0],
+              handedness:
+                  result.handedness[0][0].categoryName
+          }),
         });
         if (res.ok) {
             const data = await res.json();
