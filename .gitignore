@@ -38,4 +38,6 @@ screenshots/
 __pycache__/
 *.pyc
 
+# Ignore all .task files except the MediaPipe model
 frontend/public/*.task
+!frontend/public/hand_landmarker.task
