@@ -561,7 +561,7 @@ if (node.id === "victim") {
           setLoadingInsight(true);
       
           const response = await fetch(
-            "https://your-backend-name.onrender.com/explain-edge",
+            "https://austinaihub-hackathon-june.onrender.com/explain-edge",
             {
               method: "POST",
               headers: {
