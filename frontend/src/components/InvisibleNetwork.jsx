@@ -561,7 +561,7 @@ if (node.id === "victim") {
           setLoadingInsight(true);
       
           const response = await fetch(
-            "http://localhost:8000/explain-edge",
+            "https://your-backend-name.onrender.com/explain-edge",
             {
               method: "POST",
               headers: {
