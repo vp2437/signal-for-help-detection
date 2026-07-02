@@ -14,25 +14,41 @@ class EdgeRequest(BaseModel):
 @router.post("/explain-edge")
 async def explain_edge(req: EdgeRequest):
 
-    prompt = f"""
-Explain how "{req.source}" and "{req.target}"
-can be related within a human trafficking network.
+    url = "https://router.huggingface.co/v1/chat/completions"
 
-Keep the explanation educational,
-factual and under 30 words.
-"""
+    headers = {
+        "Authorization": f"Bearer {HF_TOKEN}",
+        "Content-Type": "application/json"
+    }
 
-    response = requests.post(
-        "http://localhost:11434/api/generate",
-        json={
-            "model": "llama3.2",
-            "prompt": prompt,
-            "stream": False
-        }
-    )
+    payload = {
+        "model": "mistralai/Mistral-7B-Instruct-v0.2:featherless-ai",
 
+        "messages": [
+            {
+                "role": "system",
+                "content": (
+                    "You explain relationships in simple terms. "
+                    "Keep responses under 30 words. "
+                    "Be factual and educational."
+                )
+            },
+            {
+                "role": "user",
+                "content": f"Explain how {req.source} and {req.target} can be connected in a human trafficking network analysis context."
+            }
+        ],
+
+        "max_tokens": 80,
+        "temperature": 0.3,
+        "stream": False
+    }
+
+    response = requests.post(url, headers=headers, json=payload)
     data = response.json()
 
+    explanation = data["choices"][0]["message"]["content"]
+
     return {
-        "explanation": data["response"]
+        "explanation": explanation
     }
