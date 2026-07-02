@@ -45,10 +45,35 @@ async def explain_edge(req: EdgeRequest):
     }
 
     response = requests.post(url, headers=headers, json=payload)
+
     data = response.json()
 
-    explanation = data["choices"][0]["message"]["content"]
+    # debug safety
+    print(data)
 
-    return {
-        "explanation": explanation
-    }
+    explanation = "No response"
+
+    if isinstance(data, dict):
+        # OpenAI-style response
+        if "choices" in data:
+            explanation = data["choices"][0]["message"]["content"]
+
+        # HF text-generation style
+        elif "generated_text" in data:
+            explanation = data["generated_text"]
+
+        # HF error
+        elif "error" in data:
+            explanation = f"HF error: {data['error']}"
+
+    elif isinstance(data, list) and len(data) > 0:
+        item = data[0]
+
+        if isinstance(item, dict) and "generated_text" in item:
+            explanation = item["generated_text"]
+
+        elif isinstance(item, str):
+            explanation = item
+
+    return {"explanation": explanation
+            }
