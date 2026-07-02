@@ -181,6 +181,34 @@ The training pipeline consists of:
 
 ---
 
+## Invisible Connections: AI-Assisted Network Visualization
+
+Human trafficking often appears as isolated incidents, but behind every case exists a larger network of recruiters, brokers, transporters, employers, and enabling structures.
+
+Our **Invisible Connections** visualization helps users explore these hidden relationships through an interactive network graph. Starting from a single distress signal, users progressively uncover the deeper layers of actors and systems involved in trafficking operations.
+
+### Features
+
+- Interactive network exploration using **React Flow**
+- Multi-stage visualization revealing increasingly complex trafficking structures
+- Dynamic node and edge expansion to expose hidden connections
+- AI-generated explanations for relationships between network actors
+- Real-time relationship analysis powered by an LLM (Ollama)
+
+### Technologies Used
+
+- React
+- React Flow
+- FastAPI
+- Python
+- Ollama
+
+### Impact
+
+This visualization transforms abstract trafficking networks into an interactive experience that is easier to understand and explore. By combining network visualization with AI-generated interpretation, it helps make invisible systems visible, supporting trafficking awareness through education, storytelling, and engagement.
+
+---
+
 ## Dataset
 
 The machine learning model was trained using the **SFH Dataset**, a publicly available dataset containing images of the **Signal for Help** gesture and **No Signal** hand poses.
