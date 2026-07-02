@@ -1,8 +1,11 @@
 from fastapi import APIRouter
 from pydantic import BaseModel
 import requests
+import os
 
 router = APIRouter()
+
+HF_TOKEN = os.getenv("HF_TOKEN")
 
 class EdgeRequest(BaseModel):
     source: str

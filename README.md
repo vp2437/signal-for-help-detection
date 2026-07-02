@@ -1,6 +1,8 @@
 # Signal for Help Detection System
 
-An AI-powered web application that detects the internationally recognized Signal for Help hand gesture in real time using a webcam. The system combines MediaPipe hand tracking, a Random Forest machine learning model, and a FastAPI backend to provide live gesture recognition with visual and audio alerts.
+An AI-powered platform designed to support human trafficking awareness, early intervention, and public education.
+
+The system detects the internationally recognized Signal for Help gesture in real time and transforms a single distress signal into an entry point for understanding potential trafficking networks through AI-assisted visualization and analysis.
 
 Built for the Austin AI Hub Hackathon.
 
@@ -8,39 +10,55 @@ Built for the Austin AI Hub Hackathon.
 
 ## Features
 
-- Real-time hand tracking with MediaPipe
-- AI-powered Signal for Help detection
-- Visual alert overlay
-- Audio alert when the gesture is detected
-- Automatic screenshot capture
-- Detection history dashboard
-- Left and right hand support
-- Confidence filtering to reduce false positives
+- Real-time hand tracking with MediaPipe  
+- AI-powered detection of the Signal for Help gesture used in human trafficking contexts  
+- Visual alert overlay  
+- Audio alert when the gesture is detected  
+- Automatic screenshot capture and storage in a database  
+- Detection history dashboard backed by database storage  
+- Left and right hand support  
+- Confidence filtering to reduce false positives  
+- Multi-frame confirmation to improve detection reliability  
+- Interactive network exploration using React Flow  
+- Multi-stage visualization revealing increasingly complex trafficking structures  
+- Dynamic node and edge expansion to expose hidden connections  
+- AI-generated explanations for relationships between network actors  
+- Real-time relationship analysis powered by a Hugging Face language model  
+
+---
+
+## Project Goal
+
+Human trafficking remains difficult to detect because victims often cannot safely ask for help and the structures behind exploitation are rarely visible to the public.
+
+This project addresses both challenges by combining real time gesture detection with an AI driven system that transforms a single Signal for Help event into an exploratory view of possible trafficking ecosystems.
 
 ---
 
 ## Tech Stack
 
 ### Frontend
-
 - React
 - Vite
 - MediaPipe Tasks Vision
 - HTML5 Canvas
 
 ### Backend
-
 - FastAPI
 - Scikit-learn
 - NumPy
 - Joblib
 
 ### AI Model
-
 - MediaPipe Hand Landmarker
 - Random Forest Classifier
 - Landmark normalization
 - Confidence thresholding
+
+### Data and Visualization
+- React Flow for interactive graph visualization of human trafficking networks  
+- AI-generated explanations of relationships between entities in trafficking systems  
+- LLM-based analysis of connections between actors such as recruiters, transporters, and exploiters  
 
 ---
 
@@ -161,11 +179,13 @@ Built with React and Vite.
 ## How It Works
 
 1. The webcam captures video frames.
-2. MediaPipe detects the hand landmarks.
-3. The landmarks are normalized.
+2. MediaPipe detects hand landmarks.
+3. Landmarks are normalized into feature vectors.
 4. The backend predicts whether the gesture is the Signal for Help.
-5. Predictions must exceed a confidence threshold across multiple consecutive frames before an alert is triggered.
-6. When an alert is confirmed, the application plays an audio alarm and automatically captures a screenshot.
+5. A confidence threshold and temporal validation ensure stable detection across multiple frames.
+6. When confirmed, the system triggers an audio alert, captures a screenshot, and stores the event in the database.
+7. Each detection becomes a logged event accessible in the history dashboard.
+8. The same event can initiate an AI-assisted exploration of related trafficking networks, generating and expanding connections between relevant actors to support understanding of possible exploitation structures.
 
 ---
 
@@ -173,39 +193,21 @@ Built with React and Vite.
 
 The training pipeline consists of:
 
-1. Using a publicly available hand gesture dataset.
-2. Extracting normalized hand landmarks using MediaPipe.
-3. Converting landmarks into feature vectors.
+1. Collecting a publicly available dataset of Signal for Help and non-signal hand poses.
+2. Extracting 21 hand landmarks using MediaPipe.
+3. Normalizing landmarks into feature vectors.
 4. Training a Random Forest classifier with Scikit-learn.
-5. Saving the trained model using Joblib for inference in the FastAPI backend.
+5. Saving the trained model for inference in the FastAPI backend.
 
 ---
 
 ## Invisible Connections: AI-Assisted Network Visualization
 
-Human trafficking often appears as isolated incidents, but behind every case exists a larger network of recruiters, brokers, transporters, employers, and enabling structures.
+Human trafficking is often hidden behind fragmented and disconnected observations. A single signal can represent only one part of a much larger system involving recruiters, transporters, brokers, employers, and other enabling actors.
 
-Our **Invisible Connections** visualization helps users explore these hidden relationships through an interactive network graph. Starting from a single distress signal, users progressively uncover the deeper layers of actors and systems involved in trafficking operations.
+This visualization module transforms a detected Signal for Help event into an interactive exploration of these hidden structures. Users can expand and navigate a network graph that models possible relationships between actors, with AI generated explanations helping interpret how and why connections may exist.
 
-### Features
-
-- Interactive network exploration using **React Flow**
-- Multi-stage visualization revealing increasingly complex trafficking structures
-- Dynamic node and edge expansion to expose hidden connections
-- AI-generated explanations for relationships between network actors
-- Real-time relationship analysis powered by an LLM (Ollama)
-
-### Technologies Used
-
-- React
-- React Flow
-- FastAPI
-- Python
-- Ollama
-
-### Impact
-
-This visualization transforms abstract trafficking networks into an interactive experience that is easier to understand and explore. By combining network visualization with AI-generated interpretation, it helps make invisible systems visible, supporting trafficking awareness through education, storytelling, and engagement.
+Rather than presenting isolated data points, the system reframes each detection as a starting point for understanding broader trafficking ecosystems, supporting awareness through visual analysis and contextual storytelling.
 
 ---
 
@@ -238,13 +240,18 @@ During training, each image is processed using the MediaPipe Hand Landmarker to 
 ## Future Improvements
 
 - Improve feature engineering using joint angles and finger distances
-- Reduce false positives
-- Temporal gesture recognition
-- Mobile support
+- Reduce false positives futher
+- Add temporal deep learning models for gesture recognition
+- Expand mobile support
 - Multiple hand detection
+- Explore integration with CCTV and public camera systems for real time detection in monitored environments where privacy and consent frameworks are defined  
 
 ---
 
 ## Motivation
 
-This project explores the use of computer vision and machine learning for real-time gesture recognition. By combining MediaPipe hand tracking with a Random Forest classifier, the system aims to detect the Signal for Help gesture quickly and accurately through a standard webcam.
+The Signal for Help gesture was created as a discreet way for individuals experiencing abuse or coercion to request assistance safely.
+
+While detecting the gesture is important, understanding what it may represent in context is equally critical.
+
+This project combines real time AI gesture recognition with interactive network visualization to improve awareness of trafficking systems, support early understanding, and make hidden patterns of exploitation more visible.
