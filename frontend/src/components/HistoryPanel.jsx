@@ -216,22 +216,46 @@ export default function HistoryPanel() {
     ctx.fillStyle = "red";
     ctx.fillRect(0, 0, 150, 150);
 
-    const result = landmarker.current.detectForVideo(video, performance.now());
+    // const result = landmarker.current.detectForVideo(video, performance.now());
     
+    // console.log("Landmarks length:", result.landmarks.length);
+
+    // if (result.landmarks.length) {
+    //   console.log(result.landmarks[0][0]);
+    // }
+
+    // if (!result.landmarks.length) {
+    //     setIsAlert(false);
+      
+    //     rafRef.current =
+    //       requestAnimationFrame(loop);
+      
+    //     return;
+    //   }
+
+    const result = landmarker.current.detectForVideo(video, performance.now());
+
     console.log("Landmarks length:", result.landmarks.length);
 
     if (result.landmarks.length) {
-      console.log(result.landmarks[0][0]);
+      const pt = result.landmarks[0][0];
+
+      console.log("Wrist:", pt);
+
+      console.log(
+        "Canvas coords:",
+        pt.x * canvas.width,
+        pt.y * canvas.height
+      );
     }
 
     if (!result.landmarks.length) {
-        setIsAlert(false);
-      
-        rafRef.current =
-          requestAnimationFrame(loop);
-      
-        return;
-      }
+      setIsAlert(false);
+
+      rafRef.current = requestAnimationFrame(loop);
+
+      return;
+    }
 
     // ── 3. Ask backend what gesture this is ────────────────────────────────
     let gesture    = "Hand Detected";
