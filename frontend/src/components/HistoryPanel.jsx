@@ -114,7 +114,7 @@ export default function HistoryPanel() {
       
       // only save alerts
       if(
-      predictionRef.current.confidence < 0.90
+      predictionRef.current.confidence < 0.80
       )
       return;
       
@@ -137,19 +137,6 @@ export default function HistoryPanel() {
       canvas.width = video.videoWidth;
       canvas.height = video.videoHeight;
       
-
-      console.log(
-        "Canvas:",
-        canvas.width,
-        canvas.height
-      );
-      
-      console.log(
-        "Video:",
-        video.videoWidth,
-        video.videoHeight
-      );
-
       const ctx =
       canvas.getContext(
       "2d"
@@ -164,11 +151,6 @@ export default function HistoryPanel() {
       ctx.scale(
       -1,
       1);
-
-      console.log(
-        "Drawing hand",
-        result.landmarks.length
-      );
       
       ctx.drawImage(
       video,
@@ -242,13 +224,10 @@ export default function HistoryPanel() {
     const result = landmarker.current.detectForVideo(video, performance.now());
 
     if (!result.landmarks.length) {
+      setIsAlert(false);
 
-      if (isAlert) {
-        setIsAlert(false);
-      }
-    
       rafRef.current = requestAnimationFrame(loop);
-    
+
       return;
     }
 
@@ -313,7 +292,7 @@ const alert =
 
     >=
 
-    0.90;
+    0.80;
 
     console.log(
     "ALERT:",
@@ -369,7 +348,6 @@ const alert =
   
     // ── 4. Draw every detected hand ────────────────────────────────────────
     result.landmarks.forEach((hand)=>{
-      console.log(hand);
 
       HAND_CONNECTIONS.forEach(
       ([a,b])=>{
