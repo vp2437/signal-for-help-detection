@@ -10,45 +10,31 @@ import {
     setCaptures
     ]=useState([]);
     
-    useEffect(()=>{
+    useEffect(() => {
 
-        const load=()=>{
-        
-        setCaptures(
-        
-        JSON.parse(
-        
-        localStorage.getItem(
-        "captures"
-        )
-        
-        ||
-        
-        "[]"
-        
-        )
-        
-        );
-        
+        const load = async () => {
+      
+          try {
+      
+            const res = await fetch(
+              "https://austinaihub-hackathon-june.onrender.com/alerts"
+            );
+      
+            const data = await res.json();
+      
+            setCaptures(data);
+      
+          } catch (err) {
+      
+            console.error(err);
+      
+          }
+      
         };
-        
+      
         load();
-        
-        window.addEventListener(
-        "gallery-updated",
-        load
-        );
-        
-        return()=>{
-        
-        window.removeEventListener(
-        "gallery-updated",
-        load
-        );
-        
-        };
-        
-    },[]);
+      
+      }, []);
     
     const remove=(id)=>{
     
@@ -137,7 +123,7 @@ import {
     
     <img
     src={
-    item.image
+        item.image_url
     }
     alt=""
     style={{
@@ -151,7 +137,7 @@ import {
     color:"white"
     }}
     >
-    🕒 {item.timestamp}
+    🕒 {new Date(item.created_at).toLocaleString()}
     </p>
     
     <p
@@ -170,9 +156,7 @@ import {
     >
     
     <a
-    href={
-    item.image
-    }
+    href={item.image_url}
     download={`alert-${item.id}.png`}
     >
     
@@ -188,7 +172,7 @@ import {
     item.id
     )
     }
-    >
+    disabled>
     Delete
     </button>
     

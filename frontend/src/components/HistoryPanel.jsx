@@ -134,16 +134,8 @@ export default function HistoryPanel() {
       );
       
       // smaller gallery image
-      canvas.width = 480;
-      
-      canvas.height =
-      video.videoHeight
-      *
-      (
-      480
-      /
-      video.videoWidth
-      );
+      canvas.width = video.videoWidth;
+      canvas.height = video.videoHeight;
       
       const ctx =
       canvas.getContext(
@@ -173,80 +165,23 @@ export default function HistoryPanel() {
       const image =
       canvas.toDataURL(
       "image/jpeg",
-      0.55
+      0.9
       );
       
-      const item = {
-      
-      id:
-      Date.now(),
-      
-      image,
-      
-      confidence:
-      Math.round(
-      predictionRef.current.confidence
-      *
-      100
-      ),
-      
-      timestamp:
-      new Date()
-      .toLocaleString(),
-      
-      };
-      
-      let existing =
-      JSON.parse(
-      localStorage.getItem(
-      "captures"
-      )
-      ||
-      "[]"
+      await fetch(
+        "https://austinaihub-hackathon-june.onrender.com/upload-alert",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            image,
+            confidence:
+              predictionRef.current.confidence
+          })
+        }
       );
-      
-      // keep max 30 screenshots
-      existing =
-      [
-      item,
-      ...existing
-      ].slice(
-      0,
-      30
-      );
-      
-      try{
-      
-      localStorage.setItem(
-      "captures",
-      JSON.stringify(
-      existing
-      )
-      );
-      
-      window.dispatchEvent(
-      new CustomEvent(
-      "gallery-updated"
-      )
-      );
-      
-      console.log(
-      "Saved to gallery"
-      );
-      
-      }
-      
-      catch(err){
-      
-      console.log(
-      "Storage full"
-      );
-      
-      alert(
-      "Gallery full. Delete old screenshots."
-      );
-      
-      }
       
     };
 
