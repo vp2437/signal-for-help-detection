@@ -200,6 +200,12 @@ export default function HistoryPanel() {
     // Sync canvas size to video
     canvas.width  = video.videoWidth;
     canvas.height = video.videoHeight;
+    console.log({
+      videoWidth: video.videoWidth,
+      videoHeight: video.videoHeight,
+      canvasWidth: canvas.width,
+      canvasHeight: canvas.height,
+    });
 
     // const ctx = canvas.getContext("2d");
     // ctx.clearRect(0, 0, canvas.width, canvas.height);
