@@ -186,7 +186,6 @@ export default function HistoryPanel() {
     };
 
   const loop = async () => {
-    console.log("DEPLOY TEST 123");
     if (!mounted.current) return;
 
     const video  = webcamRef.current?.video;
@@ -201,20 +200,9 @@ export default function HistoryPanel() {
     // Sync canvas size to video
     canvas.width  = video.videoWidth;
     canvas.height = video.videoHeight;
-    console.log({
-      videoWidth: video.videoWidth,
-      videoHeight: video.videoHeight,
-      canvasWidth: canvas.width,
-      canvasHeight: canvas.height,
-    });
-
-    // const ctx = canvas.getContext("2d");
-    // ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     const ctx = canvas.getContext("2d");
-
-    ctx.fillStyle = "red";
-    ctx.fillRect(0, 0, 150, 150);
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     // const result = landmarker.current.detectForVideo(video, performance.now());
     
@@ -234,20 +222,6 @@ export default function HistoryPanel() {
     //   }
 
     const result = landmarker.current.detectForVideo(video, performance.now());
-
-    console.log("Landmarks length:", result.landmarks.length);
-
-    if (result.landmarks.length) {
-      const pt = result.landmarks[0][0];
-
-      console.log("Wrist:", pt);
-
-      console.log(
-        "Canvas coords:",
-        pt.x * canvas.width,
-        pt.y * canvas.height
-      );
-    }
 
     if (!result.landmarks.length) {
       setIsAlert(false);
@@ -371,21 +345,7 @@ const alert =
         alert
         ? "red"
         : "lime";
-
-    // TEST: draw only the wrist
-    const pt = result.landmarks[0][0];
-
-    ctx.beginPath();
-    ctx.arc(
-      canvas.width - pt.x * canvas.width,
-      pt.y * canvas.height,
-      20,
-      0,
-      Math.PI * 2
-    );
-    ctx.fillStyle = "blue";
-    ctx.fill();
-
+  
     // ── 4. Draw every detected hand ────────────────────────────────────────
     result.landmarks.forEach((hand)=>{
 
