@@ -9,6 +9,29 @@ import {
     captures,
     setCaptures
     ]=useState([]);
+
+    const downloadImage = async (url, id) => {
+
+        const response = await fetch(url);
+      
+        const blob = await response.blob();
+      
+        const blobUrl = window.URL.createObjectURL(blob);
+      
+        const link = document.createElement("a");
+      
+        link.href = blobUrl;
+      
+        link.download = `alert-${id}.jpg`;
+      
+        document.body.appendChild(link);
+      
+        link.click();
+      
+        link.remove();
+      
+        window.URL.revokeObjectURL(blobUrl);
+      };
     
     useEffect(() => {
 
@@ -36,29 +59,29 @@ import {
       
       }, []);
     
-    const remove=(id)=>{
-    
-    const updated=
-    
-    captures.filter(
-    x=>
-    x.id!==id
-    );
-    
-    setCaptures(
-    updated
-    );
-    
-    localStorage.setItem(
-    "captures",
-    
-    JSON.stringify(
-    updated
-    )
-    
-    );
-    
-    };
+      const remove = async (id) => {
+
+        try {
+      
+          await fetch(
+            `https://austinaihub-hackathon-june.onrender.com/alerts/${id}`,
+            {
+              method: "DELETE"
+            }
+          );
+      
+          setCaptures(
+            captures.filter(
+              item => item.id !== id
+            )
+          );
+      
+        } catch (err) {
+      
+          console.error(err);
+      
+        }
+      };
     
     if(
     captures.length===0
@@ -155,16 +178,16 @@ import {
     }}
     >
     
-    <a
-    href={item.image_url}
-    download={`alert-${item.id}.png`}
+    <button
+    onClick={() =>
+        downloadImage(
+        item.image_url,
+        item.id
+        )
+    }
     >
-    
-    <button>
     Save
     </button>
-    
-    </a>
     
     <button
     onClick={()=>

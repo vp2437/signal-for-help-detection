@@ -40,6 +40,7 @@ def upload_alert(data: UploadRequest):
         "alerts"
     ).insert({
         "image_url": image_url,
+        "public_id": result["public_id"],
         "confidence": data.confidence
     }).execute()
 
@@ -63,3 +64,35 @@ def get_alerts():
     )
 
     return data.data
+
+@router.delete("/alerts/{alert_id}")
+def delete_alert(alert_id: int):
+
+    record = (
+        supabase
+        .table("alerts")
+        .select("*")
+        .eq("id", alert_id)
+        .single()
+        .execute()
+    )
+
+    if not record.data:
+        return {"success": False}
+
+    public_id = record.data["public_id"]
+
+    cloudinary.uploader.destroy(
+        public_id
+    )
+
+    supabase.table(
+        "alerts"
+    ).delete().eq(
+        "id",
+        alert_id
+    ).execute()
+
+    return {
+        "success": True
+    }
