@@ -75,9 +75,9 @@ export default function DetectionCard() {
     );
 
     const ctx = canvas.getContext("2d");
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.fillStyle = "red";
     ctx.fillRect(0, 0, 100, 100);
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     const result = landmarker.current.detectForVideo(video, performance.now());
 

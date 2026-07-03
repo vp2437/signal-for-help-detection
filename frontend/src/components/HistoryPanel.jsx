@@ -200,9 +200,20 @@ export default function HistoryPanel() {
     // Sync canvas size to video
     canvas.width  = video.videoWidth;
     canvas.height = video.videoHeight;
+    console.log({
+      videoWidth: video.videoWidth,
+      videoHeight: video.videoHeight,
+      canvasWidth: canvas.width,
+      canvasHeight: canvas.height,
+    });
+
+    // const ctx = canvas.getContext("2d");
+    // ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     const ctx = canvas.getContext("2d");
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    ctx.fillStyle = "red";
+    ctx.fillRect(0, 0, 150, 150);
 
     const result = landmarker.current.detectForVideo(video, performance.now());
 
@@ -329,6 +340,20 @@ const alert =
         alert
         ? "red"
         : "lime";
+
+    // TEST: draw only the wrist
+    const pt = result.landmarks[0][0];
+
+    ctx.beginPath();
+    ctx.arc(
+      pt.x * canvas.width,
+      pt.y * canvas.height,
+      20,
+      0,
+      Math.PI * 2
+    );
+    ctx.fillStyle = "red";
+    ctx.fill();
 
     // ── 4. Draw every detected hand ────────────────────────────────────────
     result.landmarks.forEach((hand)=>{
