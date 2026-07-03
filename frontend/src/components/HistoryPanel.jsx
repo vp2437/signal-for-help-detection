@@ -186,6 +186,7 @@ export default function HistoryPanel() {
     };
 
   const loop = async () => {
+    console.log("DEPLOY TEST 123");
     if (!mounted.current) return;
 
     const video  = webcamRef.current?.video;
