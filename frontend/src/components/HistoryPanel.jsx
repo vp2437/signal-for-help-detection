@@ -522,14 +522,7 @@ Enable Sound
 
 )
 }
-      <div
-        style={{
-          position: "relative",
-          width: 640,
-          height: 480,
-          maxWidth: "100%"
-        }}
-      >
+
       {/* Webcam — mirrored so it looks natural */}
       <Webcam
         ref={webcamRef}
@@ -549,7 +542,6 @@ Enable Sound
           pointerEvents: "none",
         }}
       />
-      </div>
 
       <audio
       ref={audioRef}
