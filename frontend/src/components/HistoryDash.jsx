@@ -145,7 +145,7 @@ import {
     color:"white"
     }}
     >
-    🎯 {item.confidence}%
+    🎯 {(item.confidence * 100).toFixed(1)}%
     </p>
     
     <div
