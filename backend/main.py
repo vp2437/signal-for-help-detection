@@ -1,3 +1,6 @@
+from dotenv import load_dotenv
+load_dotenv()
+
 import os
 import joblib
 import numpy as np
@@ -6,9 +9,6 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from app.routes.upload import router as upload_router
-
-from dotenv import load_dotenv
-load_dotenv()
 
 from app.routes.ai import router as ai_router
 
