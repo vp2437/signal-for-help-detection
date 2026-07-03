@@ -195,7 +195,7 @@ import {
     item.id
     )
     }
-    disabled>
+    >
     Delete
     </button>
     
