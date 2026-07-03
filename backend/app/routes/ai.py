@@ -22,7 +22,7 @@ async def explain_edge(req: EdgeRequest):
     }
 
     payload = {
-        "model": "google/gemma-2-2b-it",
+        "model": "Qwen/Qwen2.5-7B-Instruct",
 
         "messages": [
             {
