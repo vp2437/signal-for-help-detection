@@ -7,6 +7,9 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from app.routes.upload import router as upload_router
 
+from dotenv import load_dotenv
+load_dotenv()
+
 from app.routes.ai import router as ai_router
 
 app = FastAPI()
