@@ -22,7 +22,7 @@ async def explain_edge(req: EdgeRequest):
     }
 
     payload = {
-        "model": "mistralai/Mistral-7B-Instruct-v0.2:featherless-ai",
+        "model": "google/gemma-2-2b-it",
 
         "messages": [
             {
@@ -39,7 +39,7 @@ async def explain_edge(req: EdgeRequest):
             }
         ],
 
-        "max_tokens": 80,
+        "max_tokens": 40,
         "temperature": 0.3,
         "stream": False
     }
