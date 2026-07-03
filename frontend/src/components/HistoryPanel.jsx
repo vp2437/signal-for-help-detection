@@ -217,6 +217,12 @@ export default function HistoryPanel() {
     ctx.fillRect(0, 0, 150, 150);
 
     const result = landmarker.current.detectForVideo(video, performance.now());
+    
+    console.log("Landmarks length:", result.landmarks.length);
+
+    if (result.landmarks.length) {
+      console.log(result.landmarks[0][0]);
+    }
 
     if (!result.landmarks.length) {
         setIsAlert(false);
