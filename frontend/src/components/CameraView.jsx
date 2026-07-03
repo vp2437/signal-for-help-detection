@@ -64,6 +64,12 @@ export default function DetectionCard() {
     }
 
     // Sync canvas size to video
+    console.log(
+      video.videoWidth,
+      video.videoHeight,
+      canvas.width,
+      canvas.height
+    );
     canvas.width  = video.videoWidth;
     canvas.height = video.videoHeight;
 
