@@ -341,6 +341,20 @@ const alert =
         ? "red"
         : "lime";
 
+    // TEST: draw only the wrist
+    const pt = result.landmarks[0][0];
+
+    ctx.beginPath();
+    ctx.arc(
+      pt.x * canvas.width,
+      pt.y * canvas.height,
+      20,
+      0,
+      Math.PI * 2
+    );
+    ctx.fillStyle = "red";
+    ctx.fill();
+
     // ── 4. Draw every detected hand ────────────────────────────────────────
     result.landmarks.forEach((hand)=>{
 
