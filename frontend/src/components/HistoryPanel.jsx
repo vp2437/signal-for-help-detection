@@ -114,7 +114,7 @@ export default function HistoryPanel() {
       
       // only save alerts
       if(
-      predictionRef.current.confidence < 0.80
+      predictionRef.current.confidence < 0.90
       )
       return;
       
@@ -292,7 +292,7 @@ const alert =
 
     >=
 
-    0.80;
+    0.90;
 
     console.log(
     "ALERT:",

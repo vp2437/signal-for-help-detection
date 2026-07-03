@@ -156,7 +156,7 @@ export default function DetectionCard() {
 
     const detected =
         currentGesture.includes("help") &&
-        predictionRef.current.confidence >= 0.95;
+        predictionRef.current.confidence >= 0.90;
 
     if (detected) {
         alertFrames.current++;
