@@ -353,13 +353,13 @@ const alert =
 
     ctx.beginPath();
     ctx.arc(
-      pt.x * canvas.width,
+      canvas.width - pt.x * canvas.width,
       pt.y * canvas.height,
       20,
       0,
       Math.PI * 2
     );
-    ctx.fillStyle = "red";
+    ctx.fillStyle = "blue";
     ctx.fill();
 
     // ── 4. Draw every detected hand ────────────────────────────────────────
