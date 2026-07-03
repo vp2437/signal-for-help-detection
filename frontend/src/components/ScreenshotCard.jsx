@@ -291,7 +291,7 @@ export default function ScreenshotCard() {
 
             captureScreenshot();
 
-            }, 50);
+            });
             
             }
         
