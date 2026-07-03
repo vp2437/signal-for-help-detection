@@ -31,25 +31,16 @@ body{
     display:flex;
     align-items:center;
     justify-content:space-between;
-    position: relative;
+    gap:24px;
     width:100%;
   }
   
   .logo{
-  
-  position:absolute;
-  
-  left:40px;
-  
-  top:20px;
-  
-  font-size:22px;
-  
-  font-weight:700;
-  
-  color:#6ea8ff;
-  
-  }
+  width:180px;
+  height:auto;
+  object-fit:contain;
+  display:block;
+}
   
   .center{
   
@@ -76,11 +67,14 @@ body{
   }
 
   .title-tag {
-    position:absolute;
-    left:50%;
-    transform:translateX(-50%);
+    position:relative;
+    left:auto;
+    transform:none;
+    flex:1;
     text-align:center;
-
+    display:flex;
+    flex-direction:column;
+    align-items:center;
   }
   
   .tabs{

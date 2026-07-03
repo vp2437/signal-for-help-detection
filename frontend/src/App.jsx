@@ -69,6 +69,7 @@ import { useState } from "react";
 import HistoryDash from "./components/HistoryDash";
 import HistoryPanel from "./components/HistoryPanel";
 import InvisibleNetwork from "./components/InvisibleNetwork";
+import logo from "./assets/logo.png";
 import "./App.css";
 
 function App() {
@@ -86,9 +87,7 @@ return (
   <div className="title-row">
 
     <div>
-    
-        <h1 className="logo">Project Beacon</h1>
-
+      <img src={logo} alt="Project Beacon logo" className="logo" />
     </div>
 
     <div className="title-tag">
