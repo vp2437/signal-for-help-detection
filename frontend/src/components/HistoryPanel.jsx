@@ -256,59 +256,60 @@ export default function HistoryPanel() {
     
     // ── 6. Draw every detected hand ────────────────────────────────────────
     // Apply mirroring for natural view
-    try {
-      ctx.save();
-      ctx.translate(canvas.width, 0);
-      ctx.scale(-1, 1);
-      result.landmarks.forEach((hand) => {
-        HAND_CONNECTIONS.forEach(([a, b]) => {
-          if (!hand[a] || !hand[b]) return; // guard
-          ctx.beginPath();
-          ctx.moveTo(hand[a].x * canvas.width, hand[a].y * canvas.height);
-          ctx.lineTo(hand[b].x * canvas.width, hand[b].y * canvas.height);
-          ctx.strokeStyle = color;
-          ctx.lineWidth = 5;
-          ctx.stroke();
-        });
-        hand.forEach((pt) => {
-          ctx.beginPath();
-          ctx.arc(pt.x * canvas.width, pt.y * canvas.height, 6, 0, Math.PI * 2);
-          ctx.fillStyle = color;
-          ctx.fill();
-        });
-      });
-      ctx.restore();
-    } catch (err) {
-      console.error("🎨 Draw error:", err);
-    }
+    // CLEAR ONCE AT START OF FRAME
+ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    // Draw status text on canvas
-    ctx.fillStyle = color;
-    ctx.font = "20px sans-serif";
-    ctx.textAlign = "left";
-    ctx.fillText(`Gesture: ${predictionRef.current.gesture}`, 10, 30);
-    ctx.fillText(`Confidence: ${Math.round(predictionRef.current.confidence * 100)}%`, 10, 60);
-
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.fillStyle = "yellow";
-    ctx.fillRect(0, 0, 200, 200);
-
-    const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
-    let nonTransparentPixels = 0;
-    for (let i = 3; i < imgData.length; i += 4) {
-      if (imgData[i] > 0) nonTransparentPixels++;
-    }
-    console.log("🖼️ non-transparent pixels on canvas:", nonTransparentPixels);
-
-    ctx.fillStyle = "red";
-ctx.fillRect(50, 50, 100, 100);
-
+// SIMPLE TEST TEXT
 ctx.fillStyle = "white";
-ctx.font = "40px Arial";
-ctx.fillText("TEST", 200, 100);
+ctx.font = "30px Arial";
+ctx.fillText("HAND DETECTED", 20, 40);
 
-    // Continue the loop
-    rafRef.current = requestAnimationFrame(loop);
+// DRAW ONLY LANDMARK DOTS
+result.landmarks.forEach((hand) => {
+  hand.forEach((pt, index) => {
+    const x = pt.x * canvas.width;
+    const y = pt.y * canvas.height;
+
+    ctx.beginPath();
+    ctx.arc(x, y, 10, 0, Math.PI * 2);
+    ctx.fillStyle = "lime";
+    ctx.fill();
+
+    // optional landmark index
+    ctx.fillStyle = "white";
+    ctx.font = "12px Arial";
+    ctx.fillText(index.toString(), x + 10, y);
+  });
+});
+
+// DRAW CONNECTIONS
+result.landmarks.forEach((hand) => {
+  HAND_CONNECTIONS.forEach(([a, b]) => {
+    const p1 = hand[a];
+    const p2 = hand[b];
+
+    if (!p1 || !p2) return;
+
+    ctx.beginPath();
+    ctx.moveTo(
+      p1.x * canvas.width,
+      p1.y * canvas.height
+    );
+
+    ctx.lineTo(
+      p2.x * canvas.width,
+      p2.y * canvas.height
+    );
+
+    ctx.strokeStyle = "red";
+    ctx.lineWidth = 4;
+    ctx.stroke();
+  });
+});
+
+console.log("DRAWING LANDMARKS:", result.landmarks[0].length);
+
+rafRef.current = requestAnimationFrame(loop);
   };
 
   // ── Render ─────────────────────────────────────────────────────────────────
