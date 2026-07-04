@@ -141,8 +141,8 @@ export default function HistoryPanel() {
       canvas.height = video.videoHeight;
     }
 
-    // Clear canvas
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    // // Clear canvas
+    // ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     // Detect hands
     const result = landmarker.current.detectForVideo(video, performance.now());
