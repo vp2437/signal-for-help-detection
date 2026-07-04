@@ -347,9 +347,8 @@ ctx.fillText("TEST", 200, 100);
     left: 0,
     width: "100%",
     height: "100%",
-    pointerEvents: "none",
+    background: "rgba(255,0,0,0.5)",
     zIndex: 9999,
-    border: "5px solid red",
   }}
 />
 
