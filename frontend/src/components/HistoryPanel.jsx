@@ -328,18 +328,19 @@ export default function HistoryPanel() {
         videoConstraints={{ width: 640, height: 480, facingMode: "user" }}
       />
 
-      <canvas
-        ref={canvasRef}
-        style={{
-          position: "absolute",
-          top: 0,
-          left: 0,
-          width: "100%",
-          height: "100%",
-          pointerEvents: "none",
-          zIndex: 5,
-        }}
-      />
+<canvas
+  ref={canvasRef}
+  style={{
+    position: "absolute",
+    top: 0,
+    left: 0,
+    width: "100%",
+    height: "100%",
+    pointerEvents: "none",
+    zIndex: 99999,
+    border: "5px solid red"
+  }}
+/>
 
       <audio ref={audioRef} preload="auto" playsInline>
         <source src="/beep.mp3" type="audio/mpeg" />
