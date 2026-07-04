@@ -95,8 +95,13 @@ export default function HistoryPanel() {
     } catch {}
     
     const canvas = document.createElement("canvas");
-    canvas.width = video.videoWidth;
-    canvas.height = video.videoHeight;
+    if (
+      canvas.width !== video.videoWidth ||
+      canvas.height !== video.videoHeight
+    ) {
+      canvas.width = video.videoWidth;
+      canvas.height = video.videoHeight;
+    }
     
     const ctx = canvas.getContext("2d");
     ctx.translate(canvas.width, 0);
@@ -243,15 +248,26 @@ export default function HistoryPanel() {
     // Apply mirroring for natural view
     try {
       ctx.save();
-
-ctx.fillStyle = "red";
-ctx.fillRect(0,0,300,300);
-
-ctx.fillStyle = "white";
-ctx.font = "60px Arial";
-ctx.fillText("TEST",50,150);
-
-ctx.restore();
+      ctx.translate(canvas.width, 0);
+      ctx.scale(-1, 1);
+      result.landmarks.forEach((hand) => {
+        HAND_CONNECTIONS.forEach(([a, b]) => {
+          if (!hand[a] || !hand[b]) return; // guard
+          ctx.beginPath();
+          ctx.moveTo(hand[a].x * canvas.width, hand[a].y * canvas.height);
+          ctx.lineTo(hand[b].x * canvas.width, hand[b].y * canvas.height);
+          ctx.strokeStyle = color;
+          ctx.lineWidth = 5;
+          ctx.stroke();
+        });
+        hand.forEach((pt) => {
+          ctx.beginPath();
+          ctx.arc(pt.x * canvas.width, pt.y * canvas.height, 6, 0, Math.PI * 2);
+          ctx.fillStyle = color;
+          ctx.fill();
+        });
+      });
+      ctx.restore();
     } catch (err) {
       console.error("🎨 Draw error:", err);
     }
