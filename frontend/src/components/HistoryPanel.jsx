@@ -298,7 +298,7 @@ ctx.font = "40px Arial";
 ctx.fillText("TEST", 200, 100);
 
     // Continue the loop
-    rafRef.current = requestAnimationFrame(loop);
+    // rafRef.current = requestAnimationFrame(loop);
   };
 
   // ── Render ─────────────────────────────────────────────────────────────────
