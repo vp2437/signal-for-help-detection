@@ -298,7 +298,14 @@ ctx.fillText("TEST", 200, 100);
 
   // ── Render ─────────────────────────────────────────────────────────────────
   return (
-    <div style={{ position: "relative", width: 640, maxWidth: "100%" }}>
+    <div
+  style={{
+    position: "relative",
+    width: 640,
+    height: 480,
+    maxWidth: "100%",
+  }}
+>
       {showButton && (
         <button
           onClick={async () => {
