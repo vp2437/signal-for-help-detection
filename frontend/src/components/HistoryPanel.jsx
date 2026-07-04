@@ -274,6 +274,10 @@ export default function HistoryPanel() {
     ctx.fillText(`Gesture: ${predictionRef.current.gesture}`, 10, 30);
     ctx.fillText(`Confidence: ${Math.round(predictionRef.current.confidence * 100)}%`, 10, 60);
 
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = "yellow";
+    ctx.fillRect(0, 0, 200, 200);
+
     const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
     let nonTransparentPixels = 0;
     for (let i = 3; i < imgData.length; i += 4) {
