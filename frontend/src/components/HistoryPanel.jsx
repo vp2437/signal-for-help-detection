@@ -87,7 +87,6 @@ export default function HistoryPanel() {
     const video = webcamRef.current?.video;
     if (!video) return;
     
-    // only save alerts with high confidence
     if (predictionRef.current.confidence < 0.80) return;
     
     try {
@@ -123,18 +122,20 @@ export default function HistoryPanel() {
     const video = webcamRef.current?.video;
     const canvas = canvasRef.current;
 
-    // Wait until video is truly playing
     if (!video || video.readyState < 4 || !landmarker.current) {
       rafRef.current = requestAnimationFrame(loop);
       return;
     }
 
-    // Get canvas context
     const ctx = canvas.getContext("2d");
     if (!ctx) {
       rafRef.current = requestAnimationFrame(loop);
       return;
     }
+
+    // ── DEBUG #1: tint the canvas so we can see its real box on screen ──────
+    canvas.style.outline = "3px solid red";
+    canvas.style.background = "rgba(0,255,0,0.15)";
 
     // Sync canvas size to video
     if (video.videoWidth > 0 && video.videoHeight > 0) {
@@ -142,23 +143,25 @@ export default function HistoryPanel() {
       canvas.height = video.videoHeight;
     }
 
-    // Clear canvas
+    // ── DEBUG #3: log real dimensions right before drawing ──────────────────
+    console.log(
+      "canvas box:", canvas.getBoundingClientRect(),
+      "internal:", canvas.width, canvas.height,
+      "video:", video.videoWidth, video.videoHeight
+    );
+
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    // Detect hands
     const result = landmarker.current.detectForVideo(video, performance.now());
 
-    // DEBUG: Log what's being detected
     if (result.landmarks && result.landmarks.length > 0) {
       console.log("🔍 Landmarks detected:", result.landmarks.length);
     }
 
-    // If no hands detected
     if (!result.landmarks || !result.landmarks.length) {
       setIsAlert(false);
       alertTriggered.current = false;
       
-      // Still draw "No hands" message or just clear
       ctx.fillStyle = "rgba(255,255,255,0.3)";
       ctx.font = "24px sans-serif";
       ctx.textAlign = "center";
@@ -168,14 +171,12 @@ export default function HistoryPanel() {
       return;
     }
 
-    // ── 5. Ask backend what gesture this is ──────────────────────────────
     let gesture = "Hand Detected";
     let confidence = 0;
 
     if (!processing.current) {
       processing.current = true;
       try {
-        // Format landmarks properly for the backend
         const landmarksFormatted = result.landmarks[0].map(pt => ({
           x: pt.x,
           y: pt.y,
@@ -240,15 +241,13 @@ export default function HistoryPanel() {
 
     const color = alert ? "red" : "lime";
     
-    // ── 6. Draw every detected hand ────────────────────────────────────────
-    // Apply mirroring for natural view
     try {
       ctx.save();
       ctx.translate(canvas.width, 0);
       ctx.scale(-1, 1);
       result.landmarks.forEach((hand) => {
         HAND_CONNECTIONS.forEach(([a, b]) => {
-          if (!hand[a] || !hand[b]) return; // guard
+          if (!hand[a] || !hand[b]) return;
           ctx.beginPath();
           ctx.moveTo(hand[a].x * canvas.width, hand[a].y * canvas.height);
           ctx.lineTo(hand[b].x * canvas.width, hand[b].y * canvas.height);
@@ -268,20 +267,19 @@ export default function HistoryPanel() {
       console.error("🎨 Draw error:", err);
     }
 
-    // Draw status text on canvas
     ctx.fillStyle = color;
     ctx.font = "20px sans-serif";
     ctx.textAlign = "left";
     ctx.fillText(`Gesture: ${predictionRef.current.gesture}`, 10, 30);
     ctx.fillText(`Confidence: ${Math.round(predictionRef.current.confidence * 100)}%`, 10, 60);
 
-    // Continue the loop
     rafRef.current = requestAnimationFrame(loop);
   };
 
   // ── Render ─────────────────────────────────────────────────────────────────
   return (
-    <div style={{ position: "relative", width: 640, maxWidth: "100%" }}>
+    // ── DEBUG #2 / FIX: explicit aspect-ratio instead of implicit height ─────
+    <div style={{ position: "relative", width: 640, maxWidth: "100%", aspectRatio: "4 / 3" }}>
       {showButton && (
         <button
           onClick={async () => {
@@ -314,7 +312,7 @@ export default function HistoryPanel() {
         ref={webcamRef}
         mirrored
         audio={false}
-        style={{ width: "100%", display: "block" }}
+        style={{ width: "100%", height: "100%", display: "block", objectFit: "cover" }}
         videoConstraints={{ width: 640, height: 480, facingMode: "user" }}
       />
 
@@ -322,8 +320,7 @@ export default function HistoryPanel() {
         ref={canvasRef}
         style={{
           position: "absolute",
-          top: 0,
-          left: 0,
+          inset: 0,
           width: "100%",
           height: "100%",
           pointerEvents: "none",
