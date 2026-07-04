@@ -285,6 +285,13 @@ export default function HistoryPanel() {
     }
     console.log("🖼️ non-transparent pixels on canvas:", nonTransparentPixels);
 
+    ctx.fillStyle = "red";
+ctx.fillRect(50, 50, 100, 100);
+
+ctx.fillStyle = "white";
+ctx.font = "40px Arial";
+ctx.fillText("TEST", 200, 100);
+
     // Continue the loop
     rafRef.current = requestAnimationFrame(loop);
   };
