@@ -18,7 +18,6 @@ export default function HistoryPanel() {
   const rafRef = useRef(null);
   const processing = useRef(false);
   const mounted = useRef(true);
-  const containerRef = useRef(null);
 
   const predictionRef = useRef({
     gesture: "No Signal",
@@ -87,6 +86,7 @@ export default function HistoryPanel() {
     const video = webcamRef.current?.video;
     if (!video) return;
     
+    // only save alerts with high confidence
     if (predictionRef.current.confidence < 0.80) return;
     
     try {
@@ -122,54 +122,59 @@ export default function HistoryPanel() {
     const video = webcamRef.current?.video;
     const canvas = canvasRef.current;
 
+    // Wait until video is truly playing
     if (!video || video.readyState < 4 || !landmarker.current) {
       rafRef.current = requestAnimationFrame(loop);
       return;
     }
 
+    // Get canvas context
     const ctx = canvas.getContext("2d");
     if (!ctx) {
       rafRef.current = requestAnimationFrame(loop);
       return;
     }
 
-    // CRITICAL FIX: Set canvas size to match video EXACTLY
-    const videoWidth = video.videoWidth || 640;
-    const videoHeight = video.videoHeight || 480;
-    
-    // Only update if size changed
-    if (canvas.width !== videoWidth || canvas.height !== videoHeight) {
-      canvas.width = videoWidth;
-      canvas.height = videoHeight;
-      console.log("📐 Canvas resized to:", canvas.width, "x", canvas.height);
+    // Sync canvas size to video
+    if (video.videoWidth > 0 && video.videoHeight > 0) {
+      canvas.width = video.videoWidth;
+      canvas.height = video.videoHeight;
     }
 
-    // Clear canvas with transparency
+    // Clear canvas
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     // Detect hands
     const result = landmarker.current.detectForVideo(video, performance.now());
+
+    // DEBUG: Log what's being detected
+    if (result.landmarks && result.landmarks.length > 0) {
+      console.log("🔍 Landmarks detected:", result.landmarks.length);
+    }
 
     // If no hands detected
     if (!result.landmarks || !result.landmarks.length) {
       setIsAlert(false);
       alertTriggered.current = false;
       
-      // Show "No hand detected" message
-      ctx.fillStyle = "rgba(255, 255, 255, 0.6)";
-      ctx.font = "28px sans-serif";
+      // Still draw "No hands" message or just clear
+      ctx.fillStyle = "rgba(255,255,255,0.3)";
+      ctx.font = "24px sans-serif";
       ctx.textAlign = "center";
-      ctx.textBaseline = "middle";
-      ctx.fillText("✋ No hand detected", canvas.width / 2, canvas.height / 2);
+      ctx.fillText("No hand detected", canvas.width/2, 50);
       
       rafRef.current = requestAnimationFrame(loop);
       return;
     }
 
     // ── 5. Ask backend what gesture this is ──────────────────────────────
+    let gesture = "Hand Detected";
+    let confidence = 0;
+
     if (!processing.current) {
       processing.current = true;
       try {
+        // Format landmarks properly for the backend
         const landmarksFormatted = result.landmarks[0].map(pt => ({
           x: pt.x,
           y: pt.y,
@@ -179,6 +184,11 @@ export default function HistoryPanel() {
         const handedness = result.handedness && result.handedness.length > 0 
           ? result.handedness[0][0].categoryName 
           : "Right";
+
+        console.log("📤 Sending to backend:", {
+          landmarks_count: landmarksFormatted.length,
+          handedness: handedness
+        });
 
         const res = await fetch("https://austinaihub-hackathon-june.onrender.com/predict", {
           method: "POST",
@@ -191,14 +201,18 @@ export default function HistoryPanel() {
         
         if (res.ok) {
           const data = await res.json();
+          gesture = data.gesture ?? "No Signal";
+          confidence = data.confidence ?? 0;
           predictionRef.current = {
-            gesture: data.gesture ?? "No Signal",
-            confidence: data.confidence ?? 0,
+            gesture,
+            confidence,
           };
-          console.log(`✅ ${predictionRef.current.gesture} · ${Math.round(predictionRef.current.confidence * 100)}%`);
+          console.log(`✅ ${gesture} · ${Math.round(confidence * 100)}%`);
+        } else {
+          console.error("❌ Backend error:", res.status, await res.text());
         }
       } catch (err) {
-        console.error("❌ Backend error:", err);
+        console.error("❌ Backend fetch error:", err);
       }
       processing.current = false;
     }
@@ -223,61 +237,42 @@ export default function HistoryPanel() {
       alertTriggered.current = false;
     }
 
-    const color = alert ? "#FF0000" : "#00FF00";
+    const color = alert ? "red" : "lime";
     
     // ── 6. Draw every detected hand ────────────────────────────────────────
     // Apply mirroring for natural view
-    ctx.save();
-    ctx.translate(canvas.width, 0);
-    ctx.scale(-1, 1);
-
-    result.landmarks.forEach((hand) => {
-      // Draw connections
-      ctx.beginPath();
-      HAND_CONNECTIONS.forEach(([a, b]) => {
-        const x1 = hand[a].x * canvas.width;
-        const y1 = hand[a].y * canvas.height;
-        const x2 = hand[b].x * canvas.width;
-        const y2 = hand[b].y * canvas.height;
-        
-        ctx.moveTo(x1, y1);
-        ctx.lineTo(x2, y2);
+    try {
+      ctx.save();
+      ctx.translate(canvas.width, 0);
+      ctx.scale(-1, 1);
+      result.landmarks.forEach((hand) => {
+        HAND_CONNECTIONS.forEach(([a, b]) => {
+          if (!hand[a] || !hand[b]) return; // guard
+          ctx.beginPath();
+          ctx.moveTo(hand[a].x * canvas.width, hand[a].y * canvas.height);
+          ctx.lineTo(hand[b].x * canvas.width, hand[b].y * canvas.height);
+          ctx.strokeStyle = color;
+          ctx.lineWidth = 5;
+          ctx.stroke();
+        });
+        hand.forEach((pt) => {
+          ctx.beginPath();
+          ctx.arc(pt.x * canvas.width, pt.y * canvas.height, 6, 0, Math.PI * 2);
+          ctx.fillStyle = color;
+          ctx.fill();
+        });
       });
-      ctx.strokeStyle = color;
-      ctx.lineWidth = 6;
-      ctx.stroke();
+      ctx.restore();
+    } catch (err) {
+      console.error("🎨 Draw error:", err);
+    }
 
-      // Draw points
-      hand.forEach((pt) => {
-        ctx.beginPath();
-        ctx.arc(
-          pt.x * canvas.width,
-          pt.y * canvas.height,
-          8,
-          0,
-          Math.PI * 2
-        );
-        ctx.fillStyle = color;
-        ctx.fill();
-        // Add white border for visibility
-        ctx.strokeStyle = "#FFFFFF";
-        ctx.lineWidth = 2;
-        ctx.stroke();
-      });
-    });
-
-    ctx.restore();
-
-    // Draw status text on canvas (not mirrored)
+    // Draw status text on canvas
     ctx.fillStyle = color;
-    ctx.font = "bold 20px sans-serif";
+    ctx.font = "20px sans-serif";
     ctx.textAlign = "left";
-    ctx.textBaseline = "top";
-    ctx.shadowColor = "rgba(0,0,0,0.8)";
-    ctx.shadowBlur = 10;
-    ctx.fillText(`👋 ${predictionRef.current.gesture}`, 10, 10);
-    ctx.fillText(`📊 ${Math.round(predictionRef.current.confidence * 100)}%`, 10, 35);
-    ctx.shadowBlur = 0;
+    ctx.fillText(`Gesture: ${predictionRef.current.gesture}`, 10, 30);
+    ctx.fillText(`Confidence: ${Math.round(predictionRef.current.confidence * 100)}%`, 10, 60);
 
     // Continue the loop
     rafRef.current = requestAnimationFrame(loop);
@@ -285,19 +280,7 @@ export default function HistoryPanel() {
 
   // ── Render ─────────────────────────────────────────────────────────────────
   return (
-    <div 
-      ref={containerRef}
-      style={{ 
-        position: "relative", 
-        width: "100%", 
-        maxWidth: "640px",
-        margin: "0 auto",
-        aspectRatio: "4/3",
-        backgroundColor: "#000",
-        overflow: "hidden",
-        borderRadius: "12px",
-      }}
-    >
+    <div style={{ position: "relative", width: 640, maxWidth: "100%" }}>
       {showButton && (
         <button
           onClick={async () => {
@@ -316,42 +299,24 @@ export default function HistoryPanel() {
           }}
           style={{
             position: "absolute",
-            top: "10px",
-            right: "10px",
-            zIndex: 20,
-            padding: "10px 20px",
-            background: "#2563eb",
-            color: "white",
-            border: "none",
-            borderRadius: "8px",
-            cursor: "pointer",
-            fontWeight: "bold",
-            fontSize: "14px",
+            top: 10,
+            right: 10,
+            zIndex: 10,
+            padding: "10px 16px",
           }}
         >
-          🔊 Enable Sound
+          Enable Sound
         </button>
       )}
 
-      {/* Webcam - fill container */}
       <Webcam
         ref={webcamRef}
         mirrored
         audio={false}
-        style={{
-          width: "100%",
-          height: "100%",
-          objectFit: "cover",
-          display: "block",
-        }}
-        videoConstraints={{ 
-          width: 640, 
-          height: 480, 
-          facingMode: "user" 
-        }}
+        style={{ width: "100%", display: "block" }}
+        videoConstraints={{ width: 640, height: 480, facingMode: "user" }}
       />
 
-      {/* Canvas overlay - exact same size as container */}
       <canvas
         ref={canvasRef}
         style={{
@@ -361,8 +326,7 @@ export default function HistoryPanel() {
           width: "100%",
           height: "100%",
           pointerEvents: "none",
-          zIndex: 10,
-          display: "block",
+          zIndex: 5,
         }}
       />
 
@@ -370,21 +334,17 @@ export default function HistoryPanel() {
         <source src="/beep.mp3" type="audio/mpeg" />
       </audio>
 
-      {/* Status badge */}
       <div
         style={{
           position: "absolute",
-          bottom: "12px",
-          left: "12px",
-          padding: "6px 16px",
-          borderRadius: "999px",
-          fontSize: "14px",
+          bottom: 12,
+          left: 12,
+          padding: "4px 12px",
+          borderRadius: 999,
+          fontSize: 14,
           fontWeight: 600,
           color: "#fff",
-          background: isAlert ? "#ef4444" : "rgba(0,0,0,0.7)",
-          zIndex: 15,
-          backdropFilter: "blur(4px)",
-          border: isAlert ? "2px solid #ef4444" : "none",
+          background: isAlert ? "#ef4444" : "rgba(0,0,0,0.55)",
         }}
       >
         {isAlert ? "🚨 ALERT" : "👀 Monitoring"}
