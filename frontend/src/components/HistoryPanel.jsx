@@ -327,13 +327,17 @@ ctx.fillText("TEST", 200, 100);
         </button>
       )}
 
-      <Webcam
-        ref={webcamRef}
-        mirrored
-        audio={false}
-        style={{ width: "100%", display: "block" }}
-        videoConstraints={{ width: 640, height: 480, facingMode: "user" }}
-      />
+<Webcam
+  ref={webcamRef}
+  mirrored
+  audio={false}
+  style={{
+    width: "100%",
+    display: "block",
+    position: "relative",
+    zIndex: 1,
+  }}
+/>
 
 <canvas
   ref={canvasRef}
@@ -344,8 +348,8 @@ ctx.fillText("TEST", 200, 100);
     width: "100%",
     height: "100%",
     pointerEvents: "none",
-    zIndex: 99999,
-    border: "5px solid red"
+    zIndex: 9999,
+    border: "5px solid red",
   }}
 />
 
