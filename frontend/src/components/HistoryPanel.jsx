@@ -33,6 +33,7 @@ export default function HistoryPanel() {
   // ── 1. Load MediaPipe once ─────────────────────────────────────────────────
   useEffect(() => {
     mounted.current = true;
+    console.log("mounted");
 
     (async () => {
       try {
