@@ -242,7 +242,7 @@ export default function HistoryPanel() {
     // }
     
     predictionRef.current = {
-      gesture: "TEST",
+      gesture: "Signal for Help",
       confidence: 1
     };
 
