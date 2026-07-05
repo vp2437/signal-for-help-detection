@@ -246,6 +246,8 @@ export default function HistoryPanel() {
       confidence: 1
     };
 
+    console.log("Prediction:", predictionRef.current);
+
     const currentGesture = String(predictionRef.current.gesture).toLowerCase();
     const alert = currentGesture.includes("help") && predictionRef.current.confidence >= 0.80;
 
