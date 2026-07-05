@@ -368,7 +368,7 @@ rafRef.current = requestAnimationFrame(loop);
 
 <Webcam
   ref={webcamRef}
-  mirrored
+  mirrored={false}
   audio={false}
   style={{
     width: "100%",
