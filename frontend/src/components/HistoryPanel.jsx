@@ -122,6 +122,7 @@ export default function HistoryPanel() {
 
   // ── 4. Main Loop ──────────────────────────────────────────────────────────
   const loop = async () => {
+    console.log("LOOP");
     if (!mounted.current) return;
 
     const video = webcamRef.current?.video;
@@ -156,6 +157,7 @@ export default function HistoryPanel() {
 
     // Detect hands
     const result = landmarker.current.detectForVideo(video, performance.now());
+    console.log(result);
 
     // DEBUG: Log what's being detected
     if (result.landmarks && result.landmarks.length > 0) {
@@ -384,7 +386,7 @@ rafRef.current = requestAnimationFrame(loop);
     left: 0,
     width: "100%",
     height: "100%",
-    background: "rgba(255,0,0,0.5)",
+    background: "transparent",
     zIndex: 9999,
   }}
 />
