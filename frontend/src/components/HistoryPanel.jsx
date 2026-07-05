@@ -160,6 +160,18 @@ export default function HistoryPanel() {
     // DEBUG: Log what's being detected
     if (result.landmarks && result.landmarks.length > 0) {
       console.log("🔍 Landmarks detected:", result.landmarks.length);
+      console.log("Number of hands:", result.landmarks.length);
+      console.log("Number of points:", result.landmarks[0].length);
+
+      console.log("First point:", result.landmarks[0][0]);
+
+      console.log("All points:", result.landmarks[0]);
+
+      console.log(
+        "Canvas:",
+        canvas.width,
+        canvas.height
+);
     }
 
     // If no hands detected
@@ -269,6 +281,8 @@ result.landmarks.forEach((hand) => {
   hand.forEach((pt, index) => {
     const x = pt.x * canvas.width;
     const y = pt.y * canvas.height;
+
+    console.log(index, pt.x, pt.y, "=>", x, y);
 
     ctx.beginPath();
     ctx.arc(x, y, 10, 0, Math.PI * 2);
