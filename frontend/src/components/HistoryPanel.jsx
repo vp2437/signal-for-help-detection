@@ -207,51 +207,51 @@ export default function HistoryPanel() {
     let gesture = "Hand Detected";
     let confidence = 0;
 
-    // if (!processing.current) {
-    //   processing.current = true;
-    //   try {
-    //     // Format landmarks properly for the backend
-    //     const landmarksFormatted = result.landmarks[0].map(pt => ({
-    //       x: pt.x,
-    //       y: pt.y,
-    //       z: pt.z
-    //     }));
+    if (!processing.current) {
+      processing.current = true;
+      try {
+        // Format landmarks properly for the backend
+        const landmarksFormatted = result.landmarks[0].map(pt => ({
+          x: pt.x,
+          y: pt.y,
+          z: pt.z
+        }));
         
-    //     const handedness = result.handedness && result.handedness.length > 0 
-    //       ? result.handedness[0][0].categoryName 
-    //       : "Right";
+        const handedness = result.handedness && result.handedness.length > 0 
+          ? result.handedness[0][0].categoryName 
+          : "Right";
 
-    //     console.log("📤 Sending to backend:", {
-    //       landmarks_count: landmarksFormatted.length,
-    //       handedness: handedness
-    //     });
+        console.log("📤 Sending to backend:", {
+          landmarks_count: landmarksFormatted.length,
+          handedness: handedness
+        });
 
-    //     const res = await fetch("https://austinaihub-hackathon-june.onrender.com/predict", {
-    //       method: "POST",
-    //       headers: { "Content-Type": "application/json" },
-    //       body: JSON.stringify({
-    //         landmarks: landmarksFormatted,
-    //         handedness: handedness
-    //       }),
-    //     });
+        const res = await fetch("https://austinaihub-hackathon-june.onrender.com/predict", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            landmarks: landmarksFormatted,
+            handedness: handedness
+          }),
+        });
         
-    //     if (res.ok) {
-    //       const data = await res.json();
-    //       gesture = data.gesture ?? "No Signal";
-    //       confidence = data.confidence ?? 0;
-    //       predictionRef.current = {
-    //         gesture,
-    //         confidence,
-    //       };
-    //       console.log(`✅ ${gesture} · ${Math.round(confidence * 100)}%`);
-    //     } else {
-    //       console.error("❌ Backend error:", res.status, await res.text());
-    //     }
-    //   } catch (err) {
-    //     console.error("❌ Backend fetch error:", err);
-    //   }
-    //   processing.current = false;
-    // }
+        if (res.ok) {
+          const data = await res.json();
+          gesture = data.gesture ?? "No Signal";
+          confidence = data.confidence ?? 0;
+          predictionRef.current = {
+            gesture,
+            confidence,
+          };
+          console.log(`✅ ${gesture} · ${Math.round(confidence * 100)}%`);
+        } else {
+          console.error("❌ Backend error:", res.status, await res.text());
+        }
+      } catch (err) {
+        console.error("❌ Backend fetch error:", err);
+      }
+      processing.current = false;
+    }
     
     predictionRef.current = {
       gesture: "Signal for Help",
