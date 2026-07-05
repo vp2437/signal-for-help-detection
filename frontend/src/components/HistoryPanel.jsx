@@ -253,11 +253,6 @@ export default function HistoryPanel() {
       processing.current = false;
     }
     
-    predictionRef.current = {
-      gesture: "Signal for Help",
-      confidence: 1
-    };
-
     console.log("Prediction:", predictionRef.current);
     console.log("Reached prediction");
 
