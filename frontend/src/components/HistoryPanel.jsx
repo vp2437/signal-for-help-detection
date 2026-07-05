@@ -270,7 +270,10 @@ export default function HistoryPanel() {
       console.log("Called setIsAlert");
     }
 
+    console.log("BEFORE ALERT BLOCK");
+
     if (alert && !alertTriggered.current) {
+      console.log("INSIDE ALERT BLOCK");
       console.log("🚨 ALERT TRIGGERED!");
       alertTriggered.current = true;
       await beep();
