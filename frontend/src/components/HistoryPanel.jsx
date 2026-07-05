@@ -102,6 +102,18 @@ export default function HistoryPanel() {
       canvas.width = video.videoWidth;
       canvas.height = video.videoHeight;
     }
+
+    console.log(
+      "Video:",
+      video.videoWidth,
+      video.videoHeight
+    );
+
+    console.log(
+      "Canvas:",
+      canvas.width,
+      canvas.height
+    );
     
     const ctx = canvas.getContext("2d");
     ctx.translate(canvas.width, 0);
@@ -247,12 +259,15 @@ export default function HistoryPanel() {
     };
 
     console.log("Prediction:", predictionRef.current);
+    console.log("Reached prediction");
 
     const currentGesture = String(predictionRef.current.gesture).toLowerCase();
     const alert = currentGesture.includes("help") && predictionRef.current.confidence >= 0.80;
+    console.log("Alert value:", alert);
 
     if (alert !== isAlert) {
       setIsAlert(alert);
+      console.log("Called setIsAlert");
     }
 
     if (alert && !alertTriggered.current) {
