@@ -281,7 +281,7 @@ ctx.fillText("HAND DETECTED", 20, 40);
 // DRAW ONLY LANDMARK DOTS
 result.landmarks.forEach((hand) => {
   hand.forEach((pt, index) => {
-    const x = pt.x * canvas.width;
+    const x = (1 - pt.x) * canvas.width;
     const y = pt.y * canvas.height;
 
     console.log(index, pt.x, pt.y, "=>", x, y);
@@ -308,12 +308,12 @@ result.landmarks.forEach((hand) => {
 
     ctx.beginPath();
     ctx.moveTo(
-      p1.x * canvas.width,
+      (1 - p1.x) * canvas.width,
       p1.y * canvas.height
     );
 
     ctx.lineTo(
-      p2.x * canvas.width,
+      (1 - p2.x) * canvas.width,
       p2.y * canvas.height
     );
 
