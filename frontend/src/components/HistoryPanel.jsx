@@ -224,8 +224,8 @@ result.landmarks.forEach((hand) => {
     console.log(index, pt.x, pt.y, "=>", x, y);
 
     ctx.beginPath();
-    ctx.arc(x, y, 8, 0, Math.PI * 2);
-    ctx.fillStyle = alert ? "red" : "lime";
+    ctx.arc(x, y, 10, 0, Math.PI * 2);
+    ctx.fillStyle = "lime";
     ctx.fill();
 
     // optional landmark index
@@ -254,7 +254,7 @@ result.landmarks.forEach((hand) => {
       p2.y * canvas.height
     );
 
-    ctx.strokeStyle = alert ? "red" : "lime";
+    ctx.strokeStyle = "red";
     ctx.lineWidth = 4;
     ctx.stroke();
   });
