@@ -266,7 +266,7 @@ console.log("DRAWING LANDMARKS:", result.landmarks[0].length);
     let gesture = "Hand Detected";
     let confidence = 0;
 
-    if (frameCount.current % 5 === 0 && !processing.current) {
+    if (frameCount.current % 2 === 0 && !processing.current) {
 
       processing.current = true;
   
