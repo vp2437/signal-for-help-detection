@@ -403,6 +403,7 @@ rafRef.current = requestAnimationFrame(loop);
     width: "100%",
     height: "100%",
     background: "transparent",
+    pointerEvents:"none",
     zIndex: 9999,
   }}
 />
