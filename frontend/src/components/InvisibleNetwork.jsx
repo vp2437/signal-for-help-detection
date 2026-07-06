@@ -37,35 +37,35 @@ import {
   const hiddenNetwork = {
 
     victim: [
-      { id: "recruiter",  label: "Recruiter",  x: 100,  y: 100,  color: COLORS.pink },
-      { id: "transport",  label: "Transport",  x: 100,  y: 480,  color: COLORS.blue },
-      { id: "employer",   label: "Employer",   x: 900,  y: 100,  color: COLORS.purple },
-      { id: "safehouse",  label: "Safe House", x: 900,  y: 480,  color: COLORS.green },
+      { id: "recruiter",  label: "Recruiter",            x: 100,  y: 100,  color: COLORS.pink },
+      { id: "transport",  label: "Transport",            x: 100,  y: 480,  color: COLORS.blue },
+      { id: "employer",   label: "Employer",             x: 900,  y: 100,  color: COLORS.purple },
+      { id: "safehouse",  label: "Control",        x: 900,  y: 480,  color: COLORS.green },
     ],
   
     recruiter: [
-      { id: "agency",        label: "Agency",        x: -280, y: 0,    color: "#ff6b9f" },
-      { id: "broker",        label: "Broker",        x: -320, y: 200,  color: "#ff6b9f" },
-      { id: "advertisement", label: "Advertisement", x: -180, y: 360,  color: "#ff6b9f" },
-      { id: "job",           label: "Job Offer",     x: -60,  y: -120, color: "#ff6b9f" },
+      { id: "agency",        label: "Recruitment Agency",     x: -280, y: 0,    color: "#ff6b9f" },
+      { id: "broker",        label: "Broker",                 x: -320, y: 200,  color: "#ff6b9f" },
+      { id: "advertisement", label: "Online Advertisement",   x: -180, y: 360,  color: "#ff6b9f" },
+      { id: "job",           label: "Fraudulent Job Offer",   x: -60,  y: -120, color: "#ff6b9f" },
     ],
   
     transport: [
-      { id: "driver",         label: "Driver",         x: -160, y: 560,  color: "#60a5fa" },
-      { id: "route",          label: "Route",          x: -300, y: 420,  color: "#60a5fa" },
-      { id: "intermediaries", label: "Intermediaries", x: -80,  y: 680,  color: "#60a5fa" },
+      { id: "driver",         label: "Driver",            x: -160, y: 560, color: "#60a5fa" },
+      { id: "route",          label: "Transport Route",   x: -300, y: 420, color: "#60a5fa" },
+      { id: "intermediaries", label: "Facilitator",       x: -80,  y: 680, color: "#60a5fa" },
     ],
   
     employer: [
-      { id: "factory",      label: "Factory",         x: 1160, y: -20,  color: "#c084fc" },
-      { id: "labour",       label: "Domestic Labour", x: 1280, y: 180,  color: "#c084fc" },
-      { id: "construction", label: "Construction",    x: 1100, y: 340,  color: "#c084fc" },
+      { id: "factory",      label: "Factory",           x: 1160, y: -20, color: "#c084fc" },
+      { id: "labour",       label: "Domestic Work",     x: 1280, y: 180, color: "#c084fc" },
+      { id: "construction", label: "Construction Site", x: 1100, y: 340, color: "#c084fc" },
     ],
   
     safehouse: [
-      { id: "location",     label: "Location",     x: 1100, y: 580,  color: "#4ade80" },
-      { id: "surveillance", label: "Surveillance", x: 960,  y: 720,  color: "#4ade80" },
-      { id: "housing",      label: "Housing",      x: 740,  y: 640,  color: "#4ade80" },
+      { id: "location",     label: "Document Seizure",       x: 1100, y: 580, color: "#4ade80" },
+      { id: "surveillance", label: "Surveillance",        x: 960,  y: 720, color: "#4ade80" },
+      { id: "housing",      label: "Debt Bondage",  x: 740,  y: 640, color: "#4ade80" },
     ],
   
   };
@@ -198,55 +198,55 @@ import {
       const nodeInfo = {
 
         recruiter:
-          "Recruiters identify and approach vulnerable individuals.",
+          "Recruiters identify, target, and approach vulnerable individuals for exploitation.",
       
         transport:
-          "Transportation moves victims between locations.",
+          "Transport facilitates the movement of victims during trafficking operations.",
       
         employer:
-          "Employers profit from forced labour or exploitation.",
+          "Employers or exploiters profit from forced labour or other forms of exploitation.",
       
         safehouse:
-          "Safe houses conceal victims and limit movement.",
+          "Confinement in controlled locations is used to isolate victims and restrict their freedom of movement.",
       
         agency:
-          "Recruitment agencies can be misused for deceptive promises.",
+          "Fraudulent recruitment agencies may deceive individuals through false employment opportunities.",
       
         broker:
-          "Brokers connect multiple actors within trafficking networks.",
+          "Brokers or facilitators connect multiple actors within trafficking networks.",
       
         advertisement:
-          "Advertisements may be used to lure victims.",
+          "Online or print advertisements may be used to advertise fraudulent employment opportunities.",
       
         job:
-          "Fraudulent job offers are a common recruitment method.",
+          "Fraudulent job offers are a common recruitment method used to deceive victims.",
       
         driver:
-          "Drivers facilitate movement between locations.",
+          "Drivers facilitate the transportation of victims between locations.",
       
         route:
-          "Routes help avoid detection and enforcement.",
+          "Transport routes may be selected to reduce the likelihood of detection.",
       
         intermediaries:
-          "Intermediaries coordinate logistics and movement.",
+          "Facilitators may coordinate logistics, transportation, or communication within trafficking operations.",
       
         factory:
-          "Factories may exploit forced labour.",
+          "Factories and manufacturing settings are documented sectors where forced labour may occur.",
       
         labour:
-          "Domestic labour is a documented exploitation sector.",
+          "Domestic work is a documented sector in which forced labour has been identified.",
       
         construction:
-          "Construction work is another common labour exploitation sector.",
+          "Construction is a documented sector where labour exploitation and forced labour may occur.",
       
         location:
-          "Locations are used to conceal or control victims.",
+          "Identity documents or passports may be confiscated to prevent victims from leaving or seeking assistance.",
       
         surveillance:
-          "Monitoring prevents escape and limits communication.",
+          "Surveillance and monitoring may be used to restrict victims' movement and communication.",
       
         housing:
-          "Housing arrangements can be used to control victims."
+          "Debt bondage is commonly used to control victims by creating financial dependence through real or fabricated debts."
       };
 
       const getColor = (id) => {
@@ -658,6 +658,7 @@ if (node.id === "victim") {
     gap: "8px",
   }}
 >
+{!showIntroPanel && (
   <button
     onClick={resetGraph}
     style={{
@@ -672,6 +673,7 @@ if (node.id === "victim") {
   >
     ↻ Reset View
   </button>
+    )}
   {!showIntroPanel && (
     <div
       title="Expand panels"
