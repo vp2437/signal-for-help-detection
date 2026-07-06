@@ -17,6 +17,7 @@ export default function HistoryPanel() {
   const landmarker = useRef(null);
   const rafRef = useRef(null);
   const processing = useRef(false);
+  const frameCount = useRef(0);
   const mounted = useRef(true);
 
   const predictionRef = useRef({
@@ -169,6 +170,7 @@ export default function HistoryPanel() {
 
     // Detect hands
     const result = landmarker.current.detectForVideo(video, performance.now());
+    frameCount.current++;
     console.log(result);
 
     // DEBUG: Log what's being detected
@@ -203,88 +205,7 @@ export default function HistoryPanel() {
       return;
     }
 
-    // ── 5. Ask backend what gesture this is ──────────────────────────────
-    let gesture = "Hand Detected";
-    let confidence = 0;
-
-    if (!processing.current) {
-      processing.current = true;
-      try {
-        // Format landmarks properly for the backend
-        const landmarksFormatted = result.landmarks[0].map(pt => ({
-          x: pt.x,
-          y: pt.y,
-          z: pt.z
-        }));
-        
-        const handedness = result.handedness && result.handedness.length > 0 
-          ? result.handedness[0][0].categoryName 
-          : "Right";
-
-        console.log("📤 Sending to backend:", {
-          landmarks_count: landmarksFormatted.length,
-          handedness: handedness
-        });
-
-        const res = await fetch("https://austinaihub-hackathon-june.onrender.com/predict", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            landmarks: landmarksFormatted,
-            handedness: handedness
-          }),
-        });
-        
-        if (res.ok) {
-          const data = await res.json();
-          console.log(data);
-          gesture = data.gesture ?? "No Signal";
-          confidence = data.confidence ?? 0;
-          predictionRef.current = {
-            gesture,
-            confidence,
-          };
-          console.log(`✅ ${gesture} · ${Math.round(confidence * 100)}%`);
-        } else {
-          console.error("❌ Backend error:", res.status, await res.text());
-        }
-      } catch (err) {
-        console.error("❌ Backend fetch error:", err);
-      }
-      processing.current = false;
-    }
-    
-    console.log("Prediction:", predictionRef.current);
-    console.log("Reached prediction");
-
-    const currentGesture = String(predictionRef.current.gesture).toLowerCase();
-    const alert = currentGesture.includes("help") && predictionRef.current.confidence >= 0.80;
-    console.log("Alert value:", alert);
-
-    if (alert !== isAlert) {
-      setIsAlert(alert);
-      console.log("Called setIsAlert");
-    }
-
-    console.log("BEFORE ALERT BLOCK");
-
-    if (alert && !alertTriggered.current) {
-      console.log("INSIDE ALERT BLOCK");
-      console.log("🚨 ALERT TRIGGERED!");
-      alertTriggered.current = true;
-      await beep();
-      setTimeout(() => {
-        captureScreenshot();
-      }, 300);
-    }
-
-    if (!alert) {
-      alertTriggered.current = false;
-    }
-
-    const color = alert ? "red" : "lime";
-    
-    // ── 6. Draw every detected hand ────────────────────────────────────────
+        // ── 6. Draw every detected hand ────────────────────────────────────────
     // Apply mirroring for natural view
     // CLEAR ONCE AT START OF FRAME
 ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -341,6 +262,101 @@ result.landmarks.forEach((hand) => {
 
 console.log("DRAWING LANDMARKS:", result.landmarks[0].length);
 
+    // ── 5. Ask backend what gesture this is ──────────────────────────────
+    let gesture = "Hand Detected";
+    let confidence = 0;
+
+    if (frameCount.current % 5 === 0 && !processing.current) {
+
+      processing.current = true;
+  
+      const landmarksFormatted = result.landmarks[0].map(pt => ({
+          x: pt.x,
+          y: pt.y,
+          z: pt.z
+      }));
+  
+      const handedness =
+          result.handedness?.[0]?.[0]?.categoryName ?? "Right";
+  
+      fetch("https://austinaihub-hackathon-june.onrender.com/predict", {
+  
+          method: "POST",
+  
+          headers: {
+              "Content-Type": "application/json"
+          },
+  
+          body: JSON.stringify({
+  
+              landmarks: landmarksFormatted,
+  
+              handedness
+  
+          })
+  
+      })
+  
+      .then(res => res.json())
+  
+      .then(data => {
+  
+          predictionRef.current = {
+  
+              gesture: data.gesture,
+  
+              confidence: data.confidence
+  
+          };
+  
+          console.log("Prediction updated", predictionRef.current);
+  
+      })
+  
+      .catch(err => {
+  
+          console.error(err);
+  
+      })
+  
+      .finally(() => {
+  
+          processing.current = false;
+  
+      });
+  
+  }
+    
+    console.log("Prediction:", predictionRef.current);
+    console.log("Reached prediction");
+
+    const currentGesture = String(predictionRef.current.gesture).toLowerCase();
+    const alert = currentGesture.includes("help") && predictionRef.current.confidence >= 0.80;
+    console.log("Alert value:", alert);
+
+    if (alert !== isAlert) {
+      setIsAlert(alert);
+      console.log("Called setIsAlert");
+    }
+
+    console.log("BEFORE ALERT BLOCK");
+
+    if (alert && !alertTriggered.current) {
+      console.log("INSIDE ALERT BLOCK");
+      console.log("🚨 ALERT TRIGGERED!");
+      alertTriggered.current = true;
+      await beep();
+      setTimeout(() => {
+        captureScreenshot();
+      }, 300);
+    }
+
+    if (!alert) {
+      alertTriggered.current = false;
+    }
+
+    const color = alert ? "red" : "lime";
+
 rafRef.current = requestAnimationFrame(loop);
   };
 
@@ -374,7 +390,7 @@ rafRef.current = requestAnimationFrame(loop);
             position: "absolute",
             top: 10,
             right: 10,
-            zIndex: 10,
+            zIndex: 10000,
             padding: "10px 16px",
           }}
         >
