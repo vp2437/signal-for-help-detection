@@ -171,6 +171,8 @@ export default function HistoryPanel() {
     // Detect hands
     const result = landmarker.current.detectForVideo(video, performance.now());
     frameCount.current++;
+    const currentGesture = String(predictionRef.current.gesture).toLowerCase();
+    const alert = currentGesture.includes("help") && predictionRef.current.confidence >= 0.80;
     console.log(result);
 
     // DEBUG: Log what's being detected
@@ -210,11 +212,6 @@ export default function HistoryPanel() {
     // CLEAR ONCE AT START OF FRAME
 ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-// SIMPLE TEST TEXT
-ctx.fillStyle = "white";
-ctx.font = "30px Arial";
-ctx.fillText("HAND DETECTED", 20, 40);
-
 // DRAW ONLY LANDMARK DOTS
 result.landmarks.forEach((hand) => {
   hand.forEach((pt, index) => {
@@ -225,13 +222,8 @@ result.landmarks.forEach((hand) => {
 
     ctx.beginPath();
     ctx.arc(x, y, 10, 0, Math.PI * 2);
-    ctx.fillStyle = "lime";
+    ctx.fillStyle = alert ? "#ff3b30" : "#00ff66";
     ctx.fill();
-
-    // optional landmark index
-    ctx.fillStyle = "white";
-    ctx.font = "12px Arial";
-    ctx.fillText(index.toString(), x + 10, y);
   });
 });
 
@@ -254,13 +246,28 @@ result.landmarks.forEach((hand) => {
       p2.y * canvas.height
     );
 
-    ctx.strokeStyle = "red";
+    ctx.strokeStyle = alert ? "#ff3b30" : "#00ff66";
     ctx.lineWidth = 4;
     ctx.stroke();
   });
 });
 
 console.log("DRAWING LANDMARKS:", result.landmarks[0].length);
+
+ctx.save();
+
+ctx.font = "28px Arial";
+ctx.textAlign = "left";
+ctx.textBaseline = "top";
+ctx.fillStyle = alert ? "#ff3b30" : "#00ff66";
+
+ctx.fillText(
+    alert ? "SIGNAL DETECTED" : "HAND DETECTED",
+    20,
+    20
+);
+
+ctx.restore();
 
     // ── 5. Ask backend what gesture this is ──────────────────────────────
     let gesture = "Hand Detected";
@@ -330,8 +337,6 @@ console.log("DRAWING LANDMARKS:", result.landmarks[0].length);
     console.log("Prediction:", predictionRef.current);
     console.log("Reached prediction");
 
-    const currentGesture = String(predictionRef.current.gesture).toLowerCase();
-    const alert = currentGesture.includes("help") && predictionRef.current.confidence >= 0.80;
     console.log("Alert value:", alert);
 
     if (alert !== isAlert) {
