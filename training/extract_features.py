@@ -25,10 +25,11 @@ DATASET="dataset"
 
 for label in os.listdir(DATASET):
 
-    folder=os.path.join(
-        DATASET,
-        label
-    )
+    folder = os.path.join(DATASET, label)
+
+    # Skip hidden files and anything that isn't a folder
+    if not os.path.isdir(folder):
+        continue
 
     for file in os.listdir(folder):
 
