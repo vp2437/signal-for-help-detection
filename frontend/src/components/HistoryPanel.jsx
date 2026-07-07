@@ -39,7 +39,7 @@ export default function HistoryPanel() {
       try {
         console.log("🔄 Loading Hand Landmarker...");
         const vision = await FilesetResolver.forVisionTasks(
-          "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.22/wasm"
+          "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.35/wasm"
         );
         
         landmarker.current = await HandLandmarker.createFromOptions(vision, {

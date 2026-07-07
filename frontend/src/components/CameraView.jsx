@@ -33,7 +33,7 @@ export default function DetectionCard() {
 
     (async () => {
       const vision = await FilesetResolver.forVisionTasks(
-        "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@latest/wasm"
+        "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.35/wasm"
       );
       landmarker.current = await HandLandmarker.createFromOptions(vision, {
         baseOptions: { modelAssetPath: "/hand_landmarker.task" },
