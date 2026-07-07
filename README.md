@@ -10,28 +10,26 @@ Built for the Austin AI Hub Hackathon.
 
 ## Features
 
-- Real-time hand tracking with MediaPipe  
-- AI-powered detection of the Signal for Help gesture used in human trafficking contexts  
-- Visual alert overlay  
-- Audio alert when the gesture is detected  
-- Automatic screenshot capture and storage in a database  
-- Detection history dashboard backed by database storage  
-- Left and right hand support  
-- Confidence filtering to reduce false positives  
-- Multi-frame confirmation to improve detection reliability  
-- Interactive network exploration using React Flow  
-- Multi-stage visualization revealing increasingly complex trafficking structures  
-- Dynamic node and edge expansion to expose hidden connections  
-- AI-generated explanations for relationships between network actors  
-- Real-time relationship analysis powered by a Hugging Face language model  
+- Real-time hand tracking using MediaPipe Hand Landmarker
+- AI-powered detection of the internationally recognised Signal for Help gesture
+- Left and right hand support through landmark normalization
+- Confidence thresholding and multi-frame confirmation to reduce false positives
+- Real-time visual feedback with dynamic gesture overlays
+- Audio alert when a gesture is confirmed
+- Automatic screenshot capture with Cloudinary image storage
+- Detection history dashboard backed by Supabase
+- Interactive trafficking network exploration using React Flow
+- Progressive node expansion revealing increasingly complex trafficking structures
+- AI-generated relationship explanations powered by a Hugging Face language model
+- Responsive React frontend with FastAPI backend
 
 ---
 
 ## Project Goal
 
-Human trafficking remains difficult to detect because victims often cannot safely ask for help and the structures behind exploitation are rarely visible to the public.
+Victims of human trafficking and abuse often cannot safely ask for help, while the networks behind exploitation remain largely hidden from public view.
 
-This project addresses both challenges by combining real time gesture detection with an AI driven system that transforms a single Signal for Help event into an exploratory view of possible trafficking ecosystems.
+This project combines computer vision, machine learning, and AI-assisted visualization to address both challenges. It detects the internationally recognised Signal for Help gesture in real time and transforms each confirmed detection into an interactive exploration of possible trafficking networks.
 
 ---
 
@@ -47,7 +45,9 @@ This project addresses both challenges by combining real time gesture detection 
 - FastAPI
 - Scikit-learn
 - NumPy
+- Pandas
 - Joblib
+- Uvicorn
 
 ### AI Model
 - MediaPipe Hand Landmarker
@@ -56,9 +56,10 @@ This project addresses both challenges by combining real time gesture detection 
 - Confidence thresholding
 
 ### Data and Visualization
-- React Flow for interactive graph visualization of human trafficking networks  
-- AI-generated explanations of relationships between entities in trafficking systems  
-- LLM-based analysis of connections between actors such as recruiters, transporters, and exploiters  
+
+- React Flow for interactive graph visualization
+- Hugging Face Inference API for AI-generated relationship explanations
+- Cloud database for detection history 
 
 ---
 
@@ -131,6 +132,12 @@ Install the dependencies.
 pip install -r requirements.txt
 ```
 
+Create a `.env` file inside the `backend` directory containing your Hugging Face API token.
+
+```env
+HF_TOKEN=your_huggingface_api_key
+```
+
 Start the backend.
 
 ```bash
@@ -166,13 +173,18 @@ http://localhost:5173
 
 ## Deployment
 
-### Backend
-
-Hosted on Render.
-
 ### Frontend
 
-Built with React and Vite.
+The frontend is deployed using **Vercel**, serving the React + Vite application.
+
+### Backend
+
+The FastAPI backend is deployed on **Render**, exposing REST API endpoints for gesture prediction, screenshot uploads, history retrieval, and AI-generated network explanations.
+
+### Database & Storage
+
+- **Supabase** stores detection history, timestamps, confidence scores, and image URLs.
+- **Cloudinary** stores captured alert screenshots and serves them through secure cloud-hosted URLs.
 
 ---
 
@@ -182,7 +194,7 @@ Built with React and Vite.
 2. MediaPipe detects hand landmarks.
 3. Landmarks are normalized into feature vectors.
 4. The backend predicts whether the gesture is the Signal for Help.
-5. A confidence threshold and temporal validation ensure stable detection across multiple frames.
+5. Confidence thresholding and multi-frame validation reduce false positives before confirming a gesture.
 6. When confirmed, the system triggers an audio alert, captures a screenshot, and stores the event in the database.
 7. Each detection becomes a logged event accessible in the history dashboard.
 8. The same event can initiate an AI-assisted exploration of related trafficking networks, generating and expanding connections between relevant actors to support understanding of possible exploitation structures.
@@ -191,13 +203,15 @@ Built with React and Vite.
 
 ## Model Training
 
-The training pipeline consists of:
+The machine learning pipeline consists of:
 
-1. Collecting a publicly available dataset of Signal for Help and non-signal hand poses.
-2. Extracting 21 hand landmarks using MediaPipe.
-3. Normalizing landmarks into feature vectors.
-4. Training a Random Forest classifier with Scikit-learn.
-5. Saving the trained model for inference in the FastAPI backend.
+1. Collecting a publicly available Signal for Help dataset.
+2. Expanding the dataset with over **600 custom No Signal gesture images** covering common hand poses such as thumbs-up, pointing, and other variations.
+3. Extracting 21 hand landmarks from each image using the MediaPipe Hand Landmarker.
+4. Normalizing landmarks relative to the wrist and hand scale to improve invariance across different hand sizes and orientations.
+5. Training a Random Forest classifier using Scikit-learn.
+6. Performing hyperparameter optimisation with GridSearchCV and evaluating performance using 5-fold cross-validation.
+7. Saving the trained model for inference within the FastAPI backend.
 
 ---
 
@@ -215,9 +229,22 @@ Rather than presenting isolated data points, the system reframes each detection 
 
 The machine learning model was trained using the **SFH Dataset**, a publicly available dataset containing images of the **Signal for Help** gesture and **No Signal** hand poses.
 
-During training, each image is processed using the MediaPipe Hand Landmarker to extract 21 hand landmarks. These landmarks are normalized and used as input features for the Random Forest classifier.
+To improve robustness and reduce false positives, the dataset was expanded with **over 600 additional custom No Signal images** featuring diverse hand poses including thumbs-up, pointing, crossed fingers, and other gestures commonly mistaken for the Signal for Help.
+
+Each image is processed using the MediaPipe Hand Landmarker to extract 21 hand landmarks, which are normalized and used as feature vectors for training the Random Forest classifier.
 
 **Dataset:** [SFH Dataset on Kaggle](https://www.kaggle.com/datasets/umairshafique/sfh-dataset)
+
+---
+
+## Model Performance
+
+The final Random Forest classifier achieved:
+
+- **96.35% Test Accuracy**
+- **96.21% Cross-Validation Accuracy**
+- **97% Precision** for Signal for Help detection
+- Confidence thresholding and multi-frame validation further reduced false positives during real-time inference.
 
 ---
 
@@ -240,7 +267,7 @@ During training, each image is processed using the MediaPipe Hand Landmarker to 
 ## Future Improvements
 
 - Improve feature engineering using joint angles and finger distances
-- Reduce false positives futher
+- Further improve robustness against visually similar gestures using larger and more diverse datasets
 - Add temporal deep learning models for gesture recognition
 - Expand mobile support
 - Multiple hand detection
@@ -252,6 +279,6 @@ During training, each image is processed using the MediaPipe Hand Landmarker to 
 
 The Signal for Help gesture was created as a discreet way for individuals experiencing abuse or coercion to request assistance safely.
 
-While detecting the gesture is important, understanding what it may represent in context is equally critical.
+While recognising the gesture is important, understanding the wider context in which it may occur is equally valuable for education and awareness.
 
 This project combines real time AI gesture recognition with interactive network visualization to improve awareness of trafficking systems, support early understanding, and make hidden patterns of exploitation more visible.
