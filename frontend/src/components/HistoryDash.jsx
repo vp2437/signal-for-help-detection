@@ -156,27 +156,39 @@ import {
     />
     
     <p
-    style={{
-    color:"white"
-    }}
-    >
-    🕒 {new Date(item.created_at).toLocaleString()}
-    </p>
-    
-    <p
-    style={{
-    color:"white"
-    }}
-    >
-    {/* 🎯 {(item.confidence * 100).toFixed(1)}% */}
-    </p>
-    
-    <div
-    style={{
-    display:"flex",
-    gap:10,
-    }}
-    >
+  style={{
+    color: "white",
+    margin: 0,
+  }}
+>
+  📅{" "}
+  {new Date(item.created_at).toLocaleDateString([], {
+    day: "numeric",
+    month: "short",
+    year: "numeric",
+  })}
+</p>
+
+<p
+  style={{
+    color: "white",
+    margin: "4px 0 0 0",
+  }}
+>
+  🕒{" "}
+  {new Date(item.created_at).toLocaleTimeString([], {
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+  })}
+</p>
+
+<div
+  style={{
+    display: "flex",
+    gap: 10,
+  }}
+>
     
     <button
     onClick={() =>
