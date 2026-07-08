@@ -163,7 +163,7 @@ import {
         marginBottom: 12,
         textAlign: "center",
         color: "#b8b8b8",
-        fontSize: 16,
+        fontSize: 20,
         fontWeight: 500,
       }}
     >
@@ -197,7 +197,7 @@ import {
           border: "1px solid rgba(255,255,255,0.12)",
           background: "#1b1b1b",
           color: "#d9d9d9",
-          fontSize: 16,
+          fontSize: 18,
           fontWeight: 500,
           cursor: "pointer",
           minWidth: 100,
@@ -221,7 +221,7 @@ import {
           border: "1px solid rgba(255,255,255,0.12)",
           background: "#1b1b1b",
           color: "#d9d9d9",
-          fontSize: 16,
+          fontSize: 18,
           fontWeight: 500,
           cursor: "pointer",
           minWidth: 100,
