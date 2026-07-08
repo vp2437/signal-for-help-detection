@@ -223,36 +223,38 @@ import {
         marginTop: 6,
       }}
     >
-      {/* Updated Download Button */}
+      {/* Updated Download Button (Bordered Blue Style) */}
       <button
         onClick={() => downloadImage(item.image_url, item.id)}
         style={{
-          padding: "6px 14px",
+          padding: "8px 18px",
           borderRadius: 8,
-          border: "none",
-          background: "#2663ec",
-          color: "#ffffff",
+          border: "1px solid rgba(38, 99, 236, 0.4)",
+          background: "rgba(38, 99, 236, 0.06)",
+          color: "#2663ec",
           fontSize: 16,
           fontWeight: 500,
           cursor: "pointer",
-          minWidth: 90,
-          transition: "0.2s ease",
+          minWidth: 100,
+          transition: "all 0.2s ease",
         }}
         onMouseEnter={(e) => {
-          e.target.style.background = "#1d52d4";
+          e.target.style.background = "rgba(38, 99, 236, 0.15)";
+          e.target.style.borderColor = "rgba(38, 99, 236, 0.6)";
         }}
         onMouseLeave={(e) => {
-          e.target.style.background = "#2663ec";
+          e.target.style.background = "rgba(38, 99, 236, 0.06)";
+          e.target.style.borderColor = "rgba(38, 99, 236, 0.4)";
         }}
       >
         Download
       </button>
 
-      {/* Updated Delete Button */}
+      {/* Updated Delete Button (Bordered Red Style) */}
       <button
         onClick={() => remove(item.id)}
         style={{
-          padding: "6px 14px",
+          padding: "8px 18px",
           borderRadius: 8,
           border: "1px solid rgba(239, 68, 68, 0.4)",
           background: "rgba(239, 68, 68, 0.06)",
@@ -260,8 +262,8 @@ import {
           fontSize: 16,
           fontWeight: 500,
           cursor: "pointer",
-          minWidth: 90,
-          transition: "0.2s ease",
+          minWidth: 100,
+          transition: "all 0.2s ease",
         }}
         onMouseEnter={(e) => {
           e.target.style.background = "rgba(239, 68, 68, 0.15)";
