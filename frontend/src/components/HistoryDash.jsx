@@ -141,6 +141,8 @@ import {
     background:"#111",
     padding:16,
     borderRadius:12,
+    border: "1px solid rgba(255,255,255,0.06)",
+    boxShadow: "0 4px 12px rgba(0,0,0,0.2)",
     }}
     >
     
@@ -158,10 +160,10 @@ import {
     <div
       style={{
         marginTop: 12,
-        marginBottom: 12,
+        marginBottom: 18,
         textAlign: "center",
         color: "#b8b8b8",
-        fontSize: 14,
+        fontSize: 13,
         fontWeight: 500,
       }}
     >
@@ -182,20 +184,30 @@ import {
       style={{
         display: "flex",
         justifyContent: "center",
-        gap: 10,
+        alignItems: "center",
+        gap: 18,
+        marginTop: 6,
       }}
     >
       <button
         onClick={() => downloadImage(item.image_url, item.id)}
         style={{
-          padding: "8px 16px",
+          padding: "8px 18px",
           borderRadius: 8,
-          border: "1px solid #3b3b3b",
-          background: "#181818",
-          color: "#d8d8d8",
-          cursor: "pointer",
+          border: "1px solid rgba(255,255,255,0.12)",
+          background: "#1b1b1b",
+          color: "#d9d9d9",
           fontSize: 13,
-          transition: "0.2s",
+          fontWeight: 500,
+          cursor: "pointer",
+          minWidth: 100,
+          transition: "all 0.2s ease",
+        }}
+        onMouseEnter={(e) => {
+          e.target.style.background = "#242424";
+        }}
+        onMouseLeave={(e) => {
+          e.target.style.background = "#1b1b1b";
         }}
       >
         Download
@@ -204,20 +216,28 @@ import {
       <button
         onClick={() => remove(item.id)}
         style={{
-          padding: "8px 16px",
+          padding: "8px 18px",
           borderRadius: 8,
-          border: "1px solid #3b3b3b",
-          background: "#181818",
-          color: "#d8d8d8",
-          cursor: "pointer",
+          border: "1px solid rgba(255,255,255,0.12)",
+          background: "#1b1b1b",
+          color: "#d9d9d9",
           fontSize: 13,
-          transition: "0.2s",
+          fontWeight: 500,
+          cursor: "pointer",
+          minWidth: 100,
+          transition: "all 0.2s ease",
+        }}
+        onMouseEnter={(e) => {
+          e.target.style.background = "#242424";
+        }}
+        onMouseLeave={(e) => {
+          e.target.style.background = "#1b1b1b";
         }}
       >
         Delete
       </button>
-    </div>
-    
+    </div>    
+
     </div>
     
     )
