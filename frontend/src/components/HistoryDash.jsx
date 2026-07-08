@@ -189,14 +189,15 @@ import {
         marginTop: 6,
       }}
     >
+      {/* Updated Download Button */}
       <button
         onClick={() => downloadImage(item.image_url, item.id)}
         style={{
           padding: "8px 18px",
           borderRadius: 8,
-          border: "1px solid rgba(255,255,255,0.12)",
-          background: "#1b1b1b",
-          color: "#d9d9d9",
+          border: "none",
+          background: "#2663ec",
+          color: "#ffffff",
           fontSize: 16,
           fontWeight: 500,
           cursor: "pointer",
@@ -204,23 +205,24 @@ import {
           transition: "all 0.2s ease",
         }}
         onMouseEnter={(e) => {
-          e.target.style.background = "#242424";
+          e.target.style.background = "#1d52d4";
         }}
         onMouseLeave={(e) => {
-          e.target.style.background = "#1b1b1b";
+          e.target.style.background = "#2663ec";
         }}
       >
         Download
       </button>
 
+      {/* Updated Delete Button */}
       <button
         onClick={() => remove(item.id)}
         style={{
           padding: "8px 18px",
           borderRadius: 8,
-          border: "1px solid rgba(255,255,255,0.12)",
-          background: "#1b1b1b",
-          color: "#d9d9d9",
+          border: "1px solid rgba(239, 68, 68, 0.4)",
+          background: "rgba(239, 68, 68, 0.06)",
+          color: "#ef4444",
           fontSize: 16,
           fontWeight: 500,
           cursor: "pointer",
@@ -228,15 +230,17 @@ import {
           transition: "all 0.2s ease",
         }}
         onMouseEnter={(e) => {
-          e.target.style.background = "#242424";
+          e.target.style.background = "rgba(239, 68, 68, 0.15)";
+          e.target.style.borderColor = "rgba(239, 68, 68, 0.6)";
         }}
         onMouseLeave={(e) => {
-          e.target.style.background = "#1b1b1b";
+          e.target.style.background = "rgba(239, 68, 68, 0.06)";
+          e.target.style.borderColor = "rgba(239, 68, 68, 0.4)";
         }}
       >
         Delete
       </button>
-    </div>    
+    </div>
 
     </div>
     
