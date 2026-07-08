@@ -160,10 +160,10 @@ import {
     <div
       style={{
         marginTop: 12,
-        marginBottom: 18,
+        marginBottom: 14,
         textAlign: "center",
         color: "#b8b8b8",
-        fontSize: 13,
+        fontSize: 15,
         fontWeight: 500,
       }}
     >
@@ -197,7 +197,7 @@ import {
           border: "1px solid rgba(255,255,255,0.12)",
           background: "#1b1b1b",
           color: "#d9d9d9",
-          fontSize: 13,
+          fontSize: 14,
           fontWeight: 500,
           cursor: "pointer",
           minWidth: 100,
@@ -221,7 +221,7 @@ import {
           border: "1px solid rgba(255,255,255,0.12)",
           background: "#1b1b1b",
           color: "#d9d9d9",
-          fontSize: 13,
+          fontSize: 14,
           fontWeight: 500,
           cursor: "pointer",
           minWidth: 100,
