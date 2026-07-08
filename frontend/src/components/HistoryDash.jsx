@@ -227,12 +227,12 @@ import {
       <button
         onClick={() => downloadImage(item.image_url, item.id)}
         style={{
-          padding: "8px 18px",
+          padding: "6px 14px",
           borderRadius: 8,
           border: "2px solid rgba(38, 99, 236, 0.4)",
           background: "rgba(38, 99, 236, 0.06)",
           color: "#2663ec",
-          fontSize: 16,
+          fontSize: 14,
           fontWeight: 600,
           cursor: "pointer",
           minWidth: 100,
@@ -254,12 +254,12 @@ import {
       <button
         onClick={() => remove(item.id)}
         style={{
-          padding: "8px 18px",
+          padding: "6px 14px",
           borderRadius: 8,
           border: "2px solid rgba(239, 68, 68, 0.4)",
           background: "rgba(239, 68, 68, 0.06)",
           color: "#ef4444",
-          fontSize: 16,
+          fontSize: 14,
           fontWeight: 600,
           cursor: "pointer",
           minWidth: 100,
