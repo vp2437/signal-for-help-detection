@@ -311,7 +311,7 @@ ctx.restore();
       .then(data => {
 
           if (
-              data.gesture === "2. Signal for Help" &&
+              data.gesture === "Signal for Help" &&
               data.confidence >= 0.50
           ) {
 
@@ -328,7 +328,7 @@ ctx.restore();
               gesture:
                   signalFrames.current >= REQUIRED_FRAMES
                       ? data.gesture
-                      : "1. No Signal",
+                      : "No Signal",
 
               confidence:
                   signalFrames.current >= REQUIRED_FRAMES
