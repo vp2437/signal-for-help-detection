@@ -19,6 +19,8 @@ export default function HistoryPanel() {
   const processing = useRef(false);
   const frameCount = useRef(0);
   const mounted = useRef(true);
+  const signalFrames = useRef(0);
+  const REQUIRED_FRAMES = 5; 
 
   const predictionRef = useRef({
     gesture: "No Signal",
@@ -307,17 +309,44 @@ ctx.restore();
       .then(res => res.json())
   
       .then(data => {
-  
+
+          if (
+              data.gesture === "2. Signal for Help" &&
+              data.confidence >= 0.60
+          ) {
+
+              signalFrames.current++;
+
+          } else {
+
+              signalFrames.current = 0;
+
+          }
+
           predictionRef.current = {
-  
-              gesture: data.gesture,
-  
-              confidence: data.confidence
-  
+
+              gesture:
+                  signalFrames.current >= REQUIRED_FRAMES
+                      ? data.gesture
+                      : "1. No Signal",
+
+              confidence:
+                  signalFrames.current >= REQUIRED_FRAMES
+                      ? data.confidence
+                      : 0
+
           };
-  
-          console.log("Prediction updated", predictionRef.current);
-  
+
+          console.log(
+              "SOH Frames:",
+              signalFrames.current
+          );
+
+          console.log(
+              "Prediction updated",
+              predictionRef.current
+          );
+
       })
   
       .catch(err => {
