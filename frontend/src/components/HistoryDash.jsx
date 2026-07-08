@@ -142,7 +142,7 @@ import {
     padding:16,
     borderRadius:12,
     border: "1px solid rgba(255,255,255,0.06)",
-    boxShadow: "0 4px 12px rgba(0,0,0,0.2)",
+    boxShadow: "0 0 12px rgba(59,130,246,0.08)",
     }}
     >
     
@@ -157,13 +157,15 @@ import {
     }}
     />
     
-    <div
+    {/* <div
       style={{
-        marginTop: 12,
-        marginBottom: 12,
-        textAlign: "center",
-        color: "#b8b8b8",
-        fontSize: 16,
+        margin: "14px auto 18px",
+        display: "inline-block",
+        padding: "5px 12px",
+        borderRadius: 18,
+        background: "rgba(70, 90, 120, 0.18)",
+        color: "#93c5fd",
+        fontSize: 13,
         fontWeight: 500,
       }}
     >
@@ -178,6 +180,38 @@ import {
         hour: "2-digit",
         minute: "2-digit",
       })}
+    </div> */}
+
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        marginTop: 14,
+        marginBottom: 18,
+      }}
+    >
+      <div
+        style={{
+          padding: "5px 12px",
+          borderRadius: 18,
+          background: "rgba(96, 165, 250, 0.12)",
+          color: "#bfdbfe",
+          fontSize: 13,
+          fontWeight: 500,
+        }}
+      >
+        🕒{" "}
+        {new Date(item.created_at).toLocaleDateString([], {
+          day: "numeric",
+          month: "short",
+          year: "numeric",
+        })}
+        {" • "}
+        {new Date(item.created_at).toLocaleTimeString([], {
+          hour: "2-digit",
+          minute: "2-digit",
+        })}
+      </div>
     </div>
 
     <div
@@ -193,7 +227,7 @@ import {
       <button
         onClick={() => downloadImage(item.image_url, item.id)}
         style={{
-          padding: "8px 18px",
+          padding: "6px 14px",
           borderRadius: 8,
           border: "none",
           background: "#2663ec",
@@ -201,8 +235,8 @@ import {
           fontSize: 16,
           fontWeight: 500,
           cursor: "pointer",
-          minWidth: 100,
-          transition: "all 0.2s ease",
+          minWidth: 90,
+          transition: "0.2s ease",
         }}
         onMouseEnter={(e) => {
           e.target.style.background = "#1d52d4";
@@ -218,7 +252,7 @@ import {
       <button
         onClick={() => remove(item.id)}
         style={{
-          padding: "8px 18px",
+          padding: "6px 14px",
           borderRadius: 8,
           border: "1px solid rgba(239, 68, 68, 0.4)",
           background: "rgba(239, 68, 68, 0.06)",
@@ -226,8 +260,8 @@ import {
           fontSize: 16,
           fontWeight: 500,
           cursor: "pointer",
-          minWidth: 100,
-          transition: "all 0.2s ease",
+          minWidth: 90,
+          transition: "0.2s ease",
         }}
         onMouseEnter={(e) => {
           e.target.style.background = "rgba(239, 68, 68, 0.15)";
