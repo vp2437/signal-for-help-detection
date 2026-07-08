@@ -198,7 +198,7 @@ import {
           transition: "0.2s",
         }}
       >
-        ⬇ Download
+        ⬇ 
       </button>
 
       <button
@@ -214,7 +214,7 @@ import {
           transition: "0.2s",
         }}
       >
-        🗑 Delete
+        🗑 
       </button>
     </div>
     
