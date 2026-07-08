@@ -165,22 +165,6 @@ import {
         fontWeight: 500,
       }}
     >
-      <button
-        onClick={() => downloadImage(item.image_url, item.id)}
-        style={{
-          padding: "8px 16px",
-          borderRadius: 8,
-          border: "1px solid #3b3b3b",
-          background: "#181818",
-          color: "#d8d8d8",
-          cursor: "pointer",
-          fontSize: 13,
-          transition: "0.2s",
-        }}
-      >
-        ⬇ 
-      </button>
-
       🕒{" "}
       {new Date(item.created_at).toLocaleDateString([], {
         day: "numeric",
@@ -192,27 +176,9 @@ import {
         hour: "2-digit",
         minute: "2-digit",
       })}
-
-      <button
-        onClick={() => remove(item.id)}
-        style={{
-          padding: "8px 16px",
-          borderRadius: 8,
-          border: "1px solid #3b3b3b",
-          background: "#181818",
-          color: "#d8d8d8",
-          cursor: "pointer",
-          fontSize: 13,
-          transition: "0.2s",
-        }}
-      >
-        🗑 
-      </button>
-
     </div>
 
-
-    {/* <div
+    <div
       style={{
         display: "flex",
         justifyContent: "center",
@@ -232,7 +198,7 @@ import {
           transition: "0.2s",
         }}
       >
-        ⬇ 
+        Download
       </button>
 
       <button
@@ -248,9 +214,9 @@ import {
           transition: "0.2s",
         }}
       >
-        🗑 
+        Delete
       </button>
-    </div> */}
+    </div>
     
     </div>
     
