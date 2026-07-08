@@ -155,6 +155,16 @@ import {
     }}
     />
     
+    <div
+      style={{
+        marginTop: 12,
+        marginBottom: 12,
+        textAlign: "center",
+        color: "#b8b8b8",
+        fontSize: 14,
+        fontWeight: 500,
+      }}
+    >
       <button
         onClick={() => downloadImage(item.image_url, item.id)}
         style={{
@@ -171,16 +181,6 @@ import {
         ⬇ 
       </button>
 
-    <div
-      style={{
-        marginTop: 12,
-        marginBottom: 12,
-        textAlign: "center",
-        color: "#b8b8b8",
-        fontSize: 14,
-        fontWeight: 500,
-      }}
-    >
       🕒{" "}
       {new Date(item.created_at).toLocaleDateString([], {
         day: "numeric",
@@ -192,7 +192,6 @@ import {
         hour: "2-digit",
         minute: "2-digit",
       })}
-    </div>
 
       <button
         onClick={() => remove(item.id)}
@@ -209,6 +208,9 @@ import {
       >
         🗑 
       </button>
+
+    </div>
+
 
     {/* <div
       style={{
