@@ -20,7 +20,7 @@ export default function HistoryPanel() {
   const frameCount = useRef(0);
   const mounted = useRef(true);
   const signalFrames = useRef(0);
-  const REQUIRED_FRAMES = 3; 
+  const REQUIRED_FRAMES = 2; 
 
   const predictionRef = useRef({
     gesture: "No Signal",
