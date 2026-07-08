@@ -157,7 +157,7 @@ import {
     }}
     />
     
-    <div
+    {/* <div
       style={{
         margin: "14px auto 18px",
         display: "inline-block",
@@ -180,6 +180,38 @@ import {
         hour: "2-digit",
         minute: "2-digit",
       })}
+    </div> */}
+
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        marginTop: 14,
+        marginBottom: 18,
+      }}
+    >
+      <div
+        style={{
+          padding: "5px 12px",
+          borderRadius: 18,
+          background: "rgba(96, 165, 250, 0.12)",
+          color: "#bfdbfe",
+          fontSize: 13,
+          fontWeight: 500,
+        }}
+      >
+        🕒{" "}
+        {new Date(item.created_at).toLocaleDateString([], {
+          day: "numeric",
+          month: "short",
+          year: "numeric",
+        })}
+        {" • "}
+        {new Date(item.created_at).toLocaleTimeString([], {
+          hour: "2-digit",
+          minute: "2-digit",
+        })}
+      </div>
     </div>
 
     <div
@@ -196,20 +228,20 @@ import {
         style={{
           padding: "6px 14px",
           borderRadius: 8,
-          border: "1px solid #3d5a80",
-          background: "#2d4059",
-          color: "#e5e7eb",
+          border: "1px solid #60a5fa",
+          background: "#3b82f6",
+          color: "white",
           fontSize: 14,
           fontWeight: 500,
           cursor: "pointer",
           minWidth: 90,
-          transition: "all 0.2s ease",
+          transition: "0.2s ease",
         }}
         onMouseEnter={(e) => {
-          e.target.style.background = "#3a506b";
+          e.target.style.background = "#4f8ff7";
         }}
         onMouseLeave={(e) => {
-          e.target.style.background = "#2d4059";
+          e.target.style.background = "#3b82f6";
         }}
       >
         Download
@@ -220,20 +252,20 @@ import {
         style={{
           padding: "6px 14px",
           borderRadius: 8,
-          border: "1px solid #7f4b4b",
-          background: "#5a3d3d",
-          color: "#e5e7eb",
+          border: "1px solid #f87171",
+          background: "#ef4444",
+          color: "white",
           fontSize: 14,
           fontWeight: 500,
           cursor: "pointer",
           minWidth: 90,
-          transition: "all 0.2s ease",
+          transition: "0.2s ease",
         }}
         onMouseEnter={(e) => {
-          e.target.style.background = "#6a4747";
+          e.target.style.background = "#f05d5d";
         }}
         onMouseLeave={(e) => {
-          e.target.style.background = "#5a3d3d";
+          e.target.style.background = "#ef4444";
         }}
       >
         Delete
