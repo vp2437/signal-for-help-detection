@@ -155,33 +155,41 @@ import {
     }}
     />
     
-    <p
+<div
   style={{
-    color: "white",
-    margin: 0,
+    marginTop: 12,
+    marginBottom: 8,
+    textAlign: "center",
   }}
 >
-  📅{" "}
-  {new Date(item.created_at).toLocaleDateString([], {
-    day: "numeric",
-    month: "short",
-    year: "numeric",
-  })}
-</p>
+  <p
+    style={{
+      color: "white",
+      margin: 0,
+    }}
+  >
+    📅{" "}
+    {new Date(item.created_at).toLocaleDateString([], {
+      day: "numeric",
+      month: "short",
+      year: "numeric",
+    })}
+  </p>
 
-<p
-  style={{
-    color: "white",
-    margin: "4px 0 0 0",
-  }}
->
-  🕒{" "}
-  {new Date(item.created_at).toLocaleTimeString([], {
-    hour: "2-digit",
-    minute: "2-digit",
-    second: "2-digit",
-  })}
-</p>
+  <p
+    style={{
+      color: "white",
+      margin: "4px 0 0 0",
+    }}
+  >
+    🕒{" "}
+    {new Date(item.created_at).toLocaleTimeString([], {
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
+    })}
+  </p>
+</div>
 
 <div
   style={{
