@@ -142,7 +142,7 @@ import {
     padding:16,
     borderRadius:12,
     border: "1px solid rgba(255,255,255,0.06)",
-    boxShadow: "0 4px 12px rgba(0,0,0,0.2)",
+    boxShadow:"0 0 18px rgba(59,130,246,0.12)",
     }}
     >
     
@@ -159,11 +159,13 @@ import {
     
     <div
       style={{
-        marginTop: 12,
-        marginBottom: 12,
-        textAlign: "center",
-        color: "#b8b8b8",
-        fontSize: 20,
+        margin: "14px auto 18px",
+        display: "inline-block",
+        padding: "6px 14px",
+        borderRadius: 20,
+        background: "rgba(37,99,235,0.12)",
+        color: "#93c5fd",
+        fontSize: 14,
         fontWeight: 500,
       }}
     >
