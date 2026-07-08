@@ -319,7 +319,10 @@ ctx.restore();
 
           } else {
 
-              signalFrames.current = 0;
+              signalFrames.current = Math.max(
+                  0,
+                  signalFrames.current - 1
+              );
 
           }
 
