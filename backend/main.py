@@ -112,7 +112,7 @@ def predict(data: HandRequest):
     print("Confidence:", confidence)
     print("Returned:", prediction)
 
-    if prediction == "Signal for Help" and confidence < 0.50:
+    if prediction == "Signal for Help" and confidence < 0.60:
         prediction = "No Signal"
 
     return {
