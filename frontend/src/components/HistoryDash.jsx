@@ -155,70 +155,67 @@ import {
     }}
     />
     
-<div
-  style={{
-    marginTop: 12,
-    marginBottom: 8,
-    textAlign: "center",
-  }}
->
-  <p
-    style={{
-      color: "white",
-      margin: 0,
-    }}
-  >
-    📅{" "}
-    {new Date(item.created_at).toLocaleDateString([], {
-      day: "numeric",
-      month: "short",
-      year: "numeric",
-    })}
-  </p>
-
-  <p
-    style={{
-      color: "white",
-      margin: "4px 0 0 0",
-    }}
-  >
-    🕒{" "}
-    {new Date(item.created_at).toLocaleTimeString([], {
-      hour: "2-digit",
-      minute: "2-digit",
-      second: "2-digit",
-    })}
-  </p>
-</div>
-
-<div
-  style={{
-    display: "flex",
-    gap: 10,
-  }}
->
-    
-    <button
-    onClick={() =>
-        downloadImage(
-        item.image_url,
-        item.id
-        )
-    }
+    <div
+      style={{
+        marginTop: 12,
+        marginBottom: 12,
+        textAlign: "center",
+        color: "#b8b8b8",
+        fontSize: 14,
+        fontWeight: 500,
+      }}
     >
-    Save
-    </button>
-    
-    <button
-    onClick={()=>
-    remove(
-    item.id
-    )
-    }
+      🕒{" "}
+      {new Date(item.created_at).toLocaleDateString([], {
+        day: "numeric",
+        month: "short",
+        year: "numeric",
+      })}
+      {" • "}
+      {new Date(item.created_at).toLocaleTimeString([], {
+        hour: "2-digit",
+        minute: "2-digit",
+      })}
+    </div>
+
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        gap: 10,
+      }}
     >
-    Delete
-    </button>
-    
+      <button
+        onClick={() => downloadImage(item.image_url, item.id)}
+        style={{
+          padding: "8px 16px",
+          borderRadius: 8,
+          border: "1px solid #3b3b3b",
+          background: "#181818",
+          color: "#d8d8d8",
+          cursor: "pointer",
+          fontSize: 13,
+          transition: "0.2s",
+        }}
+      >
+        ⬇ Download
+      </button>
+
+      <button
+        onClick={() => remove(item.id)}
+        style={{
+          padding: "8px 16px",
+          borderRadius: 8,
+          border: "1px solid #3b3b3b",
+          background: "#181818",
+          color: "#d8d8d8",
+          cursor: "pointer",
+          fontSize: 13,
+          transition: "0.2s",
+        }}
+      >
+        🗑 Delete
+      </button>
     </div>
     
     </div>
