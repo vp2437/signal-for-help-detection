@@ -90,7 +90,7 @@ export default function HistoryPanel() {
     if (!video) return;
     
     // only save alerts with high confidence
-    if (predictionRef.current.confidence < 0.80) return;
+    if (predictionRef.current.confidence < 0.50) return;
     
     try {
       const snap = new Audio("/snap.mp3");
@@ -174,7 +174,7 @@ export default function HistoryPanel() {
     const result = landmarker.current.detectForVideo(video, performance.now());
     frameCount.current++;
     const currentGesture = String(predictionRef.current.gesture).toLowerCase();
-    const alert = currentGesture.includes("help") && predictionRef.current.confidence >= 0.80;
+    const alert = currentGesture.includes("help") && predictionRef.current.confidence >= 0.50;
     console.log(result);
 
     // DEBUG: Log what's being detected

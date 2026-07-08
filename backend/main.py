@@ -107,10 +107,12 @@ def predict(data: HandRequest):
     prediction = classes[best_index]
     confidence = float(probabilities[best_index])
     print("Classes:", classes)
+    print("----------------")
     print("Prediction:", prediction)
-    print("Probabilities:", probabilities)
+    print("Confidence:", confidence)
+    print("Returned:", prediction)
 
-    if prediction == "Signal for Help" and confidence < 0.90:
+    if prediction == "Signal for Help" and confidence < 0.50:
         prediction = "No Signal"
 
     return {
