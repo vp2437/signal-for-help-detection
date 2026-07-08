@@ -155,6 +155,22 @@ import {
     }}
     />
     
+      <button
+        onClick={() => downloadImage(item.image_url, item.id)}
+        style={{
+          padding: "8px 16px",
+          borderRadius: 8,
+          border: "1px solid #3b3b3b",
+          background: "#181818",
+          color: "#d8d8d8",
+          cursor: "pointer",
+          fontSize: 13,
+          transition: "0.2s",
+        }}
+      >
+        ⬇ 
+      </button>
+
     <div
       style={{
         marginTop: 12,
@@ -178,7 +194,23 @@ import {
       })}
     </div>
 
-    <div
+      <button
+        onClick={() => remove(item.id)}
+        style={{
+          padding: "8px 16px",
+          borderRadius: 8,
+          border: "1px solid #3b3b3b",
+          background: "#181818",
+          color: "#d8d8d8",
+          cursor: "pointer",
+          fontSize: 13,
+          transition: "0.2s",
+        }}
+      >
+        🗑 
+      </button>
+
+    {/* <div
       style={{
         display: "flex",
         justifyContent: "center",
@@ -216,7 +248,7 @@ import {
       >
         🗑 
       </button>
-    </div>
+    </div> */}
     
     </div>
     
