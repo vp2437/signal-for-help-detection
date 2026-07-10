@@ -252,11 +252,11 @@ The final Random Forest classifier achieved:
 
 ### Monitoring Mode
 
-![Monitoring](src/assets/monitoring.png)
+![Monitoring](./frontend/src/assets/monitoring.png)
 
 ### Signal Detected
 
-![Alert](src/assets/alert.png)
+![Alert](./frontend/src/assets/alert.png)
 
 ### History Dashboard
 
