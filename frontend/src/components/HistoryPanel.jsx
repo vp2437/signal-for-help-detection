@@ -36,7 +36,7 @@ export default function HistoryPanel() {
   // ── 1. Load MediaPipe once ─────────────────────────────────────────────────
   useEffect(() => {
     mounted.current = true;
-    
+
     fetch("https://austinaihub-hackathon-june.onrender.com/")
       .catch(() => {});
 
@@ -278,7 +278,7 @@ ctx.restore();
     let gesture = "Hand Detected";
     let confidence = 0;
 
-    if (frameCount.current % 2 === 0 && !processing.current) {
+    if (!processing.current) {
 
       processing.current = true;
   
