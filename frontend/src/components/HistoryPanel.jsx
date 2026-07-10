@@ -36,6 +36,9 @@ export default function HistoryPanel() {
   // ── 1. Load MediaPipe once ─────────────────────────────────────────────────
   useEffect(() => {
     mounted.current = true;
+    
+    fetch("https://austinaihub-hackathon-june.onrender.com/")
+      .catch(() => {});
 
     (async () => {
       try {
