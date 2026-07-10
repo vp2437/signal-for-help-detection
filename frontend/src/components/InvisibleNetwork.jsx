@@ -37,37 +37,37 @@ import {
   const hiddenNetwork = {
 
     victim: [
-      { id: "recruiter",  label: "Recruiter",            x: 100,  y: 100,  color: COLORS.pink },
-      { id: "transport",  label: "Transport",            x: 100,  y: 480,  color: COLORS.blue },
-      { id: "employer",   label: "Employer",             x: 900,  y: 100,  color: COLORS.purple },
-      { id: "safehouse",  label: "Control",        x: 900,  y: 480,  color: COLORS.green },
+      { id: "recruiter",  label: "Recruiter",          x: -50,  y: 80,  color: COLORS.pink },
+      { id: "transport",  label: "Transport",          x: -50,  y: 520, color: COLORS.blue },
+      { id: "employer",   label: "Employer",           x: 980,  y: 80,  color: COLORS.purple },
+      { id: "safehouse",  label: "Control",            x: 980,  y: 520, color: COLORS.green },
     ],
-  
+
     recruiter: [
-      { id: "agency",        label: "Recruitment Agency",     x: -280, y: 0,    color: "#ff6b9f" },
-      { id: "broker",        label: "Broker",                 x: -320, y: 200,  color: "#ff6b9f" },
-      { id: "advertisement", label: "Online Advertisement",   x: -180, y: 360,  color: "#ff6b9f" },
-      { id: "job",           label: "Fraudulent Job Offer",   x: -60,  y: -120, color: "#ff6b9f" },
+      { id: "agency",        label: "Recruitment Agency",   x: -420, y: -40,  color: "#ff6b9f" },
+      { id: "broker",        label: "Broker",               x: -500, y: 160,  color: "#ff6b9f" },
+      { id: "advertisement", label: "Online Advertisement", x: -380, y: 340,  color: "#ff6b9f" },
+      { id: "job",           label: "Fraudulent Job Offer", x: -180, y: -170, color: "#ff6b9f" },
     ],
-  
+
     transport: [
-      { id: "driver",         label: "Driver",            x: -160, y: 560, color: "#60a5fa" },
-      { id: "route",          label: "Transport Route",   x: -300, y: 420, color: "#60a5fa" },
-      { id: "intermediaries", label: "Facilitator",       x: -80,  y: 680, color: "#60a5fa" },
+      { id: "driver",         label: "Driver",          x: -260, y: 620, color: "#60a5fa" },
+      { id: "route",          label: "Transport Route", x: -470, y: 470, color: "#60a5fa" },
+      { id: "intermediaries", label: "Facilitator",     x: -180, y: 760, color: "#60a5fa" },
     ],
-  
+
     employer: [
-      { id: "factory",      label: "Factory",           x: 1160, y: -20, color: "#c084fc" },
-      { id: "labour",       label: "Domestic Work",     x: 1280, y: 180, color: "#c084fc" },
-      { id: "construction", label: "Construction Site", x: 1100, y: 340, color: "#c084fc" },
+      { id: "factory",      label: "Factory",           x: 1320, y: -60, color: "#c084fc" },
+      { id: "labour",       label: "Domestic Work",     x: 1450, y: 170, color: "#c084fc" },
+      { id: "construction", label: "Construction Site", x: 1240, y: 370, color: "#c084fc" },
     ],
-  
+
     safehouse: [
-      { id: "location",     label: "Document Seizure",       x: 1100, y: 580, color: "#4ade80" },
-      { id: "surveillance", label: "Surveillance",        x: 960,  y: 720, color: "#4ade80" },
-      { id: "housing",      label: "Debt Bondage",  x: 740,  y: 640, color: "#4ade80" },
+      { id: "location",     label: "Document Seizure", x: 1260, y: 620, color: "#4ade80" },
+      { id: "surveillance", label: "Surveillance",     x: 1060, y: 820, color: "#4ade80" },
+      { id: "housing",      label: "Debt Bondage",     x: 760,  y: 700, color: "#4ade80" },
     ],
-  
+
   };
 
   const stage3Leaves = {
