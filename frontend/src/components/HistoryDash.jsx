@@ -223,54 +223,60 @@ import {
         marginTop: 6,
       }}
     >
+      {/* Updated Download Button (Bordered Blue Style) */}
       <button
         onClick={() => downloadImage(item.image_url, item.id)}
         style={{
           padding: "6px 14px",
           borderRadius: 8,
-          border: "1px solid #60a5fa",
-          background: "#3b82f6",
-          color: "white",
+          border: "2px solid rgba(38, 99, 236, 0.4)",
+          background: "rgba(38, 99, 236, 0.06)",
+          color: "#2663ec",
           fontSize: 14,
-          fontWeight: 500,
+          fontWeight: 600,
           cursor: "pointer",
-          minWidth: 90,
-          transition: "0.2s ease",
+          minWidth: 100,
+          transition: "all 0.2s ease",
         }}
         onMouseEnter={(e) => {
-          e.target.style.background = "#4f8ff7";
+          e.target.style.background = "rgba(38, 99, 236, 0.15)";
+          e.target.style.borderColor = "rgba(38, 99, 236, 0.6)";
         }}
         onMouseLeave={(e) => {
-          e.target.style.background = "#3b82f6";
+          e.target.style.background = "rgba(38, 99, 236, 0.06)";
+          e.target.style.borderColor = "rgba(38, 99, 236, 0.4)";
         }}
       >
         Download
       </button>
 
+      {/* Updated Delete Button (Bordered Red Style) */}
       <button
         onClick={() => remove(item.id)}
         style={{
           padding: "6px 14px",
           borderRadius: 8,
-          border: "1px solid #f87171",
-          background: "#ef4444",
-          color: "white",
+          border: "2px solid rgba(239, 68, 68, 0.4)",
+          background: "rgba(239, 68, 68, 0.06)",
+          color: "#ef4444",
           fontSize: 14,
-          fontWeight: 500,
+          fontWeight: 600,
           cursor: "pointer",
-          minWidth: 90,
-          transition: "0.2s ease",
+          minWidth: 100,
+          transition: "all 0.2s ease",
         }}
         onMouseEnter={(e) => {
-          e.target.style.background = "#f05d5d";
+          e.target.style.background = "rgba(239, 68, 68, 0.15)";
+          e.target.style.borderColor = "rgba(239, 68, 68, 0.6)";
         }}
         onMouseLeave={(e) => {
-          e.target.style.background = "#ef4444";
+          e.target.style.background = "rgba(239, 68, 68, 0.06)";
+          e.target.style.borderColor = "rgba(239, 68, 68, 0.4)";
         }}
       >
         Delete
       </button>
-    </div>    
+    </div>
 
     </div>
     
