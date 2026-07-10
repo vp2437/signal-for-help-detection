@@ -201,12 +201,6 @@ export default function HistoryPanel() {
     if (!result.landmarks || !result.landmarks.length) {
       setIsAlert(false);
       alertTriggered.current = false;
-
-      signalFrames.current = 0;
-      predictionRef.current = {
-          gesture: "No Signal",
-          confidence: 0,
-      };
       
       // Still draw "No hands" message or just clear
       ctx.fillStyle = "rgba(255,255,255,0.3)";
@@ -342,7 +336,10 @@ ctx.restore();
                       ? data.gesture
                       : "No Signal",
 
-              confidence: data.confidence
+              confidence:
+                  signalFrames.current >= REQUIRED_FRAMES
+                      ? data.confidence
+                      : 0
 
           };
 
