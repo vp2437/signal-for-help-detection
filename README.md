@@ -241,9 +241,9 @@ Each image is processed using the MediaPipe Hand Landmarker to extract 21 hand l
 
 The final Random Forest classifier achieved:
 
-- **96.35% Test Accuracy**
-- **96.21% Cross-Validation Accuracy**
-- **97% Precision** for Signal for Help detection
+- **97.74% Test Accuracy**
+- **96.52% Cross-Validation Accuracy**
+- **95% Precision** for Signal for Help detection
 - Confidence thresholding and multi-frame validation further reduced false positives during real-time inference.
 
 ---
