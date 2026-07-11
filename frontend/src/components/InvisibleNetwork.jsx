@@ -56,7 +56,7 @@ import {
     ],
     // Widely distributed across South American landmass boundaries
     transport: [
-      { id: "driver",         label: "Driver",          x: 60,   y: 520,  color: "#60a5fa" }, // Spreads West into Colombia/Ecuador area
+      { id: "driver",         label: "Driver",          x: 60,   y: 560,  color: "#60a5fa" }, // Spreads West into Colombia/Ecuador area
       { id: "route",          label: "Transport Route", x: 290,  y: 690,  color: "#60a5fa" }, // Spreads East into interior Brazil mainland
       { id: "intermediaries", label: "Facilitator",     x: 120,  y: 840,  color: "#60a5fa" }, // Spreads South into Central Argentina
     ],
@@ -66,7 +66,7 @@ import {
       { id: "construction", label: "Construction Site",  x: 1100, y: 240,  color: "#c084fc" },    
     ],
     safehouse: [
-      { id: "location",     label: "Document Seizure", x: 700,  y: 280,  color: "#4ade80" },    
+      { id: "location",     label: "Document Seizure", x: 680,  y: 310,  color: "#4ade80" },    
       { id: "surveillance", label: "Surveillance",     x: 940,  y: 560,  color: "#4ade80" },    
       { id: "housing",      label: "Debt Bondage",     x: 780,  y: 780,  color: "#4ade80" },    
     ],
