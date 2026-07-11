@@ -79,20 +79,39 @@ import {
 
   };
 
+  // const stage3Leaves = {
+  //   agency:        { count: 3, color: "#f472b6", offsets: [{ dx:-180, dy:-100 },{ dx:-260, dy:40 },{ dx:-140, dy:160 }] },
+  //   broker:        { count: 2, color: "#f472b6", offsets: [{ dx:-220, dy:-80 },{ dx:-300, dy:100 }] },
+  //   advertisement: { count: 4, color: "#f472b6", offsets: [{ dx:-160, dy:-120 },{ dx:-260, dy:0 },{ dx:-200, dy:140 },{ dx:-80, dy:200 }] },
+  //   job:           { count: 2, color: "#f472b6", offsets: [{ dx:-120, dy:-160 },{ dx:60, dy:-180 }] },
+  //   driver:        { count: 3, color: "#93c5fd", offsets: [{ dx:-220, dy:60 },{ dx:-300, dy:200 },{ dx:-140, dy:280 }] },
+  //   route:         { count: 2, color: "#93c5fd", offsets: [{ dx:-260, dy:-60 },{ dx:-340, dy:100 }] },
+  //   intermediaries:{ count: 4, color: "#93c5fd", offsets: [{ dx:-160, dy:120 },{ dx:-60, dy:220 },{ dx:-280, dy:260 },{ dx:60, dy:300 }] },
+  //   factory:       { count: 3, color: "#d8b4fe", offsets: [{ dx:180, dy:-120 },{ dx:280, dy:20 },{ dx:200, dy:160 }] },
+  //   labour:        { count: 2, color: "#d8b4fe", offsets: [{ dx:220, dy:-80 },{ dx:320, dy:100 }] },
+  //   construction:  { count: 4, color: "#d8b4fe", offsets: [{ dx:160, dy:100 },{ dx:280, dy:60 },{ dx:220, dy:220 },{ dx:100, dy:280 }] },
+  //   location:      { count: 2, color: "#86efac", offsets: [{ dx:180, dy:80 },{ dx:300, dy:-20 }] },
+  //   surveillance:  { count: 3, color: "#86efac", offsets: [{ dx:-80, dy:160 },{ dx:100, dy:200 },{ dx:240, dy:120 }] },
+  //   housing:       { count: 2, color: "#86efac", offsets: [{ dx:-160, dy:120 },{ dx:-60, dy:220 }] },
+  // };
+
   const stage3Leaves = {
-    agency:        { count: 3, color: "#f472b6", offsets: [{ dx:-180, dy:-100 },{ dx:-260, dy:40 },{ dx:-140, dy:160 }] },
-    broker:        { count: 2, color: "#f472b6", offsets: [{ dx:-220, dy:-80 },{ dx:-300, dy:100 }] },
-    advertisement: { count: 4, color: "#f472b6", offsets: [{ dx:-160, dy:-120 },{ dx:-260, dy:0 },{ dx:-200, dy:140 },{ dx:-80, dy:200 }] },
-    job:           { count: 2, color: "#f472b6", offsets: [{ dx:-120, dy:-160 },{ dx:60, dy:-180 }] },
-    driver:        { count: 3, color: "#93c5fd", offsets: [{ dx:-220, dy:60 },{ dx:-300, dy:200 },{ dx:-140, dy:280 }] },
-    route:         { count: 2, color: "#93c5fd", offsets: [{ dx:-260, dy:-60 },{ dx:-340, dy:100 }] },
-    intermediaries:{ count: 4, color: "#93c5fd", offsets: [{ dx:-160, dy:120 },{ dx:-60, dy:220 },{ dx:-280, dy:260 },{ dx:60, dy:300 }] },
-    factory:       { count: 3, color: "#d8b4fe", offsets: [{ dx:180, dy:-120 },{ dx:280, dy:20 },{ dx:200, dy:160 }] },
-    labour:        { count: 2, color: "#d8b4fe", offsets: [{ dx:220, dy:-80 },{ dx:320, dy:100 }] },
-    construction:  { count: 4, color: "#d8b4fe", offsets: [{ dx:160, dy:100 },{ dx:280, dy:60 },{ dx:220, dy:220 },{ dx:100, dy:280 }] },
-    location:      { count: 2, color: "#86efac", offsets: [{ dx:180, dy:80 },{ dx:300, dy:-20 }] },
-    surveillance:  { count: 3, color: "#86efac", offsets: [{ dx:-80, dy:160 },{ dx:100, dy:200 },{ dx:240, dy:120 }] },
-    housing:       { count: 2, color: "#86efac", offsets: [{ dx:-160, dy:120 },{ dx:-60, dy:220 }] },
+    agency:         { count: 3, color: "#f472b6", offsets: [{ dx:-170, dy:-100 }, { dx:-260, dy:20 },  { dx:-150, dy:150 }] },
+    broker:         { count: 2, color: "#f472b6", offsets: [{ dx:-240, dy:-80 },  { dx:-310, dy:100 }] },
+    advertisement:  { count: 4, color: "#f472b6", offsets: [{ dx:-160, dy:-120 }, { dx:-280, dy:-20 }, { dx:-220, dy:120 }, { dx:-90, dy:210 }] },
+    job:            { count: 2, color: "#f472b6", offsets: [{ dx:-110, dy:-170 }, { dx:70, dy:-180 }] },
+
+    driver:         { count: 3, color: "#93c5fd", offsets: [{ dx:-200, dy:40 },   { dx:-290, dy:180 }, { dx:-130, dy:280 }] },
+    route:          { count: 2, color: "#93c5fd", offsets: [{ dx:-260, dy:-70 },  { dx:-340, dy:90 }] },
+    intermediaries: { count: 4, color: "#93c5fd", offsets: [{ dx:-170, dy:120 },  { dx:-30, dy:240 },  { dx:-280, dy:270 }, { dx:90, dy:280 }] },
+
+    factory:        { count: 3, color: "#d8b4fe", offsets: [{ dx:190, dy:-120 },  { dx:300, dy:20 },   { dx:220, dy:170 }] },
+    labour:         { count: 2, color: "#d8b4fe", offsets: [{ dx:230, dy:-80 },   { dx:330, dy:100 }] },
+    construction:   { count: 4, color: "#d8b4fe", offsets: [{ dx:170, dy:90 },    { dx:300, dy:40 },   { dx:240, dy:220 },  { dx:120, dy:300 }] },
+
+    location:       { count: 2, color: "#86efac", offsets: [{ dx:200, dy:60 },    { dx:320, dy:-20 }] },
+    surveillance:   { count: 3, color: "#86efac", offsets: [{ dx:-100, dy:170 },  { dx:90, dy:220 },   { dx:250, dy:130 }] },
+    housing:        { count: 2, color: "#86efac", offsets: [{ dx:-180, dy:120 },  { dx:-60, dy:240 }] },
   };
   
   function NetworkFlow({
