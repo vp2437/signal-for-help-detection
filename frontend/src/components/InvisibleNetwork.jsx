@@ -41,33 +41,34 @@ import {
     edge: "#2d8cff",
   };
   
+  // Re-mapped network coordinates to guarantee nodes land on actual continents 
   const hiddenNetwork = {
     victim: [
-      { id: "recruiter",  label: "Recruiter",          x: 200,  y: 80,  color: COLORS.pink },
-      { id: "transport",  label: "Transport",          x: 200,  y: 520, color: COLORS.blue },
-      { id: "employer",   label: "Employer",           x: 1230, y: 80,  color: COLORS.purple },
-      { id: "safehouse",  label: "Control",            x: 1230, y: 520, color: COLORS.green },
+      { id: "recruiter",  label: "Recruiter",          x: -150, y: -50,  color: COLORS.pink },    // North America
+      { id: "transport",  label: "Transport",          x: 100,  y: 480,  color: COLORS.blue },    // South America
+      { id: "employer",   label: "Employer",           x: 1550, y: 50,   color: COLORS.purple },  // Northern Asia / Siberia
+      { id: "safehouse",  label: "Control",            x: 1100, y: 380,  color: COLORS.green },   // South Asia / India region
     ],
     recruiter: [
-      { id: "agency",        label: "Recruitment Agency",   x: -420, y: -40,  color: "#ff6b9f" },
-      { id: "broker",        label: "Broker",               x: -500, y: 160,  color: "#ff6b9f" },
-      { id: "advertisement", label: "Online Advertisement", x: -380, y: 340,  color: "#ff6b9f" },
-      { id: "job",           label: "Fraudulent Job Offer", x: -180, y: -170, color: "#ff6b9f" },
+      { id: "agency",        label: "Recruitment Agency",   x: -300, y: -120, color: "#ff6b9f" },
+      { id: "broker",        label: "Broker",               x: -350, y: 50,   color: "#ff6b9f" },
+      { id: "advertisement", label: "Online Advertisement", x: -250, y: 180,  color: "#ff6b9f" },
+      { id: "job",           label: "Fraudulent Job Offer", x: -50,  y: -150, color: "#ff6b9f" },
     ],
     transport: [
-      { id: "driver",         label: "Driver",          x: -260, y: 620, color: "#60a5fa" },
-      { id: "route",          label: "Transport Route", x: -470, y: 470, color: "#60a5fa" },
-      { id: "intermediaries", label: "Facilitator",     x: -180, y: 760, color: "#60a5fa" },
+      { id: "driver",         label: "Driver",          x: -50,  y: 550,  color: "#60a5fa" },
+      { id: "route",          label: "Transport Route", x: -120, y: 420,  color: "#60a5fa" },
+      { id: "intermediaries", label: "Facilitator",     x: 20,   y: 650,  color: "#60a5fa" },
     ],
     employer: [
-      { id: "factory",      label: "Factory",           x: 1320, y: -60, color: "#c084fc" },
-      { id: "labour",       label: "Domestic Work",     x: 1450, y: 170, color: "#c084fc" },
-      { id: "construction", label: "Construction Site", x: 1240, y: 370, color: "#c084fc" },
+      { id: "factory",      label: "Factory",           x: 1750, y: -50,  color: "#c084fc" },
+      { id: "labour",       label: "Domestic Work",     x: 1850, y: 120,  color: "#c084fc" },
+      { id: "construction", label: "Construction Site", x: 1650, y: 220,  color: "#c084fc" },
     ],
     safehouse: [
-      { id: "location",     label: "Document Seizure", x: 1260, y: 620, color: "#4ade80" },
-      { id: "surveillance", label: "Surveillance",     x: 1060, y: 820, color: "#4ade80" },
-      { id: "housing",      label: "Debt Bondage",     x: 760,  y: 700, color: "#4ade80" },
+      { id: "location",     label: "Document Seizure", x: 1150, y: 500,  color: "#4ade80" },
+      { id: "surveillance", label: "Surveillance",     x: 950,  y: 550,  color: "#4ade80" },
+      { id: "housing",      label: "Debt Bondage",     x: 880,  y: 450,  color: "#4ade80" },
     ],
   };
   
@@ -90,7 +91,6 @@ import {
     housing:        { count: 2, color: "#86efac", offsets: [{ dx:-180, dy:120 },  { dx:-60, dy:240 }] },
   };
   
-  // Huge back-panel node styled with your world map image coordinate system
   const createMapNode = () => ({
     id: "background-map",
     position: { x: -1000, y: -450 },
@@ -127,11 +127,12 @@ import {
   
     const { setCenter } = useReactFlow();
   
+    // Victim placed on land (Western Europe/North Africa hub)
     const [nodes, setNodes] = useState([
       createMapNode(),
       {
         id: "victim",
-        position: { x: 480, y: 270 },
+        position: { x: 680, y: 120 }, 
         data: { label: "Victim" },
         style: {
           background: "#4f8cff",
@@ -167,7 +168,7 @@ import {
         createMapNode(),
         {
           id: "victim",
-          position: { x: 480, y: 270 },
+          position: { x: 680, y: 120 },
           data: { label: "Victim" },
           style: victimStyle,
         },
@@ -182,7 +183,8 @@ import {
       setSelectedEdge(null);
       setLoadingInsight(false);
       
-      setCenter(520, 300, { zoom: 1.1, duration: 800 });
+      // Resets center back to the freshly positioned victim node
+      setCenter(680, 120, { zoom: 1.05, duration: 800 });
     };
   
     const revealed = new Set(nodes.map(n => n.id));
@@ -382,7 +384,7 @@ import {
         });
         
         if (node.id === "victim") {
-          setCenter(560, 300, { zoom: 0.8, duration: 1000 });
+          setCenter(680, 120, { zoom: 0.8, duration: 1000 });
         } else if (["recruiter","transport","employer","safehouse"].includes(node.id)) {
           const children = hiddenNetwork[node.id] || [];
           const xs = [node.position.x, ...children.map(c => c.x)];
@@ -454,7 +456,8 @@ import {
             if (node.id.includes("_leaf_") || node.id === "background-map") return;
             onNodeClick(e, node);
           }}
-          defaultViewport={{ x: -120, y: -120, zoom: 1.05 }}
+          // Adjusted the default viewport coordinates so that the victim (x:680, y:120) is dead center on first paint
+          defaultViewport={{ x: -160, y: 140, zoom: 1.05 }}
           minZoom={0.2}
           maxZoom={2}
           connectOnClick={false}
