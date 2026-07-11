@@ -38,24 +38,14 @@ import {
       border: none;
     }
 
-    /* World map */
-    .react-flow__viewport {
-      background-image: url('/world-map.png');
-      background-repeat: no-repeat;
-      background-position: center;
-      // background-size: contain;
-      background-size: 130%;
-      background-position: 60% center;
-    }
-
-    /* Dark overlay so the map isn't too bright */
-    .react-flow__viewport::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: rgba(2, 6, 23, 0.35);
-      pointer-events: none;
-    }
+    // /* Dark overlay so the map isn't too bright */
+    // .react-flow__viewport::before {
+    //   content: "";
+    //   position: absolute;
+    //   inset: 0;
+    //   background: rgba(2, 6, 23, 0.35);
+    //   pointer-events: none;
+    // }
   `;
 
   const COLORS = {
@@ -77,10 +67,10 @@ import {
   const hiddenNetwork = {
 
     victim: [
-      { id: "recruiter",  label: "Recruiter",          x: 200,  y: 80,  color: COLORS.pink },
-      { id: "transport",  label: "Transport",          x: 200,  y: 520, color: COLORS.blue },
-      { id: "employer",   label: "Employer",           x: 1230,  y: 80,  color: COLORS.purple },
-      { id: "safehouse",  label: "Control",            x: 1230,  y: 520, color: COLORS.green },
+      { id: "recruiter",  label: "Recruiter",          x: 80,  y: 80,  color: COLORS.pink },
+      { id: "transport",  label: "Transport",          x: 80,  y: 520, color: COLORS.blue },
+      { id: "employer",   label: "Employer",           x: 1400,  y: 80,  color: COLORS.purple },
+      { id: "safehouse",  label: "Control",            x: 1400,  y: 520, color: COLORS.green },
     ],
 
     recruiter: [
@@ -643,6 +633,31 @@ if (node.id === "victim") {
   
         <>
         <style>{HIDE_HANDLES}</style>
+
+        <div
+          style={{
+            position: "relative",
+            width: "100%",
+            height: "100%",
+          }}
+        >
+
+        <img
+          src="/world-map.png"
+          alt=""
+          style={{
+            position: "absolute",
+            left: "50%",
+            top: "50%",
+            transform: "translate(-50%, -50%)",
+            width: "95%",
+            height: "auto",
+            opacity: 0.28,
+            pointerEvents: "none",
+            zIndex: 0,
+          }}
+        />
+
         <ReactFlow
         nodes={nodes}
         edges={edges.map(edge => ({
@@ -651,24 +666,6 @@ if (node.id === "victim") {
           animated:
             edge.id === selectedEdge,
 
-          style: {
-            ...edge.style,
-
-            stroke:
-              edge.id === selectedEdge
-                ? "#ffffff"
-                : edge.style?.stroke,
-
-            strokeWidth:
-              edge.id === selectedEdge
-                ? 4
-                : edge.style?.strokeWidth,
-
-            filter:
-              edge.id === selectedEdge
-                ? "drop-shadow(0 0 8px white)"
-                : "none",
-          },
         }))}
         onEdgeClick={onEdgeClick}
         onNodeClick={(e, node) => {
@@ -748,10 +745,9 @@ if (node.id === "victim") {
         />
   
       </ReactFlow>
+      </div>
       </>
-  
     );
-  
   }
   
   export default function InvisibleNetwork() {
