@@ -41,54 +41,55 @@ import {
     edge: "#2d8cff",
   };
   
-  // Re-mapped network coordinates to guarantee nodes land on actual continents 
+  // Coordinates precisely tailored to keep parent and sub-leaf clusters safe on land
   const hiddenNetwork = {
     victim: [
-      { id: "recruiter",  label: "Recruiter",          x: -120, y: -20,  color: COLORS.pink },    // North America (Central US)
-      { id: "transport",  label: "Transport",          x: 140,  y: 460,  color: COLORS.blue },    // South America (Brazil)
-      { id: "employer",   label: "Employer",           x: 1480, y: 50,   color: COLORS.purple },  // Northern Asia / Siberia
-      { id: "safehouse",  label: "Control",            x: 1100, y: 380,  color: COLORS.green },   // South Asia / India region
+      { id: "recruiter",  label: "Recruiter",          x: -100, y: 10,   color: COLORS.pink },    // Central/Eastern US
+      { id: "transport",  label: "Transport",          x: 220,  y: 520,  color: COLORS.blue },    // Interior Brazil (Deep South America)
+      { id: "employer",   label: "Employer",           x: 1480, y: 50,   color: COLORS.purple },  // Interior Russia/Siberia
+      { id: "safehouse",  label: "Control",            x: 1120, y: 350,  color: COLORS.green },   // India / South Asia mainland
     ],
     recruiter: [
-      { id: "agency",        label: "Recruitment Agency",   x: -220, y: -80, color: "#ff6b9f" },   // West Coast US
-      { id: "broker",        label: "Broker",               x: -240, y: 40,  color: "#ff6b9f" },   // Mexico/Central America
-      { id: "advertisement", label: "Online Advertisement", x: -100, y: 120, color: "#ff6b9f" },   // Caribbean / Gulf
-      { id: "job",           label: "Fraudulent Job Offer", x: -20,  y: -90, color: "#ff6b9f" },   // Northeast US / Canada
+      { id: "agency",        label: "Recruitment Agency",   x: -160, y: -40,  color: "#ff6b9f" },   // Central Canada / North US
+      { id: "broker",        label: "Broker",               x: -140, y: 80,   color: "#ff6b9f" },   // Southern US / Midwest
+      { id: "advertisement", label: "Online Advertisement", x: -40,  y: 110,  color: "#ff6b9f" },   // Eastern US Coast
+      { id: "job",           label: "Fraudulent Job Offer", x: -20,  y: -30,  color: "#ff6b9f" },   // Northeast US
     ],
     transport: [
-      { id: "driver",         label: "Driver",          x: 80,  y: 540,  color: "#60a5fa" },     // Peru / Western SA
-      { id: "route",          label: "Transport Route", x: 60,  y: 380,  color: "#60a5fa" },     // Colombia / Northern SA
-      { id: "intermediaries", label: "Facilitator",     x: 180, y: 580,  color: "#60a5fa" },     // Argentina / Southern SA
+      { id: "driver",         label: "Driver",          x: 150,  y: 580,  color: "#60a5fa" },     // Bolivia / Paraguay
+      { id: "route",          label: "Transport Route", x: 160,  y: 460,  color: "#60a5fa" },     // NW Brazil / Colombia mainland
+      { id: "intermediaries", label: "Facilitator",     x: 240,  y: 620,  color: "#60a5fa" },     // Argentina / Southern Brazil
     ],
     employer: [
-      { id: "factory",      label: "Factory",            x: 1620, y: -10,  color: "#c084fc" },    // Far East Russia
-      { id: "labour",       label: "Domestic Work",      x: 1540, y: 140,  color: "#c084fc" },    // China / East Asia
-      { id: "construction", label: "Construction Site",  x: 1380, y: 180,  color: "#c084fc" },    // Central Asia
+      { id: "factory",      label: "Factory",            x: 1600, y: 20,   color: "#c084fc" },    // Far Eastern Russia
+      { id: "labour",       label: "Domestic Work",      x: 1500, y: 140,  color: "#c084fc" },    // China / East Asia
+      { id: "construction", label: "Construction Site",  x: 1360, y: 160,  color: "#c084fc" },    // Central Asia
     ],
     safehouse: [
-      { id: "location",     label: "Document Seizure", x: 1180, y: 460,  color: "#4ade80" },    // Southeast Asia
-      { id: "surveillance", label: "Surveillance",     x: 980,  y: 480,  color: "#4ade80" },    // East Africa
-      { id: "housing",      label: "Debt Bondage",     x: 920,  y: 380,  color: "#4ade80" },    // Middle East / Northeast Africa
+      { id: "location",     label: "Document Seizure", x: 1180, y: 420,  color: "#4ade80" },    // Indochina Peninsula
+      { id: "surveillance", label: "Surveillance",     x: 1040, y: 410,  color: "#4ade80" },    // Middle East / Western India
+      { id: "housing",      label: "Debt Bondage",     x: 980,  y: 310,  color: "#4ade80" },    // Arabian Peninsula mainland
     ],
   };
   
+  // Adjusted offsets to prevent leaves from spraying out into adjacent waters
   const stage3Leaves = {
-    agency:        { count: 3, color: "#f472b6", offsets: [{ dx:-80, dy:-50 },  { dx:-100, dy:10 },  { dx:-40, dy:60 }] },
-    broker:        { count: 2, color: "#f472b6", offsets: [{ dx:-80, dy:-30 },  { dx:-50, dy:50 }] },
-    advertisement: { count: 4, color: "#f472b6", offsets: [{ dx:-50, dy:-60 },  { dx:-90, dy:-10 },  { dx:-60, dy:60 },  { dx:-20, dy:80 }] },
-    job:           { count: 2, color: "#f472b6", offsets: [{ dx:-50, dy:-60 },  { dx:40, dy:-50 }] },
+    agency:        { count: 3, color: "#f472b6", offsets: [{ dx:40,  dy:-40 }, { dx:-40, dy:30 },  { dx:30,  dy:40 }] },
+    broker:        { count: 2, color: "#f472b6", offsets: [{ dx:40,  dy:-30 }, { dx:50,  dy:30 }] },
+    advertisement: { count: 4, color: "#f472b6", offsets: [{ dx:-30, dy:-40 }, { dx:-40, dy:20 },  { dx:-20, dy:50 },  { dx:30,  dy:40 }] },
+    job:           { count: 2, color: "#f472b6", offsets: [{ dx:-40, dy:-40 }, { dx:40,  dy:40 }] },
   
-    driver:         { count: 3, color: "#93c5fd", offsets: [{ dx:-60, dy:20 },   { dx:-90, dy:60 },   { dx:-40, dy:90 }] },
-    route:          { count: 2, color: "#93c5fd", offsets: [{ dx:-80, dy:-30 },  { dx:-90, dy:30 }] },
-    intermediaries: { count: 4, color: "#93c5fd", offsets: [{ dx:-60, dy:40 },   { dx:-10, dy:80 },   { dx:-90, dy:90 },  { dx:30, dy:90 }] },
+    driver:         { count: 3, color: "#93c5fd", offsets: [{ dx:30,  dy:-40 }, { dx:40,  dy:40 },  { dx:-30, dy:50 }] },
+    route:          { count: 2, color: "#93c5fd", offsets: [{ dx:40,  dy:30 },  { dx:20,  dy:-50 }] },
+    intermediaries: { count: 4, color: "#93c5fd", offsets: [{ dx:-30, dy:-40 }, { dx:10,  dy:-50 }, { dx:-40, dy:20 },  { dx:30,  dy:20 }] },
   
-    factory:        { count: 3, color: "#d8b4fe", offsets: [{ dx:60, dy:-50 },   { dx:90, dy:10 },    { dx:50, dy:60 }] },
-    labour:         { count: 2, color: "#d8b4fe", offsets: [{ dx:70, dy:-30 },   { dx:80, dy:40 }] },
-    construction:   { count: 4, color: "#d8b4fe", offsets: [{ dx:50, dy:40 },    { dx:90, dy:20 },    { dx:60, dy:80 },   { dx:20, dy:90 }] },
+    factory:        { count: 3, color: "#d8b4fe", offsets: [{ dx:-40, dy:40 },  { dx:-60, dy:-20 }, { dx:-20, dy:60 }] },
+    labour:         { count: 2, color: "#d8b4fe", offsets: [{ dx:-50, dy:-30 }, { dx:-40, dy:40 }] },
+    construction:   { count: 4, color: "#d8b4fe", offsets: [{ dx:40,  dy:40 },  { dx:50,  dy:-20 }, { dx:20,  dy:60 },  { dx:-40, dy:50 }] },
   
-    location:       { count: 2, color: "#86efac", offsets: [{ dx:60, dy:30 },    { dx:90, dy:-10 }] },
-    surveillance:   { count: 3, color: "#86efac", offsets: [{ dx:-40, dy:60 },   { dx:30, dy:70 },    { dx:80, dy:40 }] },
-    housing:        { count: 2, color: "#86efac", offsets: [{ dx:-60, dy:40 },   { dx:-20, dy:70 }] },
+    location:       { count: 2, color: "#86efac", offsets: [{ dx:-30, dy:-40 }, { dx:-40, dy:30 }] },
+    surveillance:   { count: 3, color: "#86efac", offsets: [{ dx:40,  dy:30 },  { dx:10,  dy:-40 }, { dx:40,  dy:-30 }] },
+    housing:        { count: 2, color: "#86efac", offsets: [{ dx:40,  dy:40 },  { dx:50,  dy:-10 }] },
   };
   
   const createMapNode = () => ({
@@ -127,7 +128,6 @@ import {
   
     const { setCenter } = useReactFlow();
   
-    // Victim placed on land (Western Europe/North Africa hub)
     const [nodes, setNodes] = useState([
       createMapNode(),
       {
@@ -183,7 +183,6 @@ import {
       setSelectedEdge(null);
       setLoadingInsight(false);
       
-      // Resets center back to the freshly positioned victim node
       setCenter(680, 120, { zoom: 1.05, duration: 800 });
     };
   
@@ -357,12 +356,6 @@ import {
           }
         });
   
-        styleNodesAndEdges(node, newNodes, leafNodes, newEdges, leafEdges);
-      },
-      [nodes, stage, openedRoot, setCenter]
-    );
-
-    const styleNodesAndEdges = (node, newNodes, leafNodes, newEdges, leafEdges) => {
         setNodes(prev => {
           const allNew = [...newNodes, ...leafNodes].filter(n => !prev.find(p => p.id === n.id));
           const merged = [...prev, ...allNew];
@@ -409,7 +402,9 @@ import {
         } else {
           setCenter(node.position.x, node.position.y, { zoom: 1.2, duration: 800 });
         }
-    };
+      },
+      [nodes, stage, openedRoot, setCenter]
+    );
   
     const onEdgeClick = async (_, edge) => {
       setSelectedEdge(edge.id);
@@ -460,7 +455,6 @@ import {
             if (node.id.includes("_leaf_") || node.id === "background-map") return;
             onNodeClick(e, node);
           }}
-          // Dynamic centering directly upon initializing ReactFlow instance
           onInit={(reactFlowInstance) => {
             reactFlowInstance.setCenter(680, 120, { zoom: 1.05 });
           }}
