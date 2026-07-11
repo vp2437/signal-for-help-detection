@@ -42,8 +42,8 @@ import {
     .react-flow__viewport {
       background-image: url('/world-map.png');
       background-repeat: no-repeat;
-      background-position: -350px center;
-      background-size: 2200px auto;
+      background-position: -80px center;
+      background-size: 2800px auto;
     }
 
     /* Dark overlay so the map isn't too bright */
@@ -148,7 +148,7 @@ import {
           id: "victim",
   
           position: {
-            x: 250,
+            x: 420,
             y: 300,
           },
   
@@ -220,10 +220,10 @@ import {
         setLoadingInsight(false);
       
         setCenter(
-          500,
+          520,
           300,
           {
-            zoom: 1.4,
+            zoom: 1.1,
             duration: 800,
           }
         );
@@ -556,8 +556,8 @@ setEdges(prev => {
 if (node.id === "victim") {
 
     setCenter(
-      440, 290,
-      { zoom: 0.9, duration: 1000 }
+      560, 300,
+      { zoom: 0.8, duration: 1000 }
     );
   
   } else if (["recruiter","transport","employer","safehouse"].includes(node.id)) {
@@ -674,9 +674,9 @@ if (node.id === "victim") {
           onNodeClick(e, node);
         }}
         defaultViewport={{
-          x: -150,
+          x: -120,
           y: -120,
-          zoom: 1.2,
+          zoom: 1.05,
         }}
         minZoom={0.3}
         maxZoom={2}
