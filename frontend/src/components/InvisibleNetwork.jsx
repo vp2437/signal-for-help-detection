@@ -8,39 +8,52 @@ import {
   import ReactFlow, {
     Background,
     Controls,
+    ViewportPortal,
     useReactFlow,
     ReactFlowProvider,
   } from "reactflow";
   
   import "reactflow/dist/style.css";
 
+  // const HIDE_HANDLES = `
+  //   .react-flow__handle {
+  //     opacity: 0;
+  //     width: 1px;
+  //     height: 1px;
+  //     min-width: 0;
+  //     min-height: 0;
+  //     pointer-events: none;
+  //     border: none;
+  //   }
+
+  //   /* World map */
+  //   .react-flow__viewport {
+  //     background-image: url('/world-map.png');
+  //     background-repeat: no-repeat;
+  //     background-size: 130%;
+  //     background-position: 60% center;
+  //   }
+
+  //   /* Dark overlay so the map isn't too bright */
+  //   .react-flow__viewport::before {
+  //     content: "";
+  //     position: absolute;
+  //     inset: 0;
+  //     background: rgba(2, 6, 23, 0.35);
+  //     pointer-events: none;
+  //   }
+  // `;
+
   const HIDE_HANDLES = `
-    .react-flow__handle {
-      opacity: 0;
-      width: 1px;
-      height: 1px;
-      min-width: 0;
-      min-height: 0;
-      pointer-events: none;
-      border: none;
-    }
-
-    /* World map */
-    .react-flow__viewport {
-      background-image: url('/world-map.png');
-      background-repeat: no-repeat;
-      background-size: 130%;
-      background-position: 60% center;
-    }
-
-    /* Dark overlay so the map isn't too bright */
-    .react-flow__viewport::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: rgba(2, 6, 23, 0.35);
-      pointer-events: none;
-    }
+  .react-flow__handle {
+    opacity: 0;
+    width: 1px;
+    height: 1px;
+    min-width: 0;
+    min-height: 0;
+    pointer-events: none;
+    border: none;
+  }
   `;
 
   const COLORS = {
@@ -733,6 +746,37 @@ if (node.id === "victim") {
         />
   
       </ReactFlow>
+
+      <ViewportPortal>
+        <img
+          src="/world-map.png"
+          alt=""
+          style={{
+            position: "absolute",
+            left: -450,
+            top: -180,
+            width: 2400,
+            opacity: 0.3,
+            pointerEvents: "none",
+            zIndex: -100,
+          }}
+        />
+
+        <div
+          style={{
+            position: "absolute",
+            left: -450,
+            top: -180,
+            width: 2400,
+            height: 1300,
+            background: "rgba(2,6,23,0.35)",
+            pointerEvents: "none",
+            zIndex: -99,
+          }}
+        />
+
+      </ViewportPortal>
+
       </>
   
     );
