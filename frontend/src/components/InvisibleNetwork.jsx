@@ -44,7 +44,7 @@ import {
   const hiddenNetwork = {
     victim: [
       { id: "recruiter",  label: "Recruiter",          x: -160, y: 10,   color: COLORS.pink },    
-      { id: "transport",  label: "Transport",          x: 200,  y: 600,  color: COLORS.blue },    
+      { id: "transport",  label: "Transport",          x: 180,  y: 640,  color: COLORS.blue }, // Shifted deeper into central Brazil land
       { id: "employer",   label: "Employer",           x: 1350, y: 150,  color: COLORS.purple },  
       { id: "safehouse",  label: "Control",            x: 750,  y: 420,  color: COLORS.green },   
     ],
@@ -54,11 +54,11 @@ import {
       { id: "advertisement", label: "Online Advertisement", x: -140, y: 180,  color: "#ff6b9f" },   
       { id: "job",           label: "Fraudulent Job Offer", x: 20,   y: -70,  color: "#ff6b9f" },   
     ],
-    // Readjusted transport coordinates to sit strictly within South American landmass
+    // Widely distributed across South American landmass boundaries
     transport: [
-      { id: "driver",         label: "Driver",          x: 140,  y: 490,  color: "#60a5fa" },     // Peru/Ecuador area
-      { id: "route",          label: "Transport Route", x: 240,  y: 560,  color: "#60a5fa" },     // Interior Brazil mainland
-      { id: "intermediaries", label: "Facilitator",     x: 190,  y: 760,  color: "#60a5fa" },     // Argentina mainland
+      { id: "driver",         label: "Driver",          x: 60,   y: 520,  color: "#60a5fa" }, // Spreads West into Colombia/Ecuador area
+      { id: "route",          label: "Transport Route", x: 290,  y: 690,  color: "#60a5fa" }, // Spreads East into interior Brazil mainland
+      { id: "intermediaries", label: "Facilitator",     x: 120,  y: 840,  color: "#60a5fa" }, // Spreads South into Central Argentina
     ],
     employer: [
       { id: "factory",      label: "Factory",            x: 1460, y: -80,  color: "#c084fc" },    
@@ -72,16 +72,16 @@ import {
     ],
   };
   
-  // Adjusted leaf offsets for transport to prevent sea spray outwards
+  // Custom safe-zone leaf offsets to keep subnodes grouped entirely over landmass
   const stage3Leaves = {
     agency:        { count: 3, color: "#f472b6", offsets: [{ dx:70,  dy:-60 }, { dx:-60, dy:60 },  { dx:80,  dy:40 }] },
     broker:        { count: 2, color: "#f472b6", offsets: [{ dx:70,  dy:-50 }, { dx:80,  dy:60 }] },
     advertisement: { count: 4, color: "#f472b6", offsets: [{ dx:-60, dy:-50 }, { dx:-50, dy:40 },  { dx:-30, dy:70 },  { dx:60,  dy:50 }] },
     job:           { count: 2, color: "#f472b6", offsets: [{ dx:-70, dy:-60 }, { dx:60,  dy:60 }] },
   
-    driver:         { count: 3, color: "#93c5fd", offsets: [{ dx:30,  dy:-40 }, { dx:40,  dy:40 },  { dx:10,  dy:50 }] },
-    route:          { count: 2, color: "#93c5fd", offsets: [{ dx:-30, dy:40 },  { dx:-40, dy:-40 }] },
-    intermediaries: { count: 4, color: "#93c5fd", offsets: [{ dx:-20, dy:-50 }, { dx:25,  dy:-40 }, { dx:-15, dy:30 },  { dx:20,  dy:40 }] },
+    driver:         { count: 3, color: "#93c5fd", offsets: [{ dx:35,  dy:-30 }, { dx:40,  dy:30 },  { dx:15,  dy:45 }] },
+    route:          { count: 2, color: "#93c5fd", offsets: [{ dx:-40, dy:30 },  { dx:-35, dy:-35 }] },
+    intermediaries: { count: 4, color: "#93c5fd", offsets: [{ dx:25,  dy:-45 }, { dx:35,  dy:-20 }, { dx:20,  dy:35 },  { dx:30,  dy:15 }] },
   
     factory:        { count: 3, color: "#d8b4fe", offsets: [{ dx:-60, dy:60 },  { dx:-80, dy:-40 }, { dx:-40, dy:80 }] },
     labour:         { count: 2, color: "#d8b4fe", offsets: [{ dx:-70, dy:-50 }, { dx:-60, dy:60 }] },
@@ -103,7 +103,6 @@ import {
     style: {
       width: 3400,
       height: 1650,
-      // Increased opacity from 0.45 to 0.70 to dim the background map
       backgroundImage: "linear-gradient(rgba(2, 6, 23, 0.70), rgba(2, 6, 23, 0.70)), url('/world-map1.png')",
       backgroundSize: "cover",
       backgroundPosition: "center",
