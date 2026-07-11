@@ -42,8 +42,8 @@ import {
     .react-flow__viewport {
       background-image: url('/world-map.png');
       background-repeat: no-repeat;
-      background-position: left center;
-      background-size: 1350px auto;
+      background-position: -350px center;
+      background-size: 2200px auto;
     }
 
     /* Dark overlay so the map isn't too bright */
@@ -674,9 +674,9 @@ if (node.id === "victim") {
           onNodeClick(e, node);
         }}
         defaultViewport={{
-          x: 220,
-          y: -150,
-          zoom: 1.4,
+          x: -150,
+          y: -120,
+          zoom: 1.2,
         }}
         minZoom={0.3}
         maxZoom={2}
