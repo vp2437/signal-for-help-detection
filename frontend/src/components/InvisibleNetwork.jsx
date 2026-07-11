@@ -42,8 +42,9 @@ import {
     .react-flow__viewport {
       background-image: url('/world-map.png');
       background-repeat: no-repeat;
-      background-position: -80px center;
-      background-size: 3200px auto;
+      background-position: center;
+      background-size: cover;
+      // background-size: contain;
     }
 
     /* Dark overlay so the map isn't too bright */
@@ -148,7 +149,7 @@ import {
           id: "victim",
   
           position: {
-            x: 920,
+            x: 940,
             y: 300,
           },
   
