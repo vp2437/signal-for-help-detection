@@ -29,8 +29,8 @@ import {
     .react-flow__viewport {
       background-image: url('/world-map.png');
       background-repeat: no-repeat;
-      background-size: 130%;
-      background-position: 60% center;
+      background-size: 5000px auto;
+      background-position: center;
     }
 
     /* Dark overlay so the map isn't too bright */
