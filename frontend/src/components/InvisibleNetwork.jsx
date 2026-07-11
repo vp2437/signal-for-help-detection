@@ -41,55 +41,55 @@ import {
     edge: "#2d8cff",
   };
   
-  // Coordinates precisely tailored to keep parent and sub-leaf clusters safe on land
+  // Heavily scattered continental coordinate sets keeping nodes securely on landmasses
   const hiddenNetwork = {
     victim: [
-      { id: "recruiter",  label: "Recruiter",          x: -100, y: 10,   color: COLORS.pink },    // Central/Eastern US
-      { id: "transport",  label: "Transport",          x: 220,  y: 520,  color: COLORS.blue },    // Interior Brazil (Deep South America)
-      { id: "employer",   label: "Employer",           x: 1480, y: 50,   color: COLORS.purple },  // Interior Russia/Siberia
-      { id: "safehouse",  label: "Control",            x: 1120, y: 350,  color: COLORS.green },   // India / South Asia mainland
+      { id: "recruiter",  label: "Recruiter",          x: -160, y: 10,   color: COLORS.pink },    // Central North America (US Midwest)
+      { id: "transport",  label: "Transport",          x: 200,  y: 600,  color: COLORS.blue },    // Interior South America (Mato Grosso, Brazil)
+      { id: "employer",   label: "Employer",           x: 1350, y: 150,  color: COLORS.purple },  // Central Asia Hub
+      { id: "safehouse",  label: "Control",            x: 750,  y: 420,  color: COLORS.green },   // Central Africa Hub
     ],
     recruiter: [
-      { id: "agency",        label: "Recruitment Agency",   x: -160, y: -40,  color: "#ff6b9f" },   // Central Canada / North US
-      { id: "broker",        label: "Broker",               x: -140, y: 80,   color: "#ff6b9f" },   // Southern US / Midwest
-      { id: "advertisement", label: "Online Advertisement", x: -40,  y: 110,  color: "#ff6b9f" },   // Eastern US Coast
-      { id: "job",           label: "Fraudulent Job Offer", x: -20,  y: -30,  color: "#ff6b9f" },   // Northeast US
+      { id: "agency",        label: "Recruitment Agency",   x: -280, y: -120, color: "#ff6b9f" },   // Northwest Canada / Alaska edge
+      { id: "broker",        label: "Broker",               x: -340, y: 80,   color: "#ff6b9f" },   // Western US / California
+      { id: "advertisement", label: "Online Advertisement", x: -140, y: 180,  color: "#ff6b9f" },   // Mexico / Central America
+      { id: "job",           label: "Fraudulent Job Offer", x: 20,   y: -70,  color: "#ff6b9f" },   // Northeast Canada / Greenland edge
     ],
     transport: [
-      { id: "driver",         label: "Driver",          x: 150,  y: 580,  color: "#60a5fa" },     // Bolivia / Paraguay
-      { id: "route",          label: "Transport Route", x: 160,  y: 460,  color: "#60a5fa" },     // NW Brazil / Colombia mainland
-      { id: "intermediaries", label: "Facilitator",     x: 240,  y: 620,  color: "#60a5fa" },     // Argentina / Southern Brazil
+      { id: "driver",         label: "Driver",          x: 120,  y: 460,  color: "#60a5fa" },     // Colombia / NW South America
+      { id: "route",          label: "Transport Route", x: 340,  y: 620,  color: "#60a5fa" },     // Eastern Brazil / Atlantic Coast land
+      { id: "intermediaries", label: "Facilitator",     x: 180,  y: 840,  color: "#60a5fa" },     // Argentina / Southern Tip
     ],
     employer: [
-      { id: "factory",      label: "Factory",            x: 1600, y: 20,   color: "#c084fc" },    // Far Eastern Russia
-      { id: "labour",       label: "Domestic Work",      x: 1500, y: 140,  color: "#c084fc" },    // China / East Asia
-      { id: "construction", label: "Construction Site",  x: 1360, y: 160,  color: "#c084fc" },    // Central Asia
+      { id: "factory",      label: "Factory",            x: 1460, y: -80,  color: "#c084fc" },    // Deep Northern Siberia / Russia
+      { id: "labour",       label: "Domestic Work",      x: 1640, y: 220,  color: "#c084fc" },    // Eastern China / Coastal Asia
+      { id: "construction", label: "Construction Site",  x: 1100, y: 240,  color: "#c084fc" },    // Western Asia / Middle East land
     ],
     safehouse: [
-      { id: "location",     label: "Document Seizure", x: 1180, y: 420,  color: "#4ade80" },    // Indochina Peninsula
-      { id: "surveillance", label: "Surveillance",     x: 1040, y: 410,  color: "#4ade80" },    // Middle East / Western India
-      { id: "housing",      label: "Debt Bondage",     x: 980,  y: 310,  color: "#4ade80" },    // Arabian Peninsula mainland
+      { id: "location",     label: "Document Seizure", x: 700,  y: 280,  color: "#4ade80" },    // North Africa / Sahara
+      { id: "surveillance", label: "Surveillance",     x: 940,  y: 560,  color: "#4ade80" },    // East Africa / Horn of Africa
+      { id: "housing",      label: "Debt Bondage",     x: 780,  y: 780,  color: "#4ade80" },    // South Africa mainland
     ],
   };
   
-  // Adjusted offsets to prevent leaves from spraying out into adjacent waters
+  // Expanded offsets to scatter stage 3 leaves across the regional land spaces
   const stage3Leaves = {
-    agency:        { count: 3, color: "#f472b6", offsets: [{ dx:40,  dy:-40 }, { dx:-40, dy:30 },  { dx:30,  dy:40 }] },
-    broker:        { count: 2, color: "#f472b6", offsets: [{ dx:40,  dy:-30 }, { dx:50,  dy:30 }] },
-    advertisement: { count: 4, color: "#f472b6", offsets: [{ dx:-30, dy:-40 }, { dx:-40, dy:20 },  { dx:-20, dy:50 },  { dx:30,  dy:40 }] },
-    job:           { count: 2, color: "#f472b6", offsets: [{ dx:-40, dy:-40 }, { dx:40,  dy:40 }] },
+    agency:        { count: 3, color: "#f472b6", offsets: [{ dx:70,  dy:-60 }, { dx:-60, dy:60 },  { dx:80,  dy:40 }] },
+    broker:        { count: 2, color: "#f472b6", offsets: [{ dx:70,  dy:-50 }, { dx:80,  dy:60 }] },
+    advertisement: { count: 4, color: "#f472b6", offsets: [{ dx:-60, dy:-50 }, { dx:-50, dy:40 },  { dx:-30, dy:70 },  { dx:60,  dy:50 }] },
+    job:           { count: 2, color: "#f472b6", offsets: [{ dx:-70, dy:-60 }, { dx:60,  dy:60 }] },
   
-    driver:         { count: 3, color: "#93c5fd", offsets: [{ dx:30,  dy:-40 }, { dx:40,  dy:40 },  { dx:-30, dy:50 }] },
-    route:          { count: 2, color: "#93c5fd", offsets: [{ dx:40,  dy:30 },  { dx:20,  dy:-50 }] },
-    intermediaries: { count: 4, color: "#93c5fd", offsets: [{ dx:-30, dy:-40 }, { dx:10,  dy:-50 }, { dx:-40, dy:20 },  { dx:30,  dy:20 }] },
+    driver:         { count: 3, color: "#93c5fd", offsets: [{ dx:50,  dy:-60 }, { dx:60,  dy:60 },  { dx:-50, dy:70 }] },
+    route:          { count: 2, color: "#93c5fd", offsets: [{ dx:60,  dy:50 },  { dx:40,  dy:-70 }] },
+    intermediaries: { count: 4, color: "#93c5fd", offsets: [{ dx:-40, dy:-60 }, { dx:30,  dy:-70 }, { dx:-50, dy:30 },  { dx:40,  dy:30 }] },
   
-    factory:        { count: 3, color: "#d8b4fe", offsets: [{ dx:-40, dy:40 },  { dx:-60, dy:-20 }, { dx:-20, dy:60 }] },
-    labour:         { count: 2, color: "#d8b4fe", offsets: [{ dx:-50, dy:-30 }, { dx:-40, dy:40 }] },
-    construction:   { count: 4, color: "#d8b4fe", offsets: [{ dx:40,  dy:40 },  { dx:50,  dy:-20 }, { dx:20,  dy:60 },  { dx:-40, dy:50 }] },
+    factory:        { count: 3, color: "#d8b4fe", offsets: [{ dx:-60, dy:60 },  { dx:-80, dy:-40 }, { dx:-40, dy:80 }] },
+    labour:         { count: 2, color: "#d8b4fe", offsets: [{ dx:-70, dy:-50 }, { dx:-60, dy:60 }] },
+    construction:   { count: 4, color: "#d8b4fe", offsets: [{ dx:60,  dy:60 },  { dx:70,  dy:-40 }, { dx:40,  dy:80 },  { dx:-60, dy:70 }] },
   
-    location:       { count: 2, color: "#86efac", offsets: [{ dx:-30, dy:-40 }, { dx:-40, dy:30 }] },
-    surveillance:   { count: 3, color: "#86efac", offsets: [{ dx:40,  dy:30 },  { dx:10,  dy:-40 }, { dx:40,  dy:-30 }] },
-    housing:        { count: 2, color: "#86efac", offsets: [{ dx:40,  dy:40 },  { dx:50,  dy:-10 }] },
+    location:       { count: 2, color: "#86efac", offsets: [{ dx:-50, dy:-60 }, { dx:-60, dy:50 }] },
+    surveillance:   { count: 3, color: "#86efac", offsets: [{ dx:60,  dy:50 },  { dx:30,  dy:-60 }, { dx:60,  dy:-50 }] },
+    housing:        { count: 2, color: "#86efac", offsets: [{ dx:50,  dy:60 },  { dx:70,  dy:-20 }] },
   };
   
   const createMapNode = () => ({
@@ -394,13 +394,13 @@ import {
           const maxY = Math.max(...ys);
           const cx = (minX + maxX) / 2;
           const cy = (minY + maxY) / 2;
-          const spanX = maxX - minX + 300;
-          const spanY = maxY - minY + 300;
-          const zoom = Math.min(1.1, Math.max(0.45, 800 / Math.max(spanX, spanY)));
+          const spanX = maxX - minX + 450; // Increased spacing padding for tracking broad maps
+          const spanY = maxY - minY + 450;
+          const zoom = Math.min(1.0, Math.max(0.35, 800 / Math.max(spanX, spanY)));
         
           setCenter(cx, cy, { zoom, duration: 900 });
         } else {
-          setCenter(node.position.x, node.position.y, { zoom: 1.2, duration: 800 });
+          setCenter(node.position.x, node.position.y, { zoom: 1.1, duration: 800 });
         }
       },
       [nodes, stage, openedRoot, setCenter]
@@ -458,7 +458,7 @@ import {
           onInit={(reactFlowInstance) => {
             reactFlowInstance.setCenter(680, 120, { zoom: 1.05 });
           }}
-          minZoom={0.2}
+          minZoom={0.15}
           maxZoom={2}
           connectOnClick={false}
           nodesConnectable={false}
