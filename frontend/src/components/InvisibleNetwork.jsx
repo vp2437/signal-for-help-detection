@@ -66,8 +66,8 @@ const hiddenNetwork = {
   ],
   safehouse: [
     { id: "location",     label: "Document Seizure", x: 680,  y: 470,  color: "#4ade80" }, // Coordinated downwards   
-    { id: "surveillance", label: "Surveillance",     x: 900,  y: 680,  color: "#4ade80" }, // Coordinated downwards   
-    { id: "housing",      label: "Debt Bondage",     x: 740,  y: 840,  color: "#4ade80" }, // Coordinated downwards   
+    { id: "surveillance", label: "Surveillance",     x: 900,  y: 580,  color: "#4ade80" }, // Coordinated downwards   
+    { id: "housing",      label: "Debt Bondage",     x: 840,  y: 840,  color: "#4ade80" }, // Coordinated downwards   
   ],
 };
 
