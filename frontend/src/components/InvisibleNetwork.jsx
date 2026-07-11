@@ -43,8 +43,7 @@ import {
       background-image: url('/world-map.png');
       background-repeat: no-repeat;
       background-position: center;
-      background-size: cover;
-      // background-size: contain;
+      background-size: contain;
     }
 
     /* Dark overlay so the map isn't too bright */
