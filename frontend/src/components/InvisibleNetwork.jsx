@@ -163,7 +163,7 @@ import {
             width: 28,
             height: 28,
             borderRadius: "50%",
-            boxShadow: "0 0 18px #4f8cff",
+            boxShadow: "0 0 22px #4f8cff, 0 0 45px #4f8cff88",
           },
         },
       ]);
@@ -377,9 +377,10 @@ import {
                   style: {
                     ...n.style,
                     border: n.id === node.id ? "2.5px solid white" : "none",
-                    boxShadow: n.id === node.id
-                      ? `0 0 0 3px ${getColor(n.id)}, 0 0 24px ${getColor(n.id)}`
-                      : n.style?.boxShadow ?? `0 0 18px ${getColor(n.id)}`,
+                    boxShadow:
+                      n.id === node.id
+                        ? `0 0 0 3px white, 0 0 20px ${getColor(n.id)}, 0 0 50px ${getColor(n.id)}`
+                        : n.style?.boxShadow ?? `0 0 18px ${getColor(n.id)}, 0 0 38px ${getColor(n.id)}88`,
                   },
                 })));
                 return;
@@ -445,7 +446,7 @@ import {
                       "50%",
   
                     boxShadow:
-                      `0 0 18px ${target.color}`,
+                      `0 0 18px ${target.color}, 0 0 38px ${target.color}88`,
   
                     fontSize:
                       11,
@@ -510,10 +511,10 @@ import {
                       width: 6,
                       height: 6,
                       borderRadius: "50%",
-                      boxShadow: `0 0 6px ${leafDef.color}88`,
+                      boxShadow: `0 0 10px ${leafDef.color}, 0 0 20px ${leafDef.color}66`,
                       pointerEvents: "none",
                       cursor: "default",
-                      opacity: 0.7,
+                      opacity: 0.9,
                     },
                   });
                   leafEdges.push({
@@ -673,10 +674,10 @@ if (node.id === "victim") {
           onNodeClick(e, node);
         }}
         defaultViewport={{
-            x: 80,
-            y: -150,
-            zoom: 1.4,
-          }}
+          x: 220,
+          y: -150,
+          zoom: 1.4,
+        }}
         minZoom={0.3}
         maxZoom={2}
         connectOnClick={false}
