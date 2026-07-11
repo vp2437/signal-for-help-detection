@@ -27,7 +27,7 @@ import {
 
     /* World map */
     .react-flow__viewport {
-      background-image: url('/world-map1.png');
+      background-image: url('/world-map.png');
       background-repeat: no-repeat;
       background-size: 130%;
       background-position: 60% center;
