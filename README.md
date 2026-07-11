@@ -243,7 +243,7 @@ The final Random Forest classifier achieved:
 
 - **97.74% Test Accuracy**
 - **96.52% Cross-Validation Accuracy**
-- **95% Precision** for Signal for Help detection
+- **99% Precision** for Signal for Help detection
 - Confidence thresholding and multi-frame validation further reduced false positives during real-time inference.
 
 ---
@@ -260,7 +260,11 @@ The final Random Forest classifier achieved:
 
 ### History Dashboard
 
-![History](images/history.png)
+![History](./frontend/src/assets/history.png)
+
+### Invisible Networks
+
+![Network](./frontend/src/assets/network.png)
 
 ---
 

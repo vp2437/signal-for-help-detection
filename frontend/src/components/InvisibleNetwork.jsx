@@ -16,6 +16,15 @@ import {
 
   const HIDE_HANDLES = `
   .react-flow__handle { opacity:0!important; width:1px!important; height:1px!important; min-width:0!important; min-height:0!important; pointer-events:none!important; border:none!important; }
+
+  /* This targets the internal moving canvas layer */
+  .react-flow__viewport {
+    background-image: url('/world-map.png');
+    background-size: 2000px auto; /* Scale this up/down based on your map graphic */
+    background-repeat: no-repeat;
+    background-position: center;
+    opacity: 0.2; /* Subdued overlay so text nodes remain legible */
+  }
 `;
 
   const COLORS = {
@@ -726,31 +735,12 @@ if (node.id === "victim") {
   
       <div
         style={{
-  
           width: "100%",
           height: "80vh",
-  
           borderRadius: 24,
-  
           overflow: "hidden",
-  
           position: "relative",
-  
-        //   backgroundImage:
-        //     "url('/world-map.png')",
-  
-          backgroundSize:
-            "cover",
-  
-          backgroundPosition:
-            "center",
-  
-          backgroundColor:
-            "#050816",
-
-          background:
-            "radial-gradient(circle at center, #071a35 0%, #020617 70%)"
-  
+          backgroundColor: "#030712", /* Dark void base so your nodes and edges shine */
         }}
       >
   
