@@ -57,7 +57,7 @@ import {
     // Widely distributed across South American landmass boundaries
     transport: [
       { id: "driver",         label: "Driver",          x: 60,   y: 560,  color: "#60a5fa" }, // Spreads West into Colombia/Ecuador area
-      { id: "route",          label: "Transport Route", x: 290,  y: 690,  color: "#60a5fa" }, // Spreads East into interior Brazil mainland
+      { id: "route",          label: "Transport Route", x: 40,  y: 690,  color: "#60a5fa" }, // Spreads East into interior Brazil mainland
       { id: "intermediaries", label: "Facilitator",     x: 120,  y: 840,  color: "#60a5fa" }, // Spreads South into Central Argentina
     ],
     employer: [
