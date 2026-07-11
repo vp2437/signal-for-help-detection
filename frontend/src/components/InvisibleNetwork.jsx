@@ -25,22 +25,6 @@ import {
       border: none;
     }
 
-    /* World map */
-    .react-flow__viewport {
-      background-image: url('/world-map.png');
-      background-repeat: no-repeat;
-      background-size: 5000px auto;
-      background-position: center;
-    }
-
-    /* Dark overlay so the map isn't too bright */
-    .react-flow__viewport::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: rgba(2, 6, 23, 0.35);
-      pointer-events: none;
-    }
   `;
 
   const COLORS = {
@@ -129,31 +113,78 @@ import {
     const { setCenter } =
       useReactFlow();
   
-    const [nodes, setNodes] =
-      useState([
-        {
-          id: "victim",
+    // const [nodes, setNodes] =
+    //   useState([
+    //     {
+    //       id: "victim",
   
-          position: {
-            x: 940,
-            y: 300,
-          },
+    //       position: {
+    //         x: 940,
+    //         y: 300,
+    //       },
   
-          data: {
-            label: "Victim",
-          },
+    //       data: {
+    //         label: "Victim",
+    //       },
   
-          style: {
-            background: "#4f8cff",
-            color: "white",
-            border: "none",
-            width: 28,
-            height: 28,
-            borderRadius: "50%",
-            boxShadow: "0 0 22px #4f8cff, 0 0 45px #4f8cff88",
-          },
+    //       style: {
+    //         background: "#4f8cff",
+    //         color: "white",
+    //         border: "none",
+    //         width: 28,
+    //         height: 28,
+    //         borderRadius: "50%",
+    //         boxShadow: "0 0 22px #4f8cff, 0 0 45px #4f8cff88",
+    //       },
+    //     },
+    //   ]);
+
+    const [nodes, setNodes] = useState([
+      {
+        id: "world-map",
+        position: {
+          x: -1500,
+          y: -900,
         },
-      ]);
+        draggable: false,
+        selectable: false,
+        data: {
+          label: (
+            <img
+              src="/world-map.png"
+              alt="World Map"
+              style={{
+                width: "3200px",
+                opacity: 0.18,
+                filter: "brightness(0.8)",
+                pointerEvents: "none",
+                userSelect: "none",
+              }}
+            />
+          ),
+        },
+        style: {
+          background: "transparent",
+          border: "none",
+          width: 3200,
+          height: 1600,
+          zIndex: -100,
+          pointerEvents: "none",
+        },
+      },
+
+      {
+        id: "victim",
+        position: {
+          x: 940,
+          y: 300,
+        },
+        data: {
+          label: "Victim",
+        },
+        style: victimStyle,
+      },
+    ]);
 
     const [openedRoot, setOpenedRoot] =
       useState(false);
@@ -179,7 +210,52 @@ import {
 
         if (abortRef.current) abortRef.current.abort();
 
+        // setNodes([
+        //   {
+        //     id: "victim",
+        //     position: {
+        //       x: 480,
+        //       y: 270,
+        //     },
+        //     data: {
+        //       label: "Victim",
+        //     },
+        //     style: victimStyle,
+        //   },
+        // ]);
+
         setNodes([
+          {
+            id: "world-map",
+            position: {
+              x: -1500,
+              y: -900,
+            },
+            draggable: false,
+            selectable: false,
+            data: {
+              label: (
+                <img
+                  src="/world-map.png"
+                  alt=""
+                  style={{
+                    width: "3200px",
+                    opacity: 0.18,
+                    pointerEvents: "none",
+                  }}
+                />
+              ),
+            },
+            style: {
+              background: "transparent",
+              border: "none",
+              width: 3200,
+              height: 1600,
+              zIndex: -100,
+              pointerEvents: "none",
+            },
+          },
+
           {
             id: "victim",
             position: {
@@ -192,7 +268,7 @@ import {
             style: victimStyle,
           },
         ]);
-      
+              
         setEdges([]);
       
         setOpenedRoot(false);
@@ -630,6 +706,9 @@ if (node.id === "victim") {
         <style>{HIDE_HANDLES}</style>
         <ReactFlow
         nodes={nodes}
+        nodeTypes={{
+          default: ({ data }) => <>{data.label}</>,
+        }}
         edges={edges.map(edge => ({
           ...edge,
 
@@ -657,6 +736,7 @@ if (node.id === "victim") {
         }))}
         onEdgeClick={onEdgeClick}
         onNodeClick={(e, node) => {
+          if (node.id === "world-map") return;
           if (node.id.includes("_leaf_")) return;
           onNodeClick(e, node);
         }}
