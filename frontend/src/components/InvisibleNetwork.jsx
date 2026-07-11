@@ -148,7 +148,7 @@ import {
           id: "victim",
   
           position: {
-            x: 420,
+            x: 920,
             y: 300,
           },
   
