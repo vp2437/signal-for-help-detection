@@ -31,7 +31,6 @@ import {
       background-repeat: no-repeat;
       background-size: 130%;
       background-position: 60% center;
-      opacity: 0.15;
     }
 
     /* Dark overlay so the map isn't too bright */
