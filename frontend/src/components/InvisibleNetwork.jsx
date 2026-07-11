@@ -103,7 +103,7 @@ import {
     style: {
       width: 3400,
       height: 1650,
-      backgroundImage: "linear-gradient(rgba(2, 6, 23, 0.45), rgba(2, 6, 23, 0.45)), url('/world-map1.png')",
+      backgroundImage: "linear-gradient(rgba(2, 6, 23, 0.45), rgba(2, 6, 23, 0.45)), url('/world-map.png')",
       backgroundSize: "cover",
       backgroundPosition: "center",
       backgroundRepeat: "no-repeat",
