@@ -41,47 +41,47 @@ import {
     edge: "#2d8cff",
   };
   
-  // Heavily scattered continental coordinate sets keeping nodes securely on landmasses
   const hiddenNetwork = {
     victim: [
-      { id: "recruiter",  label: "Recruiter",          x: -160, y: 10,   color: COLORS.pink },    // Central North America (US Midwest)
-      { id: "transport",  label: "Transport",          x: 200,  y: 600,  color: COLORS.blue },    // Interior South America (Mato Grosso, Brazil)
-      { id: "employer",   label: "Employer",           x: 1350, y: 150,  color: COLORS.purple },  // Central Asia Hub
-      { id: "safehouse",  label: "Control",            x: 750,  y: 420,  color: COLORS.green },   // Central Africa Hub
+      { id: "recruiter",  label: "Recruiter",          x: -160, y: 10,   color: COLORS.pink },    
+      { id: "transport",  label: "Transport",          x: 200,  y: 600,  color: COLORS.blue },    
+      { id: "employer",   label: "Employer",           x: 1350, y: 150,  color: COLORS.purple },  
+      { id: "safehouse",  label: "Control",            x: 750,  y: 420,  color: COLORS.green },   
     ],
     recruiter: [
-      { id: "agency",        label: "Recruitment Agency",   x: -280, y: -120, color: "#ff6b9f" },   // Northwest Canada / Alaska edge
-      { id: "broker",        label: "Broker",               x: -340, y: 80,   color: "#ff6b9f" },   // Western US / California
-      { id: "advertisement", label: "Online Advertisement", x: -140, y: 180,  color: "#ff6b9f" },   // Mexico / Central America
-      { id: "job",           label: "Fraudulent Job Offer", x: 20,   y: -70,  color: "#ff6b9f" },   // Northeast Canada / Greenland edge
+      { id: "agency",        label: "Recruitment Agency",   x: -280, y: -120, color: "#ff6b9f" },   
+      { id: "broker",        label: "Broker",               x: -340, y: 80,   color: "#ff6b9f" },   
+      { id: "advertisement", label: "Online Advertisement", x: -140, y: 180,  color: "#ff6b9f" },   
+      { id: "job",           label: "Fraudulent Job Offer", x: 20,   y: -70,  color: "#ff6b9f" },   
     ],
+    // Readjusted transport coordinates to sit strictly within South American landmass
     transport: [
-      { id: "driver",         label: "Driver",          x: 120,  y: 460,  color: "#60a5fa" },     // Colombia / NW South America
-      { id: "route",          label: "Transport Route", x: 340,  y: 620,  color: "#60a5fa" },     // Eastern Brazil / Atlantic Coast land
-      { id: "intermediaries", label: "Facilitator",     x: 180,  y: 840,  color: "#60a5fa" },     // Argentina / Southern Tip
+      { id: "driver",         label: "Driver",          x: 140,  y: 490,  color: "#60a5fa" },     // Peru/Ecuador area
+      { id: "route",          label: "Transport Route", x: 240,  y: 560,  color: "#60a5fa" },     // Interior Brazil mainland
+      { id: "intermediaries", label: "Facilitator",     x: 190,  y: 760,  color: "#60a5fa" },     // Argentina mainland
     ],
     employer: [
-      { id: "factory",      label: "Factory",            x: 1460, y: -80,  color: "#c084fc" },    // Deep Northern Siberia / Russia
-      { id: "labour",       label: "Domestic Work",      x: 1640, y: 220,  color: "#c084fc" },    // Eastern China / Coastal Asia
-      { id: "construction", label: "Construction Site",  x: 1100, y: 240,  color: "#c084fc" },    // Western Asia / Middle East land
+      { id: "factory",      label: "Factory",            x: 1460, y: -80,  color: "#c084fc" },    
+      { id: "labour",       label: "Domestic Work",      x: 1640, y: 220,  color: "#c084fc" },    
+      { id: "construction", label: "Construction Site",  x: 1100, y: 240,  color: "#c084fc" },    
     ],
     safehouse: [
-      { id: "location",     label: "Document Seizure", x: 700,  y: 280,  color: "#4ade80" },    // North Africa / Sahara
-      { id: "surveillance", label: "Surveillance",     x: 940,  y: 560,  color: "#4ade80" },    // East Africa / Horn of Africa
-      { id: "housing",      label: "Debt Bondage",     x: 780,  y: 780,  color: "#4ade80" },    // South Africa mainland
+      { id: "location",     label: "Document Seizure", x: 700,  y: 280,  color: "#4ade80" },    
+      { id: "surveillance", label: "Surveillance",     x: 940,  y: 560,  color: "#4ade80" },    
+      { id: "housing",      label: "Debt Bondage",     x: 780,  y: 780,  color: "#4ade80" },    
     ],
   };
   
-  // Expanded offsets to scatter stage 3 leaves across the regional land spaces
+  // Adjusted leaf offsets for transport to prevent sea spray outwards
   const stage3Leaves = {
     agency:        { count: 3, color: "#f472b6", offsets: [{ dx:70,  dy:-60 }, { dx:-60, dy:60 },  { dx:80,  dy:40 }] },
     broker:        { count: 2, color: "#f472b6", offsets: [{ dx:70,  dy:-50 }, { dx:80,  dy:60 }] },
     advertisement: { count: 4, color: "#f472b6", offsets: [{ dx:-60, dy:-50 }, { dx:-50, dy:40 },  { dx:-30, dy:70 },  { dx:60,  dy:50 }] },
     job:           { count: 2, color: "#f472b6", offsets: [{ dx:-70, dy:-60 }, { dx:60,  dy:60 }] },
   
-    driver:         { count: 3, color: "#93c5fd", offsets: [{ dx:50,  dy:-60 }, { dx:60,  dy:60 },  { dx:-50, dy:70 }] },
-    route:          { count: 2, color: "#93c5fd", offsets: [{ dx:60,  dy:50 },  { dx:40,  dy:-70 }] },
-    intermediaries: { count: 4, color: "#93c5fd", offsets: [{ dx:-40, dy:-60 }, { dx:30,  dy:-70 }, { dx:-50, dy:30 },  { dx:40,  dy:30 }] },
+    driver:         { count: 3, color: "#93c5fd", offsets: [{ dx:30,  dy:-40 }, { dx:40,  dy:40 },  { dx:10,  dy:50 }] },
+    route:          { count: 2, color: "#93c5fd", offsets: [{ dx:-30, dy:40 },  { dx:-40, dy:-40 }] },
+    intermediaries: { count: 4, color: "#93c5fd", offsets: [{ dx:-20, dy:-50 }, { dx:25,  dy:-40 }, { dx:-15, dy:30 },  { dx:20,  dy:40 }] },
   
     factory:        { count: 3, color: "#d8b4fe", offsets: [{ dx:-60, dy:60 },  { dx:-80, dy:-40 }, { dx:-40, dy:80 }] },
     labour:         { count: 2, color: "#d8b4fe", offsets: [{ dx:-70, dy:-50 }, { dx:-60, dy:60 }] },
@@ -103,7 +103,8 @@ import {
     style: {
       width: 3400,
       height: 1650,
-      backgroundImage: "linear-gradient(rgba(2, 6, 23, 0.45), rgba(2, 6, 23, 0.45)), url('/world-map1.png')",
+      // Increased opacity from 0.45 to 0.70 to dim the background map
+      backgroundImage: "linear-gradient(rgba(2, 6, 23, 0.70), rgba(2, 6, 23, 0.70)), url('/world-map1.png')",
       backgroundSize: "cover",
       backgroundPosition: "center",
       backgroundRepeat: "no-repeat",
@@ -394,7 +395,7 @@ import {
           const maxY = Math.max(...ys);
           const cx = (minX + maxX) / 2;
           const cy = (minY + maxY) / 2;
-          const spanX = maxX - minX + 450; // Increased spacing padding for tracking broad maps
+          const spanX = maxX - minX + 450; 
           const spanY = maxY - minY + 450;
           const zoom = Math.min(1.0, Math.max(0.35, 800 / Math.max(spanX, spanY)));
         
