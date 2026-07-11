@@ -43,7 +43,9 @@ import {
       background-image: url('/world-map.png');
       background-repeat: no-repeat;
       background-position: center;
-      background-size: contain;
+      // background-size: contain;
+      background-size: 130%;
+      background-position: 60% center;
     }
 
     /* Dark overlay so the map isn't too bright */
@@ -75,10 +77,10 @@ import {
   const hiddenNetwork = {
 
     victim: [
-      { id: "recruiter",  label: "Recruiter",          x: -50,  y: 80,  color: COLORS.pink },
-      { id: "transport",  label: "Transport",          x: -50,  y: 520, color: COLORS.blue },
-      { id: "employer",   label: "Employer",           x: 980,  y: 80,  color: COLORS.purple },
-      { id: "safehouse",  label: "Control",            x: 980,  y: 520, color: COLORS.green },
+      { id: "recruiter",  label: "Recruiter",          x: 200,  y: 80,  color: COLORS.pink },
+      { id: "transport",  label: "Transport",          x: 200,  y: 520, color: COLORS.blue },
+      { id: "employer",   label: "Employer",           x: 1230,  y: 80,  color: COLORS.purple },
+      { id: "safehouse",  label: "Control",            x: 1230,  y: 520, color: COLORS.green },
     ],
 
     recruiter: [
